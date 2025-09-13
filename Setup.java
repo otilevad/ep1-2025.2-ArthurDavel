@@ -10,7 +10,7 @@ public class Setup {
             ArrayList<Opcao> opts = mn.iniciaOpcoes();
             switch(mn.getId()){
                 case 0: //Menu Inicial
-                mn.adcionaOpcoes(opts, "Sair", -1);
+                mn.adcionaOpcoes(opts, "Sair", -2);
                 mn.adcionaOpcoes(opts, "Menu do paciente", 1);
                 break;
                 case 1: //Menu do Paciente

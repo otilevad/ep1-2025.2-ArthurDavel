@@ -7,9 +7,22 @@ public class App {
         ArrayList<Menu> menus=Setup.criaMenus();
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         int menuSelecionado=0; //id do menu
-        while(true){
+        mainLoop: while(true){
             Menu menuAtual=menus.get(Setup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
             int opt=menuAtual.mostraMenu(menuAtual.getOpts());
+            if(opt>=0){
+                menuSelecionado=opt;
+            }
+            else{
+                switch(opt){
+                    case -2:
+                        System.out.println("Saindo...");
+                    break mainLoop;
+                    default:
+                        System.out.println("Digite uma opção válida.");
+                    break;
+                }
+            }
         }
     }
 }

@@ -63,7 +63,11 @@ public class Menu {
         int opt = sc.nextInt();
         sc.nextLine();
 
-        int destinoId=opts.get(opt).getDestino();
+        int destinoId=-1;
+
+        if(opt>=0 && opt<opts.size()){
+            destinoId=opts.get(opt).getDestino();
+        }
 
         return destinoId;
     }
