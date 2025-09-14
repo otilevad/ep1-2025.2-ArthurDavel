@@ -35,8 +35,6 @@ public class MenuSetup {
                 case 5: //Cadastro de médicos
                     
                     break;
-                default: //Menu inválido
-                    break;
             }
             if(mn.getId()!=0){ //Adiciona a opção retornar ao menu inicial, a menos que já esteja nele
                 mn.adcionaOpcoes(opts, "Retornar ao menu inicial", 0);
@@ -45,6 +43,7 @@ public class MenuSetup {
         }
         return menus;
     }
+
     public static int procuraMenu(ArrayList<Menu> menus, int menuId){
         int menuOrder=0;
         for(int i = 0; i < menus.size(); i++) {
@@ -56,6 +55,7 @@ public class MenuSetup {
         }
         return menuOrder;
     }
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

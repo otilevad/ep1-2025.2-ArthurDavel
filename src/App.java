@@ -13,13 +13,12 @@ public class App {
         int menuSelecionado=0; //id do menu
         mainLoop: while(true){
             Menu menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
-            int opt=menuAtual.mostraMenu(menuAtual.getOpts());
+            int opt=menuAtual.mostraMenu(menuAtual.getOpts(), sc);
+            MenuSetup.clearScreen();
             if(opt>=0){
-                MenuSetup.clearScreen();
                 menuSelecionado=opt;
             }
             else{
-                MenuSetup.clearScreen();
                 switch(opt){
                     case -2:
                         System.out.println("Saindo...");
@@ -30,5 +29,6 @@ public class App {
                 }
             }
         }
+        sc.close();
     }
 }

@@ -2,7 +2,6 @@ package Menu;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
@@ -14,7 +13,6 @@ public class Menu {
         this.nome="";
         this.id=0;
     }
-
     public Menu(String nome, int id) {
         this.nome=nome;
         this.id=id;
@@ -54,9 +52,7 @@ public class Menu {
         opts.add(new Opcao(nome, destino));
     }
     
-    public int mostraMenu(ArrayList<Opcao> opts) {
-        Scanner sc = new Scanner(System.in).useLocale(Locale.US);
-
+    public int mostraMenu(ArrayList<Opcao> opts, Scanner sc) {
         System.out.println("-----"+getNome()+"-----");
         System.out.println("Selecione a opção desejada:");
         for(int i = 0; i < opts.size(); i++) {
