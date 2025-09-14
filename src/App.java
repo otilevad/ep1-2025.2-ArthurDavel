@@ -17,7 +17,6 @@ public class App {
             if(opt>=0){
                 MenuSetup.clearScreen();
                 menuSelecionado=opt;
-                
             }
             else{
                 MenuSetup.clearScreen();

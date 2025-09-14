@@ -1,6 +1,7 @@
 package Menu;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -62,10 +63,16 @@ public class Menu {
             System.out.println(i+" ===> "+opts.get(i).getNome());
         }
         
-        int opt = sc.nextInt();
-        sc.nextLine();
-
         int destinoId=-1;
+        int opt=-1;
+
+        try{
+            opt = sc.nextInt();
+            sc.nextLine();
+        }
+        catch(InputMismatchException e){
+            sc.next();
+        }
 
         if(opt>=0 && opt<opts.size()){
             destinoId=opts.get(opt).getDestino();

@@ -1,6 +1,6 @@
 package Entidades;
 public class Medico extends Pessoa{
-    private int crm;
+    private String crm;
     private int idade;
 
     @Override

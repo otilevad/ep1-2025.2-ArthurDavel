@@ -10,6 +10,7 @@ public class MenuSetup {
         menus.add(new Menu("Menu do Médico", 2));
         menus.add(new Menu("Menu do Plano de Saúde", 3));
         menus.add(new Menu("Cadastro de Pacientes", 4));
+        menus.add(new Menu("Cadastro de Médicos", 5));
         for(int i = 0; i < menus.size(); i++) {
             Menu mn = menus.get(i);
             ArrayList<Opcao> opts = mn.iniciaOpcoes();
@@ -21,16 +22,21 @@ public class MenuSetup {
                     break;
                 case 1: //Menu do Paciente
                     mn.adcionaOpcoes(opts, "Cadastrar paciente", 4);
-                break;
+                    break;
                 case 2: //Menu do Médico
-                    
-                break;
+                    mn.adcionaOpcoes(opts, "Cadastrar médico", 5);
+                    break;
                 case 3: //Menu do Plano de saúde
                     
-                break;
+                    break;
                 case 4: //Cadastro de pacientes
                     
-                break;
+                    break;
+                case 5: //Cadastro de médicos
+                    
+                    break;
+                default: //Menu inválido
+                    break;
             }
             if(mn.getId()!=0){ //Adiciona a opção retornar ao menu inicial, a menos que já esteja nele
                 mn.adcionaOpcoes(opts, "Retornar ao menu inicial", 0);
