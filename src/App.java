@@ -1,9 +1,10 @@
+import Entidades.*;
+import Menu.*;
+
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
-import Entidades.*;
-import Menu.Menu;
-import Menu.MenuSetup;
+
 public class App {
     public static void main (String[] args) throws Exception {
         MenuSetup.clearScreen();
