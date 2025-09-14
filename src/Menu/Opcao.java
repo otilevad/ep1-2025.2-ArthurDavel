@@ -1,3 +1,5 @@
+package Menu;
+
 public class Opcao {
     private String nome;
     private int destino;
