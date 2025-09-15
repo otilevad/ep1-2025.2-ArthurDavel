@@ -71,7 +71,7 @@ public class Calendario {
             diaSemana++;
             diaSemana%=7;
         }
-        String data=dia+"/"+mes+"/"+getAno()+", "+diaString(diaSemana);
+        String data=diaString(diaSemana)+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
         return data;
     }
 
