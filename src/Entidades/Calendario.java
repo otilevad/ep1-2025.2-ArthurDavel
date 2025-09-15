@@ -59,7 +59,6 @@ public class Calendario {
         int mes=1;
         int diaSemana=anoInicia;
         int mesCheck=fatMes(mes, getMeses());
-        String diaSemanaS="";
         for(int i=1;i<numAno;i++){
             if(i>=mesCheck){
                 mes++;
@@ -72,6 +71,25 @@ public class Calendario {
             diaSemana++;
             diaSemana%=7;
         }
+        String data=dia+"/"+mes+"/"+getAno()+", "+diaString(diaSemana);
+        return data;
+    }
+
+    public int fatMes(int mes, int[] meses){
+        int fatorial=0;
+        int mesCount=0;
+        for(int i : getMeses()){
+            mesCount++;
+            fatorial+=i;
+            if(mesCount>=mes){
+                break;
+            }
+        }
+        return fatorial;
+    }
+
+    public String diaString(int diaSemana){ //transforma de int para uma string contendo o dia da semana
+        String diaSemanaS="";
         switch(diaSemana){
             case 0:
                 diaSemanaS="Domingo";
@@ -94,22 +112,10 @@ public class Calendario {
             case 6:
                 diaSemanaS="Sábado";
                 break;
-            
-        }
-        String data=dia+"/"+mes+"/"+getAno()+", "+diaSemanaS;
-        return data;
-    }
-
-    public int fatMes(int mes, int[] meses){
-        int fatorial=0;
-        int mesCount=0;
-        for(int i : getMeses()){
-            mesCount++;
-            fatorial+=i;
-            if(mesCount>=mes){
+            default:
+                diaSemanaS="Inválido-feira";
                 break;
-            }
         }
-        return fatorial;
+        return diaSemanaS;
     }
 }
