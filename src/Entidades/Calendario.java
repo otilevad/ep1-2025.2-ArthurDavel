@@ -1,7 +1,5 @@
 package Entidades;
 
-import Menu.Opcao;
-
 public class Calendario {
     private int ano;
     private int anoInicia; //de 0 a 6, de domingo a sábado
@@ -103,16 +101,15 @@ public class Calendario {
     }
 
     public int fatMes(int mes, int[] meses){
-        int fat=0;
+        int fatorial=0;
         int mesCount=0;
         for(int i : getMeses()){
             mesCount++;
-            fat+=i;
+            fatorial+=i;
             if(mesCount>=mes){
                 break;
             }
         }
-        System.out.println(fat);
-        return fat;
+        return fatorial;
     }
 }
