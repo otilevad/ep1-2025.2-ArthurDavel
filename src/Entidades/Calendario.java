@@ -64,6 +64,21 @@ public class Calendario {
         Sábado
     }
 
+    enum Mes{
+        Janeiro,
+        Fevereiro,
+        Março,
+        Abril,
+        Maio,
+        Junho,
+        Julho,
+        Agosto,
+        Setembro,
+        Outubro,
+        Novembro,
+        Dezembro
+    }
+
     public String diaCalendario(int numAno){
         int dia=1;
         int mes=1;
@@ -81,21 +96,20 @@ public class Calendario {
             diaSemana++;
             diaSemana%=7;
         }
-        Semana dSemana=Semana.values()[diaSemana];
-        String data=dSemana+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
+        String data=Semana.values()[diaSemana]+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
         return data;
     }
 
     public int fatMes(int mes, int[] meses){
-        int fatorial=0;
+        int fator=0;
         int mesCount=0;
         for(int i : getMeses()){
             mesCount++;
-            fatorial+=i;
+            fator+=i;
             if(mesCount>=mes){
                 break;
             }
         }
-        return fatorial;
+        return fator;
     }
 }
