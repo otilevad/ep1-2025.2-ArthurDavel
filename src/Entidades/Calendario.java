@@ -54,6 +54,16 @@ public class Calendario {
     }
     //endregion
 
+    enum Semana{
+        Domingo,
+        Segunda,
+        Terça,
+        Quarta,
+        Quinta,
+        Sexta,
+        Sábado
+    }
+
     public String diaCalendario(int numAno){
         int dia=1;
         int mes=1;
@@ -71,7 +81,8 @@ public class Calendario {
             diaSemana++;
             diaSemana%=7;
         }
-        String data=diaString(diaSemana)+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
+        Semana dSemana=Semana.values()[diaSemana];
+        String data=dSemana+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
         return data;
     }
 
@@ -86,36 +97,5 @@ public class Calendario {
             }
         }
         return fatorial;
-    }
-
-    public String diaString(int diaSemana){ //transforma de int para uma string contendo o dia da semana
-        String diaSemanaS="";
-        switch(diaSemana){
-            case 0:
-                diaSemanaS="Domingo";
-                break;
-            case 1:
-                diaSemanaS="Segunda";
-                break;
-            case 2:
-                diaSemanaS="Terça";
-                break;
-            case 3:
-                diaSemanaS="Quarta";
-                break;
-            case 4:
-                diaSemanaS="Quinta";
-                break;
-            case 5:
-                diaSemanaS="Sexta";
-                break;
-            case 6:
-                diaSemanaS="Sábado";
-                break;
-            default:
-                diaSemanaS="Inválido-feira";
-                break;
-        }
-        return diaSemanaS;
     }
 }
