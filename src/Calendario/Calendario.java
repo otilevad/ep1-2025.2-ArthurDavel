@@ -45,7 +45,7 @@ public class Calendario {
         Novembro,
         Dezembro
     }
-    
+
     public void addAno(int ano, int anoInicia, boolean anoBissexto){
         getAnos().add(new Ano(ano,anoInicia,anoBissexto));
     }
@@ -60,14 +60,16 @@ public class Calendario {
         int mes=1;
         int anoOrd=0;
         Ano ano=getAnos().get(anoOrd);
+        int diasTotais=ano.fatMes(12, ano.getMeses());
         int diaSemana=ano.getAnoInicia();
-        int mesCheck=ano.fatMes(mes, ano.getMeses());
+        int anoPassou=0;
+        int mesCheck=anoPassou+ano.fatMes(mes, ano.getMeses());
         for(int i=1;i<numCalendario;i++){
-            if(i<ano.fatMes(12, ano.getMeses())){
+            if(i<diasTotais){
                 if(i>=mesCheck){
                     mes++;
                     dia=1;
-                    mesCheck=ano.fatMes(mes, ano.getMeses());
+                    mesCheck=anoPassou+ano.fatMes(mes, ano.getMeses());
                 }
                 else{
                     dia++;
@@ -75,13 +77,16 @@ public class Calendario {
             }
             else{
                 anoOrd++;
-                if(anoOrd>getAnos().size()){
+                if(anoOrd>=getAnos().size()){
                     return "Data inválida";
                 }
                 else{
-                    ano=getAnos().get(anoOrd);
                     mes=1;
                     dia=1;
+                    anoPassou=ano.fatMes(12, ano.getMeses());
+                    ano=getAnos().get(anoOrd);
+                    diasTotais+=ano.fatMes(12, ano.getMeses());
+                    mesCheck=anoPassou+ano.fatMes(mes, ano.getMeses());  
                 }
             }
             diaSemana++;
