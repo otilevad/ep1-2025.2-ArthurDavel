@@ -17,24 +17,6 @@ public class App {
         Menu menuAtual=new Menu();
         boolean skipInput=false;
         mainLoop: while(true){
-            menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
-            menuAtual.mostraMenu(menuAtual.getOpts());
-            if(!skipInput){
-                opt=-1;
-                try{
-                    opt = sc.nextInt();
-                    sc.nextLine();
-                }
-                catch(InputMismatchException e){
-                    sc.next();
-                }
-                if(opt>=0 && opt<menuAtual.getOpts().size()){
-                    opt=menuAtual.getOpts().get(opt).getDestino();
-                }
-            }
-            else{
-                skipInput=false;
-            }
             MenuSetup.clearScreen();
             if(opt>=0){
                 menuSelecionado=opt;
@@ -49,6 +31,24 @@ public class App {
             else{
                 opt=MenuSetup.criaAcoes(opt, listas, sc);
                 skipInput=true;
+            }
+            if(!skipInput){
+                menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
+                menuAtual.mostraMenu(menuAtual.getOpts());
+                opt=-1;
+                try{
+                    opt = sc.nextInt();
+                    sc.nextLine();
+                }
+                catch(InputMismatchException e){
+                    sc.next();
+                }
+                if(opt>=0 && opt<menuAtual.getOpts().size()){
+                    opt=menuAtual.getOpts().get(opt).getDestino();
+                }
+            }
+            else{
+                skipInput=false;
             }
         }
         sc.close();

@@ -38,5 +38,6 @@ public class Lista {
             medico.imprimeDados();
             System.out.println("------------------------");
         }
+        System.out.println("Pressione Enter para retornar");
     }
 }
