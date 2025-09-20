@@ -1,18 +1,18 @@
-package Entidades;
+package Calendario;
 
-public class Calendario {
+public class Ano {
     private int ano;
     private int anoInicia; //de 0 a 6, de domingo a sábado
     private boolean anoBissexto;
     private int[] meses; //duração dos meses em dias
 
-    public Calendario(){
+    public Ano(){
         this.ano=2025;
         this.anoInicia=3;
         this.anoBissexto=false;
         this.meses=new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     }
-    public Calendario(int ano, int anoInicia, boolean anoBissexto){
+    public Ano(int ano, int anoInicia, boolean anoBissexto){
         this.ano=ano;
         this.anoInicia=anoInicia;
         this.anoBissexto=anoBissexto;
