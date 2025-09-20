@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class App {
     public static void main (String[] args) throws Exception {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
-        MenuSetup.clearScreen();
+        MenuSetup.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
         Lista listas = new Lista();
         int menuSelecionado=0; //id do menu
@@ -17,7 +17,7 @@ public class App {
         Menu menuAtual=new Menu();
         boolean skipInput=false;
         mainLoop: while(true){
-            MenuSetup.clearScreen();
+            MenuSetup.limpaTela();
             if(opt>=0){
                 menuSelecionado=opt;
             }

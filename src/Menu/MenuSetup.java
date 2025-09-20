@@ -48,7 +48,7 @@ public class MenuSetup {
         switch(opt){
             case -3: //Cadastro de pacientes
                 new Paciente().cadastrar(listas, sc);
-                MenuSetup.clearScreen();
+                MenuSetup.limpaTela();
                 destino=1;
                 break;
             case -4: //Listar Pacientes
@@ -58,7 +58,7 @@ public class MenuSetup {
                 break;
             case -5: //Cadastro de médico
                 new Medico().cadastrar(listas, sc);
-                MenuSetup.clearScreen();
+                MenuSetup.limpaTela();
                 destino=2;
                 break;
             case -6: //Listar médicos
@@ -86,8 +86,18 @@ public class MenuSetup {
         return menuOrder;
     }
 
-    public static void clearScreen() {
+    public static void limpaTela(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static void limpaLinha(int qtd){
+        for(int i=0;i<qtd;i++){
+            System.out.print("\033[1F\33[K");
+        }
+    }
+
+    public static void limpaLinha(){
+        System.out.print("\033[1F\33[K");
     }
 }

@@ -53,6 +53,9 @@ public class Paciente extends Pessoa{
                 case 2:
                     idade=inputInt("Digite a idade: ", sc);
                     break;
+                case 3:
+                    int nada=inputInt("Digite o nada: ", sc);
+                    break;
                 default:
                     break whileTrue;
             }
