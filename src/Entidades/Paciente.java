@@ -1,6 +1,5 @@
 package Entidades;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Paciente extends Pessoa{
@@ -52,18 +51,7 @@ public class Paciente extends Pessoa{
                     cpf=sc.nextLine();
                     break;
                 case 2:
-                    while(true){
-                        System.out.print("Digite a idade: ");
-                        try{
-                            idade = sc.nextInt();
-                            sc.nextLine();
-                            break;
-                        }
-                        catch(InputMismatchException e){
-                            sc.next();
-                            System.out.println("Por favor, digite uma opção válida.");
-                        }
-                    }
+                    idade=inputInt("Digite a idade: ", sc);
                     break;
                 default:
                     break whileTrue;
