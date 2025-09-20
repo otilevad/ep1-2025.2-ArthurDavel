@@ -53,52 +53,7 @@ public class Ano {
         this.meses=meses;
     }
     //endregion
-
-    enum Semana{
-        Domingo,
-        Segunda,
-        Terça,
-        Quarta,
-        Quinta,
-        Sexta,
-        Sábado
-    }
-
-    enum Mes{
-        Janeiro,
-        Fevereiro,
-        Março,
-        Abril,
-        Maio,
-        Junho,
-        Julho,
-        Agosto,
-        Setembro,
-        Outubro,
-        Novembro,
-        Dezembro
-    }
-
-    public String diaCalendario(int numAno){
-        int dia=1;
-        int mes=1;
-        int diaSemana=anoInicia;
-        int mesCheck=fatMes(mes, getMeses());
-        for(int i=1;i<numAno;i++){
-            if(i>=mesCheck){
-                mes++;
-                dia=1;
-                mesCheck=fatMes(mes, getMeses());
-            }
-            else{
-                dia++;
-            }
-            diaSemana++;
-            diaSemana%=7;
-        }
-        String data=Semana.values()[diaSemana]+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+getAno();
-        return data;
-    }
+    
 
     public int fatMes(int mes, int[] meses){
         int fator=0;
