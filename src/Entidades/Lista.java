@@ -27,6 +27,20 @@ public class Lista {
         this.pacientes=pacientes;
     }
 
+    public void adicionaPaciente(Paciente paciente){
+        pacientes.add(paciente);
+    }
+
+    public void listarPacientes(){
+        System.out.println("---Lista de Pacientes---");
+        for(int i=0; i<pacientes.size(); i++){
+            Paciente paciente=pacientes.get(i);
+            paciente.imprimeDados();
+            System.out.println("------------------------");
+        }
+        System.out.println("Pressione Enter para retornar");
+    }
+
     public void adicionaMedico(Medico medico){
         medicos.add(medico);
     }

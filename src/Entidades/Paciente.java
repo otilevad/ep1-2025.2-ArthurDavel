@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Paciente extends Pessoa{
@@ -13,7 +14,7 @@ public class Paciente extends Pessoa{
     }
 
     public Paciente(String nome, String cpf, int idade){
-        super();
+        super(nome);
         this.cpf=cpf;
         this.idade=idade;
     }
@@ -36,11 +37,46 @@ public class Paciente extends Pessoa{
 
     @Override
     public void cadastrar(Lista listas, Scanner sc){
-
+        int dado=0;
+        String nome="";
+        String cpf="";
+        int idade=0;
+        whileTrue: while(true){
+            switch(dado){
+                case 0:
+                    System.out.print("Digite o nome: ");
+                    nome=sc.nextLine();
+                    break;
+                case 1:
+                    System.out.print("Digite o CPF: ");
+                    cpf=sc.nextLine();
+                    break;
+                case 2:
+                    while(true){
+                        System.out.print("Digite a idade: ");
+                        try{
+                            idade = sc.nextInt();
+                            sc.nextLine();
+                            break;
+                        }
+                        catch(InputMismatchException e){
+                            sc.next();
+                            System.out.println("Por favor, digite uma opção válida.");
+                        }
+                    }
+                    break;
+                default:
+                    break whileTrue;
+            }
+            dado++;
+        }
+        listas.adicionaPaciente(new Paciente(nome, cpf, idade));
     }
 
     @Override
     public void imprimeDados(){
-
+        System.out.println("Nome: "+getNome());
+        System.out.println("CPF: "+getCpf());
+        System.out.println("Idade: "+getIdade());
     }
 }

@@ -47,6 +47,13 @@ public class MenuSetup {
         int destino=0;
         switch(opt){
             case -3: //Cadastro de pacientes
+                new Paciente().cadastrar(listas, sc);
+                MenuSetup.clearScreen();
+                destino=1;
+                break;
+            case -4: //Listar Pacientes
+                listas.listarPacientes();
+                sc.nextLine();
                 destino=1;
                 break;
             case -5: //Cadastro de médico
