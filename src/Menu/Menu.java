@@ -1,8 +1,6 @@
 package Menu;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Menu {
     private String nome;
@@ -52,28 +50,11 @@ public class Menu {
         opts.add(new Opcao(nome, destino));
     }
     
-    public int mostraMenu(ArrayList<Opcao> opts, Scanner sc) {
+    public void mostraMenu(ArrayList<Opcao> opts) {
         System.out.println("-----"+getNome()+"-----");
         System.out.println("Selecione a opção desejada:");
         for(int i = 0; i < opts.size(); i++) {
             System.out.println(i+" ===> "+opts.get(i).getNome());
         }
-        
-        int destinoId=-1;
-        int opt=-1;
-
-        try{
-            opt = sc.nextInt();
-            sc.nextLine();
-        }
-        catch(InputMismatchException e){
-            sc.next();
-        }
-
-        if(opt>=0 && opt<opts.size()){
-            destinoId=opts.get(opt).getDestino();
-        }
-
-        return destinoId;
     }
 }

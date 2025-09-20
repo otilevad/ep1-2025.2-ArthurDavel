@@ -1,6 +1,8 @@
 package Menu;
 
+import Entidades.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MenuSetup {
     public static ArrayList<Menu> criaMenus() { 
@@ -21,19 +23,16 @@ public class MenuSetup {
                     mn.adcionaOpcoes(opts, "Menu do plano de saúde", 3);
                     break;
                 case 1: //Menu do Paciente
-                    mn.adcionaOpcoes(opts, "Cadastrar paciente", 4);
+                    mn.adcionaOpcoes(opts, "Cadastrar paciente", -3);
+                    mn.adcionaOpcoes(opts, "Listar pacientes cadastrados", -4);
                     break;
                 case 2: //Menu do Médico
-                    mn.adcionaOpcoes(opts, "Cadastrar médico", 5);
+                    mn.adcionaOpcoes(opts, "Cadastrar médico", -5);
+                    mn.adcionaOpcoes(opts, "Listar médicos cadastrados", -6);
                     break;
                 case 3: //Menu do Plano de saúde
-                    
-                    break;
-                case 4: //Cadastro de pacientes
-                    
-                    break;
-                case 5: //Cadastro de médicos
-                    
+                    mn.adcionaOpcoes(opts, "Cadastrar plano de saúde", -7);
+                    mn.adcionaOpcoes(opts, "Listar plano de saúde", -8);
                     break;
             }
             if(mn.getId()!=0){ //Adiciona a opção retornar ao menu inicial, a menos que já esteja nele
@@ -44,6 +43,30 @@ public class MenuSetup {
         return menus;
     }
 
+    public static int criaAcoes(int opt, Lista listas, Scanner sc){
+        int destino=0;
+        switch(opt){
+            case -3: //Cadastro de pacientes
+                destino=1;
+                break;
+            case -5: //Cadastro de médico
+                new Medico().cadastrar(listas, sc);
+                MenuSetup.clearScreen();
+                destino=2;
+                break;
+            case -6: //Listar médicos
+                listas.listarMedicos();
+                sc.nextLine();
+                destino=2;
+                break;
+            case -7: //Cadastro de plano de saúde
+                destino=3;
+                break;
+            default:
+                break;
+        }
+        return destino;
+    }
     public static int procuraMenu(ArrayList<Menu> menus, int menuId){
         int menuOrder=0;
         for(int i = 0; i < menus.size(); i++) {

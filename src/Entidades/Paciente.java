@@ -1,4 +1,7 @@
 package Entidades;
+
+import java.util.Scanner;
+
 public class Paciente extends Pessoa{
     private String cpf;
     private int idade;
@@ -29,6 +32,11 @@ public class Paciente extends Pessoa{
 
     public void setIdade(int idade) {
         this.idade=idade;
+    }
+
+    @Override
+    public void cadastrar(Lista listas, Scanner sc){
+
     }
 
     @Override

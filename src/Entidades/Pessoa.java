@@ -1,4 +1,7 @@
 package Entidades;
+
+import java.util.Scanner;
+
 public abstract class Pessoa {
     private String nome;
     
@@ -18,5 +21,6 @@ public abstract class Pessoa {
         this.nome=nome;
     }
 
+    abstract public void cadastrar(Lista listas, Scanner sc);
     abstract public void imprimeDados();
 }
