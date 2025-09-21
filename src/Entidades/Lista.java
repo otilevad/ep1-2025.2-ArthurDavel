@@ -32,11 +32,16 @@ public class Lista {
     }
 
     public void listarPacientes(){
-        System.out.println("---Lista de Pacientes---");
-        for(int i=0; i<pacientes.size(); i++){
-            Paciente paciente=pacientes.get(i);
-            paciente.imprimeDados();
-            System.out.println("------------------------");
+        if(pacientes.size()>0){
+            System.out.println("---Lista de Pacientes---");
+            for(int i=0; i<pacientes.size(); i++){
+                Paciente paciente=pacientes.get(i);
+                paciente.imprimeDados();
+                System.out.println("------------------------");
+            }
+        }
+        else{
+            System.out.println("Não há pacientes cadastrados");
         }
         System.out.println("Pressione Enter para retornar");
     }
@@ -46,11 +51,16 @@ public class Lista {
     }
 
     public void listarMedicos(){
-        System.out.println("----Lista de Médicos----");
-        for(int i=0; i<medicos.size(); i++){
-            Medico medico=medicos.get(i);
-            medico.imprimeDados();
-            System.out.println("------------------------");
+        if(medicos.size()>0){
+            System.out.println("----Lista de Médicos----");
+            for(int i=0; i<medicos.size(); i++){
+                Medico medico=medicos.get(i);
+                medico.imprimeDados();
+                System.out.println("------------------------");
+            }
+        }
+        else{
+            System.out.println("Não há médicos cadastrados");
         }
         System.out.println("Pressione Enter para retornar");
     }
