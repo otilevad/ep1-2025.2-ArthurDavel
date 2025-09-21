@@ -10,7 +10,7 @@ public class RodaCalendario {
         cal.calendarioSetup();
         int dia = sc.nextInt();
         sc.nextLine();
-        System.out.println(cal.diaSemana(dia)+", "+cal.diaData(dia));
+        System.out.println(cal.diaSemana(dia)+", "+cal.dataString(cal.diaData(dia,"dia"),cal.diaData(dia,"mes"),cal.diaData(dia,"ano")));
         sc.close();
     }
 }

@@ -55,7 +55,7 @@ public class Calendario {
         addAno(2026,4,false);
     }
 
-    public String diaData(int numCalendario){
+    public int diaData(int numCalendario, String diaMesAno){
         int dia=1;
         int mes=1;
         int anoOrd=0;
@@ -77,7 +77,7 @@ public class Calendario {
             else{
                 anoOrd++;
                 if(anoOrd>=getAnos().size()){
-                    return "Data inválida";
+                    return 0;
                 }
                 else{
                     mes=1;
@@ -89,8 +89,26 @@ public class Calendario {
                 }
             }
         }
-        String data=String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+ano.getAno();
+        int data;
+        switch(diaMesAno){
+            case "dia":
+                data=dia;
+                break;
+            case "mes":
+                data=mes;
+                break;
+            case "ano":
+                data=ano.getAno();
+                break;
+            default:
+                data=0;
+                break;
+        }
         return data;
+    }
+
+    public String dataString(int dia, int mes, int ano){
+        return String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+ano;
     }
 
     public String diaSemana(int numCalendario){
