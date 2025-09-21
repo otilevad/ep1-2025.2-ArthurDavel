@@ -1,6 +1,9 @@
-package Entidades;
+package Entidades.Paciente;
 
 import java.util.Scanner;
+
+import Entidades.Pessoa;
+import Utilitarios.Lista;
 
 public class Paciente extends Pessoa{
     private String cpf;

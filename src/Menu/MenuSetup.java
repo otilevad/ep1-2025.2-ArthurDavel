@@ -1,6 +1,10 @@
 package Menu;
 
 import Entidades.*;
+import Entidades.Medico.*;
+import Entidades.Paciente.*;
+import Utilitarios.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

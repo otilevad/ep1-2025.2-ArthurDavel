@@ -1,5 +1,6 @@
 import Entidades.*;
 import Menu.*;
+import Utilitarios.*;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

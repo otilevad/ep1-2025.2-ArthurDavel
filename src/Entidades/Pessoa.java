@@ -1,6 +1,8 @@
 package Entidades;
 
 import Menu.*;
+import Utilitarios.Lista;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

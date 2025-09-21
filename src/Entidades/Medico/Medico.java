@@ -1,6 +1,9 @@
-package Entidades;
+package Entidades.Medico;
 
 import java.util.Scanner;
+
+import Entidades.Pessoa;
+import Utilitarios.Lista;
 
 public class Medico extends Pessoa{
     private String crm;

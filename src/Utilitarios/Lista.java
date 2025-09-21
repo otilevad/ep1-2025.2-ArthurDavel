@@ -1,6 +1,9 @@
-package Entidades;
+package Utilitarios;
 
 import java.util.ArrayList;
+
+import Entidades.Medico.Medico;
+import Entidades.Paciente.Paciente;
 
 public class Lista {
     private ArrayList<Medico> medicos;
