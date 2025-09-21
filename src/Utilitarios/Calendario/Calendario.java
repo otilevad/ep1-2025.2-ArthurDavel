@@ -61,7 +61,6 @@ public class Calendario {
         int anoOrd=0;
         Ano ano=getAnos().get(anoOrd);
         int diasTotais=ano.fatMes(12, ano.getMeses());
-        int diaSemana=ano.getAnoInicia();
         int anoPassou=0;
         int mesCheck=anoPassou+ano.fatMes(mes, ano.getMeses());
         for(int i=1;i<numCalendario;i++){
@@ -89,10 +88,18 @@ public class Calendario {
                     mesCheck=anoPassou+ano.fatMes(mes, ano.getMeses());  
                 }
             }
-            diaSemana++;
-            diaSemana%=7;
         }
-        String data=Semana.values()[diaSemana]+", "+String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+ano.getAno();
+        String data=String.format("%02d", dia)+"/"+String.format("%02d", mes)+"/"+ano.getAno();
         return data;
+    }
+
+    public String diaSemana(int numCalendario){
+        int dSem=numCalendario+getAnos().get(0).getAnoInicia()-1;
+        dSem%=7;
+        return Semana.values()[dSem].toString();
+    }
+
+    public int tempoCalendario(int hora, int min){
+        return hora*60+min;
     }
 }

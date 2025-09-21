@@ -53,7 +53,6 @@ public class Ano {
         this.meses=meses;
     }
     //endregion
-    
 
     public int fatMes(int mes, int[] meses){
         int fator=0;
