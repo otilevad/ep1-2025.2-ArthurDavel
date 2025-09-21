@@ -8,17 +8,20 @@ import Utilitarios.Lista;
 public class Paciente extends Pessoa{
     private String cpf;
     private int idade;
+    private boolean idoso;
 
     public Paciente(){
         super();
         this.cpf="";
         this.idade=0;
+        this.idoso=false;
     }
 
     public Paciente(String nome, String cpf, int idade){
         super(nome);
         this.cpf=cpf;
         this.idade=idade;
+        this.idoso=(this.idade>=60);
     }
 
     public String getCpf() {
@@ -35,8 +38,13 @@ public class Paciente extends Pessoa{
 
     public void setIdade(int idade) {
         this.idade=idade;
+        this.idoso=(this.idade>=60);
     }
 
+    public boolean getIdoso(){
+        return this.idoso;
+    }
+    
     @Override
     public void cadastrar(Lista listas, Scanner sc){
         int dado=0;
