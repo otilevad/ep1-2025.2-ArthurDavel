@@ -55,7 +55,7 @@ public class Calendario {
         addAno(2026,4,false);
     }
 
-    public String diaCalendario(int numCalendario){
+    public String diaData(int numCalendario){
         int dia=1;
         int mes=1;
         int anoOrd=0;
@@ -99,7 +99,23 @@ public class Calendario {
         return Semana.values()[dSem].toString();
     }
 
-    public int tempoCalendario(int hora, int min){
+    public int tempoMinuto(int hora, int min){
         return hora*60+min;
+    }
+
+    public String minutoTempo(int numTempo){
+        int hora=0;
+        int min=0;
+        for(int i=0;i<numTempo;i++){
+            min++;
+            if(min>=60){
+                min=0;
+                hora++;
+                if(hora>=24){
+                    hora=0;
+                }
+            }
+        }
+        return String.format("%02d", hora)+":"+String.format("%02d", min);
     }
 }

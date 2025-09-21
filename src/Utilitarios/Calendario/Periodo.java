@@ -20,6 +20,13 @@ public class Periodo {
         this.horarioFim=horarioFim;
     }
 
+    public Periodo(int diaInicio, int diaFim){
+        this.diaInicio=diaInicio;
+        this.diaFim=diaFim;
+        this.horarioInicio=1;
+        this.horarioFim=1440;
+    }
+
     public int getDiaInicio(){
         return this.diaInicio;
     }
