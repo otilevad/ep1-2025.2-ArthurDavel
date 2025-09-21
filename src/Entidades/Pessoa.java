@@ -1,7 +1,6 @@
 package Entidades;
 
-import Menu.*;
-import Utilitarios.Lista;
+import Utilitarios.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -36,7 +35,7 @@ public abstract class Pessoa {
                 input=sc.nextInt();
                 sc.nextLine();
                 if(inputErrado){
-                    MenuSetup.limpaLinha(2);
+                    Misc.limpaLinha(2);
                     System.out.println(str+input);
                 }               
                 break;
@@ -44,9 +43,9 @@ public abstract class Pessoa {
             catch(InputMismatchException e){
                 sc.next();
                 if(inputErrado){
-                    MenuSetup.limpaLinha();
+                    Misc.limpaLinha();
                 }
-                MenuSetup.limpaLinha();
+                Misc.limpaLinha();
                 System.out.println("Por favor, digite uma opção válida.");
                 inputErrado=true;
             }

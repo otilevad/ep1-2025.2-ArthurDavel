@@ -4,24 +4,28 @@ import java.util.Scanner;
 
 import Entidades.Pessoa;
 import Utilitarios.Lista;
+import Utilitarios.Calendario.Historico;
 
 public class Paciente extends Pessoa{
     private String cpf;
     private int idade;
     private boolean idoso;
+    private HistoricoPaciente historicoPaciente;
 
     public Paciente(){
         super();
         this.cpf="";
         this.idade=0;
         this.idoso=false;
+        this.historicoPaciente=new HistoricoPaciente();
     }
 
-    public Paciente(String nome, String cpf, int idade){
+    public Paciente(String nome, String cpf, int idade, HistoricoPaciente historicoPaciente){
         super(nome);
         this.cpf=cpf;
         this.idade=idade;
         this.idoso=(this.idade>=60);
+        this.historicoPaciente=historicoPaciente;
     }
 
     public String getCpf() {
@@ -44,7 +48,15 @@ public class Paciente extends Pessoa{
     public boolean getIdoso(){
         return this.idoso;
     }
-    
+
+    public void setHistoricoPaciente(HistoricoPaciente historicoPaciente){
+        this.historicoPaciente=historicoPaciente;
+    }
+
+    public Historico getHistoricoPaciente(){
+        return this.historicoPaciente;
+    }
+
     @Override
     public void cadastrar(Lista listas, Scanner sc){
         int dado=0;
@@ -69,7 +81,7 @@ public class Paciente extends Pessoa{
             }
             dado++;
         }
-        listas.adicionaPaciente(new Paciente(nome, cpf, idade));
+        listas.adicionaPaciente(new Paciente(nome, cpf, idade, new HistoricoPaciente()));
     }
 
     @Override
