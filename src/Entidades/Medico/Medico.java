@@ -47,7 +47,9 @@ public class Medico extends Pessoa{
                     break whileTrue;
             }
         }
-        listas.adicionaMedico(new Medico(nome, crm));
+        setNome(nome);
+        setCrm(crm);
+        listas.adicionaMedico(this);
     }
 
     @Override

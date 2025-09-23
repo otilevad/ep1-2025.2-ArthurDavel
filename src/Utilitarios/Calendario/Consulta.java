@@ -8,7 +8,7 @@ public class Consulta {
     private Medico med;
     private Especialidade espec;
     private Periodo per;
-
+    
     public Consulta(){
         this.pac=new Paciente();
         this.med=new Medico();

@@ -81,7 +81,10 @@ public class Paciente extends Pessoa{
             }
             dado++;
         }
-        listas.adicionaPaciente(new Paciente(nome, cpf, idade, new HistoricoPaciente()));
+        setNome(nome);
+        setCpf(cpf);
+        setIdade(idade);
+        listas.adicionaPaciente(this);
     }
 
     @Override
