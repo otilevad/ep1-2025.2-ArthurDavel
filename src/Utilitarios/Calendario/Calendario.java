@@ -136,4 +136,18 @@ public class Calendario {
         }
         return String.format("%02d", hora)+":"+String.format("%02d", min);
     }
+
+    public int dataDia(int dia, int mes, int ano){
+        int total=dia;
+        Ano anoObj=anos.get(0);
+        for(int i=0;i<anos.size();i++){
+            anoObj=anos.get(i);
+            if(anos.get(i).getAno()==ano){
+                total+=anoObj.fatMes(mes-1,anoObj.getMeses());
+                break;
+            }
+            total+=anoObj.fatMes(12,anoObj.getMeses());
+        }
+        return total;
+    }
 }
