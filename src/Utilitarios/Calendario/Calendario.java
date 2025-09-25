@@ -2,6 +2,8 @@ package Utilitarios.Calendario;
 
 import java.util.ArrayList;
 
+import Utilitarios.Misc;
+
 public class Calendario {
     private ArrayList<Ano> anos;
 
@@ -172,7 +174,16 @@ public class Calendario {
 
     public void mostraMes(int mes,int ano){
         Ano anoObj=numAno(ano);
-        System.out.println("┌────┬────┬────┬────┬────┬────┬────┐");
+        String mesStr=Mes.values()[mes-1].toString();
+        double strPad=Math.floor((25-mesStr.length())/2);
+        System.out.println("┌────────┬─────────────────────────┐");
+        System.out.print("│  "+ano+"  │");
+        Misc.printNum(" ", (int) strPad);
+        System.out.print(mesStr);
+        strPad=mesStr.length()%2==0 ? strPad+1 : strPad;
+        Misc.printNum(" ", (int) strPad);
+        System.out.println("│");
+        System.out.println("├────┬───┴┬────┬────┬────┬────┬────┤");
         System.out.println("│dom │seg │ter │qua │qui │sex │sab │");
         System.out.println("├────┼────┼────┼────┼────┼────┼────┤");
         if(diaSemanaInt(dataDia(1,mes,ano))!=0){System.out.print("│");}
@@ -201,7 +212,16 @@ public class Calendario {
         int ano=diaData(data, "ano");
         int dia=diaData(data,"dia");
         Ano anoObj=numAno(ano);
-        System.out.println("┌────┬────┬────┬────┬────┬────┬────┐");
+        String mesStr=Mes.values()[mes-1].toString();
+        double strPad=Math.floor((25-mesStr.length())/2);
+        System.out.println("┌────────┬─────────────────────────┐");
+        System.out.print("│  "+ano+"  │");
+        Misc.printNum(" ", (int) strPad);
+        System.out.print(mesStr);
+        strPad=25-mesStr.length()%2==1 ? strPad+1 : strPad;
+        Misc.printNum(" ", (int) strPad);
+        System.out.println("│");
+        System.out.println("├────┬───┴┬────┬────┬────┬────┬────┤");
         System.out.println("│dom │seg │ter │qua │qui │sex │sab │");
         System.out.println("├────┼────┼────┼────┼────┼────┼────┤");
         if(diaSemanaInt(dataDia(1,mes,ano))!=0){System.out.print("│");}

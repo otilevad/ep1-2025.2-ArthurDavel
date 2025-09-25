@@ -15,4 +15,10 @@ public class Misc {
     public static void limpaLinha(){
         System.out.print("\033[1F\33[K");
     }
+    
+    public static void printNum(String str,int num){
+        for(int i=0;i<num;i++){
+            System.out.print(str);
+        }
+    }
 }

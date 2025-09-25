@@ -4,8 +4,6 @@ import java.util.Locale;
 import java.util.Scanner;
 import Utilitarios.*;
 
-import Utilitarios.Calendario.Calendario.Mes;
-
 public class RodaCalendario {
     public static void main (String[] args) throws Exception {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
@@ -22,15 +20,14 @@ public class RodaCalendario {
         System.out.println("");
         int mesAgr=1;
         int anoAgr=2025;
-        int input=0;
+        String input="";
+        Misc.limpaTela();
         whileTrue: while(true){
-            System.out.println(Mes.values()[mesAgr-1].toString());
             cal.mostraMes(mesAgr,anoAgr);
-            input=sc.nextInt();
-            sc.nextLine();
+            input=sc.nextLine();
             Misc.limpaTela();
             switch(input){
-            case 1:
+            case "a":
                 if(mesAgr-1<1){
                     if(anoAgr-1>=cal.getAnos().get(0).getAno()){
                         mesAgr=12;
@@ -41,7 +38,7 @@ public class RodaCalendario {
                     mesAgr--;
                 }
                 break;
-            case 2:
+            case "d":
                 if(mesAgr+1>12){
                     if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
                         mesAgr=1;
@@ -52,7 +49,7 @@ public class RodaCalendario {
                     mesAgr++;
                 }
                 break;
-            case 3:
+            case "s":
                 break whileTrue;
             }
         }
