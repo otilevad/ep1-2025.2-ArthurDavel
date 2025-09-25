@@ -3,7 +3,7 @@ package Entidades.Paciente;
 import java.util.Scanner;
 
 import Entidades.Pessoa;
-import Utilitarios.Lista;
+import Repositorios.*;
 import Utilitarios.Calendario.Historico;
 
 public class Paciente extends Pessoa{
@@ -58,7 +58,7 @@ public class Paciente extends Pessoa{
     }
 
     @Override
-    public void cadastrar(Lista listas, Scanner sc){
+    public void cadastrar(AllRep rep, Scanner sc){
         int dado=0;
         String nome="";
         String cpf="";
@@ -84,7 +84,7 @@ public class Paciente extends Pessoa{
         setNome(nome);
         setCpf(cpf);
         setIdade(idade);
-        listas.adicionaPaciente(this);
+        rep.getPacientesR().adicionaPaciente(this);
     }
 
     @Override

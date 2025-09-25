@@ -3,7 +3,7 @@ package Entidades.Medico;
 import java.util.Scanner;
 
 import Entidades.Pessoa;
-import Utilitarios.Lista;
+import Repositorios.*;
 
 public class Medico extends Pessoa{
     private String crm;
@@ -27,7 +27,7 @@ public class Medico extends Pessoa{
     }
 
     @Override
-    public void cadastrar(Lista listas, Scanner sc){
+    public void cadastrar(AllRep rep, Scanner sc){
         int dado=0;
         String nome="";
         String crm="";
@@ -49,7 +49,7 @@ public class Medico extends Pessoa{
         }
         setNome(nome);
         setCrm(crm);
-        listas.adicionaMedico(this);
+        rep.getMedicosR().adicionaMedico(this);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Entidades;
 
 import Utilitarios.*;
-
+import Repositorios.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public abstract class Pessoa {
         this.nome=nome;
     }
 
-    abstract public void cadastrar(Lista listas, Scanner sc);
+    abstract public void cadastrar(AllRep rep, Scanner sc);
     abstract public void imprimeDados();
     public int inputInt(String str, Scanner sc){
         boolean inputErrado=false; 

@@ -34,9 +34,7 @@ public class RodaCalendario {
                         anoAgr--;
                     }
                 }
-                else{
-                    mesAgr--;
-                }
+                else{mesAgr--;}
                 break;
             case "d":
                 if(mesAgr+1>12){
@@ -45,9 +43,7 @@ public class RodaCalendario {
                         anoAgr++;
                     }
                 }
-                else{
-                    mesAgr++;
-                }
+                else{mesAgr++;}
                 break;
             case "s":
                 break whileTrue;

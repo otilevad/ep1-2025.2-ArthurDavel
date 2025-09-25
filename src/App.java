@@ -1,5 +1,7 @@
 import Menu.*;
 import Utilitarios.*;
+import Repositorios.*;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
@@ -10,7 +12,7 @@ public class App {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
-        Lista listas = new Lista();
+        AllRep rep = new AllRep();
         int menuSelecionado=0; //id do menu
         int opt=0;
         Menu menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado));
@@ -28,7 +30,7 @@ public class App {
                 System.out.println("Por favor, digite uma opção válida.");
             }
             else{
-                opt=MenuSetup.criaAcoes(opt, listas, sc);
+                opt=MenuSetup.criaAcoes(opt, rep, sc);
                 skipInput=true;
             }
             if(!skipInput){

@@ -2,6 +2,7 @@ package Menu;
 
 import Entidades.Medico.*;
 import Entidades.Paciente.*;
+import Repositorios.AllRep;
 import Utilitarios.*;
 
 import java.util.ArrayList;
@@ -46,26 +47,26 @@ public class MenuSetup {
         return menus;
     }
 
-    public static int criaAcoes(int opt, Lista listas, Scanner sc){
+    public static int criaAcoes(int opt, AllRep rep, Scanner sc){
         int destino=0;
         switch(opt){
             case -3: //Cadastro de pacientes
-                new Paciente().cadastrar(listas, sc);
+                new Paciente().cadastrar(rep, sc);
                 Misc.limpaTela();
                 destino=1;
                 break;
             case -4: //Listar Pacientes
-                listas.listarPacientes();
+                rep.getPacientesR().listarPacientes();
                 sc.nextLine();
                 destino=1;
                 break;
             case -5: //Cadastro de médico
-                new Medico().cadastrar(listas, sc);
+                new Medico().cadastrar(rep, sc);
                 Misc.limpaTela();
                 destino=2;
                 break;
             case -6: //Listar médicos
-                listas.listarMedicos();
+                rep.getMedicosR().listarMedicos();
                 sc.nextLine();
                 destino=2;
                 break;
