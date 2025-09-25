@@ -2,6 +2,7 @@ package Utilitarios.Calendario;
 
 import java.util.Locale;
 import java.util.Scanner;
+import Utilitarios.*;
 
 import Utilitarios.Calendario.Calendario.Mes;
 
@@ -19,9 +20,41 @@ public class RodaCalendario {
         System.out.println(cal.dataDia(day,mon,year));
         cal.mostraMesData(dia);
         System.out.println("");
-        for(int i=1;i<13;i++){
-            System.out.println(Mes.values()[i-1].toString());
-            cal.mostraMes(i,2025);
+        int mesAgr=1;
+        int anoAgr=2025;
+        int input=0;
+        whileTrue: while(true){
+            System.out.println(Mes.values()[mesAgr-1].toString());
+            cal.mostraMes(mesAgr,anoAgr);
+            input=sc.nextInt();
+            sc.nextLine();
+            Misc.limpaTela();
+            switch(input){
+            case 1:
+                if(mesAgr-1<1){
+                    if(anoAgr-1>=cal.getAnos().get(0).getAno()){
+                        mesAgr=12;
+                        anoAgr--;
+                    }
+                }
+                else{
+                    mesAgr--;
+                }
+                break;
+            case 2:
+                if(mesAgr+1>12){
+                    if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
+                        mesAgr=1;
+                        anoAgr++;
+                    }
+                }
+                else{
+                    mesAgr++;
+                }
+                break;
+            case 3:
+                break whileTrue;
+            }
         }
         sc.close();
     }
