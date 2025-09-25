@@ -19,8 +19,8 @@ public class RodaCalendario {
         System.out.println(cal.dataDia(day,mon,year));
         cal.mostraMesData(dia);
         System.out.println("");
-        for(int i=0;i<12;i++){
-            System.out.println(Mes.values()[i].toString());
+        for(int i=1;i<13;i++){
+            System.out.println(Mes.values()[i-1].toString());
             cal.mostraMes(i,2025);
         }
         sc.close();
