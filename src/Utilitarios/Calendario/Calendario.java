@@ -117,6 +117,12 @@ public class Calendario {
         return Semana.values()[dSem].toString();
     }
 
+    public int diaSemanaInt(int numCalendario){
+        int dSem=numCalendario+getAnos().get(0).getAnoInicia()-1;
+        dSem%=7;
+        return dSem;
+    }
+
     public int tempoMinuto(int hora, int min){
         return hora*60+min;
     }
@@ -143,11 +149,77 @@ public class Calendario {
         for(int i=0;i<anos.size();i++){
             anoObj=anos.get(i);
             if(anos.get(i).getAno()==ano){
-                total+=anoObj.fatMes(mes-1,anoObj.getMeses());
+                if(mes!=1){
+                    total+=anoObj.fatMes(mes-1,anoObj.getMeses());
+                }
                 break;
             }
             total+=anoObj.fatMes(12,anoObj.getMeses());
         }
         return total;
+    }
+
+    public Ano numAno(int anoNum){
+        Ano anoObj=anos.get(0);
+        for(int i=0;i<anos.size();i++){
+            anoObj=anos.get(i);
+            if(anos.get(i).getAno()==anoNum){
+                break;
+            }
+        }
+        return anoObj;
+    }
+
+    public void mostraMes(int mes,int ano){
+        Ano anoObj=numAno(ano);
+        System.out.println("────┬────┬────┬────┬────┬────┬───");
+        System.out.println("dom │seg │ter │qua │qui │sex │sab");
+        System.out.println("────┼────┼────┼────┼────┼────┼───");
+        for(int i=0;i<diaSemanaInt(dataDia(1,mes,ano));i++){
+            System.out.print("    ");
+            System.out.print("│");
+        }
+        for(int i=1;i<=anoObj.getMeses()[mes-1];i++){
+            System.out.print(" "+String.format("%02d", i)+" ");
+            if(diaSemanaInt(dataDia(i,mes,ano))==6){
+                if(i!=anoObj.getMeses()[mes-1]){System.out.println("");}
+            }
+            else{System.out.print("│");}
+        }
+        for(int i=diaSemanaInt(dataDia(anoObj.getMeses()[mes-1],mes,ano));i<=6;i++){
+            System.out.print("    ");
+            if(i<5){System.out.print("│");}
+        }
+        System.out.println("\n────┴────┴────┴────┴────┴────┴───");
+    }
+
+    public void mostraMesData(int data){
+        int mes=diaData(data,"mes");
+        int ano=diaData(data, "ano");
+        int dia=diaData(data,"dia");
+        Ano anoObj=numAno(ano);
+        System.out.println("────┬────┬────┬────┬────┬────┬───");
+        System.out.println("dom │seg │ter │qua │qui │sex │sab");
+        System.out.println("────┼────┼────┼────┼────┼────┼───");
+        for(int i=0;i<diaSemanaInt(dataDia(1,mes,ano));i++){
+            System.out.print("    ");
+            System.out.print("│");
+        }
+        for(int i=1;i<=anoObj.getMeses()[mes-1];i++){
+            if(i==dia){
+                System.out.print("\u001B[32m");
+            }
+            System.out.print(" "+String.format("%02d", i)+" ");
+            System.out.print("\u001B[0m");
+            if(diaSemanaInt(dataDia(i,mes,ano))==6){
+                if(i!=anoObj.getMeses()[mes-1]){System.out.println("");}
+            }
+            else{System.out.print("│");}
+        }
+        for(int i=diaSemanaInt(dataDia(anoObj.getMeses()[mes-1],mes,ano));i<=6;i++){
+            System.out.print("    ");
+            if(i<5){System.out.print("│");}
+        }
+        System.out.println("\n────┴────┴────┴────┴────┴────┴───");
     }
 }
