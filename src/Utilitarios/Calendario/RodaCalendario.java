@@ -27,7 +27,10 @@ public class RodaCalendario {
         String input="";
         Misc.limpaTela();
         whileTrue: while(true){
-            cal.mostraMes(mesAgr,anoAgr);
+            Misc.savePos();
+            cal.mostraMes(mesAgr,anoAgr,0);
+            Misc.gotoSavedPos();
+            cal.mostraMes(mesAgr,anoAgr,40);
             input=sc.nextLine();
             Misc.limpaTela();
             switch(input){

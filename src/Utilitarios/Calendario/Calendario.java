@@ -183,21 +183,21 @@ public class Calendario {
         return anoObj;
     }
 
-    public void mostraMes(int mes,int ano){
+    public void mostraMes(int mes,int ano,int pad){
         Ano anoObj=numAno(ano);
         String mesStr=Mes.values()[mes-1].toString();
         double strPad=Math.floor((25-mesStr.length())/2);
-        System.out.print("┌────────┬─────────────────────────┐");
-        System.out.println("");
-        System.out.print("│  "+ano+"  │");
+        System.out.println(Misc.setCol(pad)+"┌────────┬─────────────────────────┐");
+        System.out.print(Misc.setCol(pad)+"│  "+ano+"  │");
         System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.print(mesStr);
         strPad=mesStr.length()%2==0 ? strPad+1 : strPad;
         System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.println("│");
-        System.out.println("├────┬───┴┬────┬────┬────┬────┬────┤");
-        System.out.println("│dom │seg │ter │qua │qui │sex │sab │");
-        System.out.println("├────┼────┼────┼────┼────┼────┼────┤");
+        System.out.println(Misc.setCol(pad)+"├────┬───┴┬────┬────┬────┬────┬────┤");
+        System.out.println(Misc.setCol(pad)+"│ D  │ S  │ T  │ Q  │ Q  │ S  │ S  │");
+        System.out.println(Misc.setCol(pad)+"├────┼────┼────┼────┼────┼────┼────┤");
+        System.out.print(Misc.setCol(pad));
         if(diaSemanaInt(dataDia(1,mes,ano))!=0){System.out.print("│");}
         for(int i=0;i<diaSemanaInt(dataDia(1,mes,ano));i++){
             System.out.print("    ");
@@ -217,6 +217,7 @@ public class Calendario {
                 System.out.print("│");
                 if(i!=anoObj.getMeses()[mes-1]){
                     System.out.println("");
+                    System.out.print(Misc.setCol(pad));
                     //System.out.println("├────┼────┼────┼────┼────┼────┼────┤");
                 }
             }
@@ -226,7 +227,11 @@ public class Calendario {
             System.out.print("    ");
             System.out.print("│");
         }
-        System.out.println("\n└────┴────┴────┴────┴────┴────┴────┘");
+        System.out.println("\n"+Misc.setCol(pad)+"└────┴────┴────┴────┴────┴────┴────┘");
+    }
+
+    public void mostraHorario(){
+        ArrayList<String> horarios=new ArrayList<String>();
     }
 
     public void mostraMesData(int data){

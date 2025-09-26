@@ -23,4 +23,22 @@ public class Misc {
         }
         return string;
     }
+
+    public static String setCol(int col){
+        if(col>0){return String.format("%c[%dC", 0x1B, col);}
+        else{return "";}
+    }
+
+    public static String setLin(int lin){
+        if(lin>0){return String.format("%c[%dB", 0x1B, lin);}
+        else{return "";}
+    }
+
+    public static void savePos(){
+        System.out.println(String.format("%c[s", 0x1B));
+    }
+
+    public static void gotoSavedPos(){
+        System.out.println(String.format("%c[u", 0x1B));
+    }
 }
