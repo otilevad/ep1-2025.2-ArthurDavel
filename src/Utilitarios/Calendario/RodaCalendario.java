@@ -1,5 +1,9 @@
 package Utilitarios.Calendario;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Scanner;
 import Utilitarios.*;
@@ -46,6 +50,25 @@ public class RodaCalendario {
                 else{mesAgr++;}
                 break;
             case "s":
+                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
+                String dataString = sc.nextLine();; // Exemplo de data inválida
+                LocalDate data=null;
+                try {
+                    if(LocalDate.parse(dataString, formatador).getYear()>2026 || LocalDate.parse(dataString, formatador).getYear()<2025){
+                        throw new DateTimeException("Ano inválido");
+                    }
+                    data = LocalDate.parse(dataString, formatador);
+                    cal.getDatasM().add(new DataMarcada(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear()),0));
+                    mesAgr=data.getMonthValue();
+                    anoAgr=data.getYear();
+                    System.out.println(data.format(formatador).toString() +" "+LocalDate.now().format(formatador).toString());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Por favor, digite a data neste formato ==> dd/MM/yyyy: " + e.getMessage());
+                } catch (DateTimeException e){
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "e":
                 break whileTrue;
             }
         }

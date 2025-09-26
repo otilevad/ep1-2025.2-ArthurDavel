@@ -6,13 +6,16 @@ import Utilitarios.Misc;
 
 public class Calendario {
     private ArrayList<Ano> anos;
+    private ArrayList<DataMarcada> datasM;
 
     public Calendario(){
         this.anos=new ArrayList<Ano>();
+        this.datasM=new ArrayList<DataMarcada>();
     }
 
-    public Calendario(ArrayList<Ano> anos){
+    public Calendario(ArrayList<Ano> anos, ArrayList<DataMarcada> datasM){
         this.anos=anos;
+        this.datasM=datasM;
     }
 
     public ArrayList<Ano> getAnos(){
@@ -22,6 +25,14 @@ public class Calendario {
     public void setAnos(ArrayList<Ano> anos){
         this.anos=anos;
     }
+    
+    public ArrayList<DataMarcada> getDatasM() {
+		return this.datasM;
+	}
+
+	public void setDatasM(ArrayList<DataMarcada> datasM) {
+		this.datasM = datasM;
+	}
 
     enum Semana{
         Domingo,
@@ -176,12 +187,13 @@ public class Calendario {
         Ano anoObj=numAno(ano);
         String mesStr=Mes.values()[mes-1].toString();
         double strPad=Math.floor((25-mesStr.length())/2);
-        System.out.println("┌────────┬─────────────────────────┐");
+        System.out.print("┌────────┬─────────────────────────┐");
+        System.out.println("");
         System.out.print("│  "+ano+"  │");
-        Misc.printNum(" ", (int) strPad);
+        System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.print(mesStr);
         strPad=mesStr.length()%2==0 ? strPad+1 : strPad;
-        Misc.printNum(" ", (int) strPad);
+        System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.println("│");
         System.out.println("├────┬───┴┬────┬────┬────┬────┬────┤");
         System.out.println("│dom │seg │ter │qua │qui │sex │sab │");
@@ -193,10 +205,20 @@ public class Calendario {
         }
         for(int i=1;i<=anoObj.getMeses()[mes-1];i++){
             if(diaSemanaInt(dataDia(i,mes,ano))==0){System.out.print("│");}
+            for(DataMarcada j : datasM){
+                if(dataDia(i,mes,ano)==j.getData()){
+                    j.printaCor();
+                    break;
+                }
+            }
             System.out.print(" "+String.format("%02d", i)+" ");
+            DataMarcada.resetaCor();
             if(diaSemanaInt(dataDia(i,mes,ano))==6){
                 System.out.print("│");
-                if(i!=anoObj.getMeses()[mes-1]){System.out.println("");}
+                if(i!=anoObj.getMeses()[mes-1]){
+                    System.out.println("");
+                    //System.out.println("├────┼────┼────┼────┼────┼────┼────┤");
+                }
             }
             else{System.out.print("│");}
         }
@@ -216,10 +238,10 @@ public class Calendario {
         double strPad=Math.floor((25-mesStr.length())/2);
         System.out.println("┌────────┬─────────────────────────┐");
         System.out.print("│  "+ano+"  │");
-        Misc.printNum(" ", (int) strPad);
+        System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.print(mesStr);
         strPad=25-mesStr.length()%2==1 ? strPad+1 : strPad;
-        Misc.printNum(" ", (int) strPad);
+        System.out.print(Misc.stringNum(" ", (int) strPad));
         System.out.println("│");
         System.out.println("├────┬───┴┬────┬────┬────┬────┬────┤");
         System.out.println("│dom │seg │ter │qua │qui │sex │sab │");

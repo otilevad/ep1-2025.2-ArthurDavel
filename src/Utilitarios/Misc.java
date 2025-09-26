@@ -16,9 +16,11 @@ public class Misc {
         System.out.print("\033[1F\33[K");
     }
     
-    public static void printNum(String str,int num){
+    public static String stringNum(String str,int num){
+        String string="";
         for(int i=0;i<num;i++){
-            System.out.print(str);
+            string=string.concat(str);
         }
+        return string;
     }
 }
