@@ -22,10 +22,8 @@ public class RodaCalendario {
             int horPad=calPad+36;
             Misc.savePos();
             cal.mostraMes(mesAgr,anoAgr,calPad);
-            if(mesAgr%2==0){
-                Misc.gotoSavedPos();
-                cal.mostraHorario(30,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),horPad,8);
-            }
+            Misc.gotoSavedPos();
+            cal.mostraHorario(30,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),horPad,8);
             input=sc.nextLine();
             Misc.limpaTela();
             switch(input){

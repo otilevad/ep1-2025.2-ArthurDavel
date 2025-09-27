@@ -1,15 +1,6 @@
 package Utilitarios;
 
 public class Misc {
-    public static boolean isInt(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     public static void limpaTela(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
