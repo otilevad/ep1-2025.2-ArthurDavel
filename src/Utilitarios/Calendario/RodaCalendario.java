@@ -13,24 +13,19 @@ public class RodaCalendario {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         Calendario cal = new Calendario();
         cal.calendarioSetup();
-        int dia = sc.nextInt();
-        sc.nextLine();
-        int day=cal.diaData(dia,"dia");
-        int mon=cal.diaData(dia,"mes");
-        int year=cal.diaData(dia,"ano");
-        System.out.println(cal.diaSemana(dia)+", "+cal.dataString(day,mon,year));
-        System.out.println(cal.dataDia(day,mon,year));
-        cal.mostraMesData(dia);
-        System.out.println("");
         int mesAgr=1;
         int anoAgr=2025;
         String input="";
         Misc.limpaTela();
         whileTrue: while(true){
+            int calPad=0;
+            int horPad=calPad+36;
             Misc.savePos();
-            cal.mostraMes(mesAgr,anoAgr,0);
-            Misc.gotoSavedPos();
-            cal.mostraHorario(10,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),37);
+            cal.mostraMes(mesAgr,anoAgr,calPad);
+            if(mesAgr%2==0){
+                Misc.gotoSavedPos();
+                cal.mostraHorario(30,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),horPad,8);
+            }
             input=sc.nextLine();
             Misc.limpaTela();
             switch(input){

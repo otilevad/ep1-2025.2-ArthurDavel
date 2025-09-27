@@ -17,8 +17,10 @@ public class App {
         int opt=0;
         Menu menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado));
         boolean skipInput=false;
+        String obs="";
         while(true){
             Misc.limpaTela();
+            obs="";
             if(opt>=0){
                 menuSelecionado=opt;
             }
@@ -27,7 +29,7 @@ public class App {
                 break;
             }
             else if(opt==-1){
-                System.out.println("Por favor, digite uma opção válida.");
+                obs="Por favor, digite uma opção válida.\n";
             }
             else{
                 opt=MenuSetup.criaAcoes(opt, rep, sc);
@@ -36,6 +38,7 @@ public class App {
             if(!skipInput){
                 menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
                 menuAtual.mostraMenu(menuAtual.getOpts());
+                System.out.print(obs);
                 try{
                     opt = sc.nextInt();
                     sc.nextLine();

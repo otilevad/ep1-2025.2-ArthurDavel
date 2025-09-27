@@ -1,6 +1,15 @@
 package Utilitarios;
 
 public class Misc {
+    public static boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static void limpaTela(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -29,16 +38,30 @@ public class Misc {
         else{return "";}
     }
 
+    public static String voltaCol(int col){
+        if(col>0){return String.format("%c[%dD", 0x1B, col);}
+        else{return "";}
+    }
+
+    public static String sobeLin(int lin){
+        if(lin>0){return String.format("%c[%dA", 0x1B, lin);}
+        else{return "";}
+    }
+
     public static String setLin(int lin){
         if(lin>0){return String.format("%c[%dB", 0x1B, lin);}
         else{return "";}
     }
 
     public static void savePos(){
-        System.out.println(String.format("%c[s", 0x1B));
+        System.out.print(String.format("%c[s", 0x1B));
     }
 
     public static void gotoSavedPos(){
-        System.out.println(String.format("%c[u", 0x1B));
+        System.out.print(String.format("%c[u", 0x1B));
+    }
+
+    public static void gotoHome(){
+        System.out.print(String.format("%c[H", 0x1B));
     }
 }
