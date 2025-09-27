@@ -230,8 +230,21 @@ public class Calendario {
         System.out.println("\n"+Misc.setCol(pad)+"└────┴────┴────┴────┴────┴────┴────┘");
     }
 
-    public void mostraHorario(){
-        ArrayList<String> horarios=new ArrayList<String>();
+    public void mostraHorario(int tempoConsulta,int inicia, int acaba, int pad){
+        //ArrayList<String> horarios=new ArrayList<String>();
+        Misc.savePos();
+        int quant=1440/tempoConsulta;
+        int colunas=quant/10;
+        int tempPad=pad;
+        int hCount=0;
+        for(int i=inicia;i<acaba;i+=tempoConsulta){
+            System.out.println(Misc.setCol(tempPad)+minutoTempo(i));
+            hCount++;
+            if(hCount%10==0){
+                tempPad+=6;
+                Misc.gotoSavedPos();
+            }
+        }
     }
 
     public void mostraMesData(int data){

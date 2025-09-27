@@ -30,7 +30,7 @@ public class RodaCalendario {
             Misc.savePos();
             cal.mostraMes(mesAgr,anoAgr,0);
             Misc.gotoSavedPos();
-            cal.mostraMes(mesAgr,anoAgr,40);
+            cal.mostraHorario(10,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),37);
             input=sc.nextLine();
             Misc.limpaTela();
             switch(input){
