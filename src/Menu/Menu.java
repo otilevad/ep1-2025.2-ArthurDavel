@@ -114,6 +114,9 @@ public class Menu {
                             num=Integer.parseInt(str);
                             InputCheck.intervaloCheck(num, 0, 120);
                             break;
+                        case "crm":
+                            
+                            break;
                     }
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);

@@ -40,6 +40,9 @@ public abstract class Pessoa {
     }
 
     abstract public void addComandos();
+    public void setAtributosPessoa(){
+        setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
+    }
     abstract public void cadastrar(AllRep rep, Scanner sc) throws Exception;
     abstract public void imprimeDados();
     public int inputInt(String str, Scanner sc){

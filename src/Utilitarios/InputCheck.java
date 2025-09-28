@@ -55,13 +55,6 @@ public class InputCheck {
         }
     }
 
-    public static void idadeCheck(int idade) throws Exception{
-
-        if(idade<0){
-
-        }
-    }
-
     public static void numberCheck(String str) throws Exception{
         if(!isIntOrDouble(str)){
             throw new NumberException("A resposta deve conter apenas números.");
