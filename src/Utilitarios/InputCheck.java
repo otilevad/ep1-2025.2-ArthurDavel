@@ -70,7 +70,7 @@ public class InputCheck {
 
     public static void intCheck(String str) throws Exception{
         if(!isInt(str)){
-            throw new NumberException("A resposta deve ser um int.");
+            throw new NumberException("Este número deve ser menor que 2147483647.");
         }
     }
 

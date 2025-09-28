@@ -1,5 +1,7 @@
 package Menu;
 
+import java.util.ArrayList;
+
 public class Comando {
     private String dado;
     private String type;
@@ -69,5 +71,14 @@ public class Comando {
 
     public String getValorStr() {
         return this.valorStr;
+    }
+
+    public static Comando buscaPorDado(String dado, ArrayList<Comando> cmds){
+        for(Comando cmd : cmds){
+            if(cmd.getDado()==dado){
+                return cmd;
+            }
+        }
+        return new Comando();
     }
 }

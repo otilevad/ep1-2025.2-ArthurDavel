@@ -1,8 +1,11 @@
 package Entidades.Medico;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Entidades.Pessoa;
+import Menu.Comando;
+import Menu.Menu;
 import Repositorios.*;
 
 public class Medico extends Pessoa{
@@ -11,10 +14,11 @@ public class Medico extends Pessoa{
     public Medico(){
         super();
         this.crm="";
+        addComandos();
     }
 
-    public Medico(String nome, String crm){
-        super(nome);
+    public Medico(String nome, String crm, ArrayList<Comando> comandos){
+        super(nome,comandos);
         this.crm=crm;
     }
 
@@ -27,28 +31,15 @@ public class Medico extends Pessoa{
     }
 
     @Override
+    public void addComandos(){
+        getComandos().add(new Comando("crm", "String", "Digite o CRM: "));
+    }
+
+    @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        int dado=0;
-        String nome="";
-        String crm="";
-        whileTrue: while(true){
-            switch(dado){
-                case 0:
-                    System.out.print("Digite o nome: ");
-                    nome=sc.nextLine();
-                    dado++;
-                    break;
-                case 1:
-                    System.out.print("Digite o CRM: ");
-                    crm=sc.nextLine();
-                    dado++;
-                    break;
-                default:
-                    break whileTrue;
-            }
-        }
-        setNome(nome);
-        setCrm(crm);
+        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc));
+        setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
+        setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
         rep.getMedicosR().adicionaMedico(this);
     }
 

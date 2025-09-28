@@ -122,9 +122,6 @@ public class Menu {
                     System.out.print(Misc.setCol(writePad)+"│");
                     break whileTrue;
                 }
-                catch(NumberException e){
-                    erro="Este número é inválido";
-                }
                 catch(Exception e){
                     erro=e.getMessage();
                 }

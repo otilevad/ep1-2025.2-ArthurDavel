@@ -13,6 +13,7 @@ public class Paciente extends Pessoa{
     private int idade;
     private boolean idoso;
     private HistoricoPaciente historicoPaciente;
+    //private ArrayList<Comando> comandos;
 
     public Paciente(){
         super();
@@ -20,10 +21,11 @@ public class Paciente extends Pessoa{
         this.idade=0;
         this.idoso=false;
         this.historicoPaciente=new HistoricoPaciente();
+        addComandos();
     }
 
-    public Paciente(String nome, String cpf, int idade, HistoricoPaciente historicoPaciente){
-        super(nome);
+    public Paciente(String nome, String cpf, int idade, HistoricoPaciente historicoPaciente, ArrayList<Comando> comandos){
+        super(nome,comandos);
         this.cpf=cpf;
         this.idade=idade;
         this.idoso=(this.idade>=60);
@@ -60,39 +62,18 @@ public class Paciente extends Pessoa{
     }
 
     @Override
+    public void addComandos(){
+        getComandos().add(new Comando("cpf", "String", "Digite o CPF: "));
+        getComandos().add(new Comando("idade", "int", "Digite a idade: "));
+    }
+
+    @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        int dado = 0;
-        String nome = "";
-        String cpf = "";
-        int idade = 0;
-        ArrayList<Comando> comandos = new ArrayList<Comando>();
-        comandos.add(new Comando("nome", "String", "Digite o nome:"));
-        comandos.add(new Comando("cpf", "String", "Digite o CPF: "));
-        comandos.add(new Comando("idade", "int", "Digite a idade: "));
-        Menu.inputMenu(comandos, 0, 35, sc);
-        /* 
-        whileTrue: while(true){
-            switch(dado){
-                case 0:
-                    System.out.print("Digite o nome: ");
-                    nome=sc.nextLine();
-                    break;
-                case 1:
-                    System.out.print("Digite o CPF: ");
-                    cpf=sc.nextLine();
-                    break;
-                case 2:
-                    idade=inputInt("Digite a idade: ", sc);
-                    break;
-                default:
-                    break whileTrue;
-            }
-            dado++;
-        }
-        setNome(nome);
-        setCpf(cpf);
-        setIdade(idade);
-        rep.getPacientesR().adicionaPaciente(this);*/
+        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc));
+        setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
+        setCpf(Comando.buscaPorDado("cpf",getComandos()).getValorStr());
+        setIdade(Comando.buscaPorDado("idade",getComandos()).getValorInt());
+        rep.getPacientesR().adicionaPaciente(this);
     }
 
     @Override
