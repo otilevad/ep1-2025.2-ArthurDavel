@@ -63,7 +63,7 @@ public class InputCheck {
 
     public static void intCheck(String str) throws Exception{
         if(!isInt(str)){
-            throw new NumberException("Este número deve ser menor que 2147483647.");
+            throw new NumberException("A resposta deve ser um int.");
         }
     }
 
@@ -76,6 +76,12 @@ public class InputCheck {
         }
         if(str.length()<min){
             throw new CharLimitException("A resposta deve ter no mínimo "+min+" "+(min>1?"caracteres":"caracter")+".");
+        }
+    }
+
+    public static void crmCheck(String str) throws Exception{
+        if(!str.matches("^\\d{6}[A-Z]{2}")){
+            throw new CrmInvException("O CRM deve seguir o padrão 123456DF.");
         }
     }
 }

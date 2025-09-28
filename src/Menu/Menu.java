@@ -102,7 +102,7 @@ public class Menu {
                     str=sc.nextLine();
                     switch(cmd.getDado()){
                         case "nome":
-                            InputCheck.charLimitCheck(str,1,writePad);
+                            
                             break;
                         case "cpf":
                             InputCheck.charLimitCheck(str,11,11);
@@ -115,9 +115,10 @@ public class Menu {
                             InputCheck.intervaloCheck(num, 0, 120);
                             break;
                         case "crm":
-                            
+                            InputCheck.crmCheck(str);
                             break;
                     }
+                    InputCheck.charLimitCheck(str,1,writePad);
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);
                     erro="";
