@@ -24,16 +24,6 @@ public class Misc {
         return string;
     }
 
-    public static String setCol(int col){
-        if(col>0){return String.format("%c[%dC", 0x1B, col);}
-        else{return "";}
-    }
-
-    public static String voltaCol(int col){
-        if(col>0){return String.format("%c[%dD", 0x1B, col);}
-        else{return "";}
-    }
-
     public static String sobeLin(int lin){
         if(lin>0){return String.format("%c[%dA", 0x1B, lin);}
         else{return "";}
@@ -41,6 +31,16 @@ public class Misc {
 
     public static String setLin(int lin){
         if(lin>0){return String.format("%c[%dB", 0x1B, lin);}
+        else{return "";}
+    }
+
+    public static String setCol(int col){
+        if(col>0){return String.format("%c[%dC", 0x1B, col);}
+        else{return "";}
+    }
+
+    public static String voltaCol(int col){
+        if(col>0){return String.format("%c[%dD", 0x1B, col);}
         else{return "";}
     }
 
@@ -54,5 +54,10 @@ public class Misc {
 
     public static void gotoHome(){
         System.out.print(String.format("%c[H", 0x1B));
+    }
+
+    public static void resetSetPos(int col, int lin){
+        Misc.gotoSavedPos();
+        System.out.print(Misc.setCol(col)+Misc.setLin(lin));
     }
 }

@@ -47,12 +47,13 @@ public class MenuSetup {
         return menus;
     }
 
-    public static int criaAcoes(int opt, AllRep rep, Scanner sc){
+    public static int criaAcoes(int opt, AllRep rep, Scanner sc) throws Exception{
         int destino=0;
         switch(opt){
             case -3: //Cadastro de pacientes
                 new Paciente().cadastrar(rep, sc);
-                Misc.limpaTela();
+                //Misc.limpaTela();
+                sc.nextLine(); //comente isso
                 destino=1;
                 break;
             case -4: //Listar Pacientes

@@ -24,7 +24,7 @@ public abstract class Pessoa {
         this.nome=nome;
     }
 
-    abstract public void cadastrar(AllRep rep, Scanner sc);
+    abstract public void cadastrar(AllRep rep, Scanner sc) throws Exception;
     abstract public void imprimeDados();
     public int inputInt(String str, Scanner sc){
         boolean inputErrado=false; 

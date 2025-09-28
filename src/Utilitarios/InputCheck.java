@@ -5,6 +5,38 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputCheck {
+    public static boolean isIntOrDouble(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            try {
+                Double.parseDouble(str);
+                return true;
+            }
+            catch (NumberFormatException f) {
+                return false;
+            }
+        }
+    }
+
+    public static boolean isInt(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static int posIntCheck(Scanner sc) throws InputMismatchException, Exception{
         int input=-1;
         try{
@@ -27,6 +59,30 @@ public class InputCheck {
 
         if(idade<0){
 
+        }
+    }
+
+    public static void numberCheck(String str) throws Exception{
+        if(!isIntOrDouble(str)){
+            throw new NumberException("A resposta deve conter apenas números.");
+        }
+    }
+
+    public static void intCheck(String str) throws Exception{
+        if(!isInt(str)){
+            throw new NumberException("A resposta deve ser um int.");
+        }
+    }
+
+    public static void charLimitCheck(String str,int min,int max) throws Exception{
+        if(min==max && str.length()!=min){
+            throw new CharLimitException("A resposta deve conter exatamente "+max+" "+(max>1?"caracteres":"caracter")+".");
+        }
+        if(str.length()>max){
+            throw new CharLimitException("A resposta deve ter no máximo "+max+" "+(max>1?"caracteres":"caracter")+".");
+        }
+        if(str.length()<min){
+            throw new CharLimitException("A resposta deve ter no mínimo "+min+" "+(min>1?"caracteres":"caracter")+".");
         }
     }
 }

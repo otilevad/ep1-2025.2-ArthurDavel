@@ -27,7 +27,7 @@ public class Medico extends Pessoa{
     }
 
     @Override
-    public void cadastrar(AllRep rep, Scanner sc){
+    public void cadastrar(AllRep rep, Scanner sc) throws Exception{
         int dado=0;
         String nome="";
         String crm="";

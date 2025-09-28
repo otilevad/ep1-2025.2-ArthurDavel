@@ -1,9 +1,11 @@
 package Entidades.Paciente;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import Entidades.Pessoa;
 import Repositorios.*;
+import Menu.*;
 import Utilitarios.Calendario.Historico;
 
 public class Paciente extends Pessoa{
@@ -58,11 +60,17 @@ public class Paciente extends Pessoa{
     }
 
     @Override
-    public void cadastrar(AllRep rep, Scanner sc){
-        int dado=0;
-        String nome="";
-        String cpf="";
-        int idade=0;
+    public void cadastrar(AllRep rep, Scanner sc) throws Exception{
+        int dado = 0;
+        String nome = "";
+        String cpf = "";
+        int idade = 0;
+        ArrayList<Comando> comandos = new ArrayList<Comando>();
+        comandos.add(new Comando("nome", "String", "Digite o nome:"));
+        comandos.add(new Comando("cpf", "String", "Digite o CPF: "));
+        comandos.add(new Comando("idade", "int", "Digite a idade: "));
+        Menu.inputMenu(comandos, 0, 35, sc);
+        /* 
         whileTrue: while(true){
             switch(dado){
                 case 0:
@@ -84,7 +92,7 @@ public class Paciente extends Pessoa{
         setNome(nome);
         setCpf(cpf);
         setIdade(idade);
-        rep.getPacientesR().adicionaPaciente(this);
+        rep.getPacientesR().adicionaPaciente(this);*/
     }
 
     @Override
