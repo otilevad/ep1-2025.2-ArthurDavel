@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputCheck {
-    public static boolean isIntOrDouble(String str) {
+    public static boolean isIntOrLong(String str) {
         if (str == null) {
             return false;
         }
@@ -15,7 +15,7 @@ public class InputCheck {
         }
         catch (NumberFormatException e) {
             try {
-                Double.parseDouble(str);
+                Long.parseLong(str);
                 return true;
             }
             catch (NumberFormatException f) {
@@ -56,7 +56,7 @@ public class InputCheck {
     }
 
     public static void numberCheck(String str) throws Exception{
-        if(!isIntOrDouble(str)){
+        if(!isIntOrLong(str)){
             throw new NumberException("A resposta deve conter apenas números.");
         }
     }

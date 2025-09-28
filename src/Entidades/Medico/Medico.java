@@ -10,6 +10,7 @@ import Repositorios.*;
 
 public class Medico extends Pessoa{
     private String crm;
+    private 
 
     public Medico(){
         super();
@@ -38,7 +39,7 @@ public class Medico extends Pessoa{
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
         setComandos(Menu.inputMenu(getComandos(), 0, 35, sc));
-        setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
+        setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
         rep.getMedicosR().adicionaMedico(this);
     }

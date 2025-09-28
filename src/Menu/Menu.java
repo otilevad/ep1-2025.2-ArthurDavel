@@ -115,6 +115,7 @@ public class Menu {
                             InputCheck.intervaloCheck(num, 0, 120);
                             break;
                         case "crm":
+                            InputCheck.charLimitCheck(str,8,8);
                             InputCheck.crmCheck(str);
                             break;
                     }
