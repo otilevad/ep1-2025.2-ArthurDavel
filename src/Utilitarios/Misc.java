@@ -1,5 +1,7 @@
 package Utilitarios;
 
+import java.lang.foreign.*;
+
 public class Misc {
     public static void limpaTela(){
         System.out.print(String.format("%c[H\033[2J",0x1B));
@@ -78,6 +80,27 @@ public class Misc {
         catch(Exception e){
             return 0;
         }
-        
     }
+
+    static boolean iniciaANSI(){ //Código que faz códigos ANSI funcionarem
+        try(Arena arena=Arena.ofConfined()) {
+            SymbolLookup sl=SymbolLookup.libraryLookup("kernel32.dll", arena);
+            Linker linker=Linker.nativeLinker();
+            MethodHandle GetStdHandle=linker.downcallHandle(sl.find("GetStdHandle").orElseThrow(),
+                FunctionDescriptor.of(ValueLayout.ADDRESS, ValueLayout.JAVA_INT)
+            );
+            MethodHandle SetConsoleMode=linker.downcallHandle(sl.find("SetConsoleMode").orElseThrow(),
+                FunctionDescriptor.of(ValueLayout.JAVA_BOOLEAN, ValueLayout.ADDRESS, ValueLayout.JAVA_INT)
+            );
+            MemorySegment a=(MemorySegment)GetStdHandle.invokeExact(STD_OUTPUT_HANDLE);
+            return (boolean)SetConsoleMode.invokeExact(a,
+                ENABLE_PROCESSED_OUTPUT|ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        } catch (RuntimeException | Error unchecked) {
+            throw unchecked;
+        } catch(Throwable e) {
+            throw new AssertionError(e);
+        }
+    }
+    static final int STD_OUTPUT_HANDLE = -11,
+    ENABLE_PROCESSED_OUTPUT = 0x0001, ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
 }

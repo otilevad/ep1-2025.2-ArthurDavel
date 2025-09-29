@@ -14,10 +14,19 @@ public class Menu {
     public Menu() {
         this.nome="";
         this.id=0;
+        this.opts=new ArrayList<Opcao>();
     }
+
     public Menu(String nome, int id) {
         this.nome=nome;
         this.id=id;
+        this.opts=new ArrayList<Opcao>();
+    }
+
+    public Menu(String nome, int id, ArrayList<Opcao> opts) {
+        this.nome=nome;
+        this.id=id;
+        this.opts=opts;
     }
 
     public String getNome() {

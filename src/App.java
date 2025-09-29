@@ -2,9 +2,8 @@ import Menu.*;
 import Utilitarios.*;
 import Repositorios.*;
 
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.lang.invoke.MethodHandle;
+import java.lang.foreign.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
@@ -14,6 +13,9 @@ import Exceptions.*;
 
 public class App {
     public static void main (String[] args) throws Exception {
+        if(System.getProperty("os.name").toLowerCase().startsWith("windows")){
+            Misc.iniciaANSI(); 
+        }
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
