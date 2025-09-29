@@ -63,6 +63,7 @@ public class Menu {
     }
 
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc) throws Exception{
+        int telaTam=Misc.getTamanhoTela();
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
         Misc.savePos();
         int tamTabela=0;
@@ -72,6 +73,7 @@ public class Menu {
             }
         }
         int comandoPad=pad+tamTabela+2;
+        Misc.gotoSavedPos();
         System.out.println( Misc.setCol(pad)+"┌"+Misc.stringNum("─",tamTabela)+"┬"+
                             Misc.stringNum("─",writePad)+"┐");
         for(Comando cmd : inputs){ //Desenha a tabela
@@ -87,10 +89,12 @@ public class Menu {
         int num=0;
         String str="";
         String erro="";
+        int extraWipe=0;
         for(Comando cmd : inputs){
             whileTrue: while(true){
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
-                System.out.print(Misc.stringNum(" ",writePad)+"│");
+                System.out.print(Misc.stringNum(" ",writePad)+"│"+Misc.stringNum(" ",extraWipe));
+                extraWipe=0;
                 Misc.resetSetPos(pad,1+2*(inputs.size()));
                 System.out.print(Misc.stringNum(" ",writePad*2));
                 if(erro!=""){
@@ -126,6 +130,16 @@ public class Menu {
                     Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                     System.out.print(Misc.setCol(writePad)+"│");
                     break whileTrue;
+                }
+                catch(CharLimitException e){
+                    erro=e.getMessage();
+                    if(str.length()>writePad){
+                        extraWipe=str.length()-writePad;
+                        if(telaTam!=0 && str.length()+pad+tamTabela>telaTam){
+                            erro="Você escreve muito né mano";
+                        }
+                    }
+                    
                 }
                 catch(Exception e){
                     erro=e.getMessage();
