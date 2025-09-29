@@ -2,6 +2,9 @@ import Menu.*;
 import Utilitarios.*;
 import Repositorios.*;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;

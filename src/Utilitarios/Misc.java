@@ -2,18 +2,18 @@ package Utilitarios;
 
 public class Misc {
     public static void limpaTela(){
-        System.out.print("\033[H\033[2J");
+        System.out.print(String.format("%c[H\033[2J",0x1B));
         System.out.flush();
     }
 
     public static void limpaLinha(int qtd){
         for(int i=0;i<qtd;i++){
-            System.out.print("\033[1F\33[K");
+            System.out.print(String.format("%c[1F\33[K",0x1B));
         }
     }
 
     public static void limpaLinha(){
-        System.out.print("\033[1F\33[K");
+        System.out.print(String.format("%c[1F\33[K",0x1B));
     }
     
     public static String stringNum(String str,int num){
