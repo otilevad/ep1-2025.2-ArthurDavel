@@ -10,7 +10,7 @@ import Repositorios.*;
 
 public class Medico extends Pessoa{
     private String crm;
-    private 
+    private Especialidade espec;
 
     public Medico(){
         super();

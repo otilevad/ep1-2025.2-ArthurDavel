@@ -1,17 +1,19 @@
 package Entidades.Medico;
 
+import java.util.ArrayList;
+
 public class Especialidade {
     private String nome;
-    private int valor;
+    private double mult;
 
     public Especialidade(){
         this.nome="";
-        this.valor=0;
+        this.mult=0;
     }
 
-    public Especialidade(String nome, int valor){
+    public Especialidade(String nome, double mult){
         this.nome=nome;
-        this.valor=valor;
+        this.mult=mult;
     }
     
     public void setNome(String nome){
@@ -22,11 +24,11 @@ public class Especialidade {
         return this.nome;
     }
 
-    public void setValor(int valor){
-        this.valor=valor;
+    public void setValor(double mult){
+        this.mult=mult;
     }
 
-    public int getValor(){
-        return this.valor;
+    public double getValor(){
+        return this.mult;
     }
 }

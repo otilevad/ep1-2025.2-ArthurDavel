@@ -3,15 +3,18 @@ package Repositorios;
 public class AllRep {
     private PacientesRep pacientesR;
     private MedicosRep medicosR;
+    private EspecialidadesRep especialidadesR;
 
     public AllRep(){
-        pacientesR= new PacientesRep();
-        medicosR= new MedicosRep();
+        this.pacientesR= new PacientesRep();
+        this.medicosR= new MedicosRep();
+        this.especialidadesR= new EspecialidadesRep();
     }
 
-    public AllRep(PacientesRep pacientesR, MedicosRep medicosR){
-        pacientesR=this.pacientesR;
-        medicosR=this.medicosR;
+    public AllRep(PacientesRep pacientesR, MedicosRep medicosR, EspecialidadesRep especialidadesR){
+        this.pacientesR=pacientesR;
+        this.medicosR=medicosR;
+        this.especialidadesR=especialidadesR;
     }
 
     public PacientesRep getPacientesR() {
@@ -30,4 +33,11 @@ public class AllRep {
         this.medicosR = medicosR;
     }
 
+    public EspecialidadesRep getEspecialidadesR() {
+        return this.especialidadesR;
+    }
+
+    public void setEspecialidadesR(EspecialidadesRep especialidadesR) {
+        this.especialidadesR = especialidadesR;
+    }
 }
