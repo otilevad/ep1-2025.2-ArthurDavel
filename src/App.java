@@ -69,6 +69,7 @@ public class App {
         }
         sc.close();
     }
+    
     static boolean iniciaANSI(){ //Código que faz códigos ANSI funcionarem
         try(Arena arena=Arena.ofConfined()) {
             SymbolLookup sl=SymbolLookup.libraryLookup("kernel32.dll", arena);
