@@ -76,8 +76,14 @@ public class Menu {
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc,AllRep rep) throws Exception{
         int telaTam=Misc.getTamanhoTela();
         ArrayList<String> opcoesStrings=stringArrayRep(rep,"");
+        int maiorOpcaoTam=0;
+        int opcaoPad=0;
         boolean skipDesenhaTabela=false;
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
+        int num=0;
+        String str="";
+        String erro="";
+        int extraWipe=0;
         Misc.savePos();
         int tamTabela=0;
         for(Comando cmd : inputs){
@@ -88,10 +94,6 @@ public class Menu {
         int comandoPad=pad+tamTabela+2;
         int tamTotal=tamTabela+2+writePad+1;
         Misc.gotoSavedPos();
-        int num=0;
-        String str="";
-        String erro="";
-        int extraWipe=0;
         for(Comando cmd : inputs){
             whileTrue: while(true){
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
@@ -119,14 +121,20 @@ public class Menu {
                     System.out.print(erro);
                 }
                 opcoesStrings=stringArrayRep(rep,cmd.getDado());
+                maiorOpcaoTam=tamMaiorString(opcoesStrings);
                 if(!opcoesStrings.isEmpty()){
                     Misc.resetSetPos(pad+comandoPad+writePad+2,0);
                     System.out.println("Opções de "+cmd.getDado()+":");
                     int j=0;
+                    opcaoPad=0;
                     for(String i : opcoesStrings){
-                        Misc.resetSetPos(pad+tamTotal+1,j+1);
-                        System.out.println(j+" » "+i);
+                        Misc.resetSetPos(pad+tamTotal+1+opcaoPad,j+1);
+                        System.out.println(opcoesStrings.indexOf(i)+" » "+i);
                         j++;
+                        if(j==inputs.size()*2){
+                            opcaoPad+=maiorOpcaoTam+5;
+                            j=0;
+                        }
                     }
                     Misc.gotoSavedPos();
                 }
@@ -199,5 +207,15 @@ public class Menu {
                 break;
         }
         return strArray;
+    }
+
+    public static int tamMaiorString(ArrayList<String> strs){
+        int tam=0;
+        if(!strs.isEmpty()){
+            for(String i : strs){
+                if(i.length()>tam){tam=i.length();}
+            }
+        }
+        return tam;
     }
 }
