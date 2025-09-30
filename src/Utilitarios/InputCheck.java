@@ -1,8 +1,13 @@
 package Utilitarios;
 
 import Exceptions.*;
+
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InputCheck {
     public static boolean isIntOrLong(String str) {
@@ -67,7 +72,16 @@ public class InputCheck {
         }
     }
 
+    public static void alphabeticCheck(String str) throws Exception{
+        if(!str.matches("^[\\p{L}\\s]*$")){
+            throw new AlphabeticException(str+"A resposta deve conter apenas letras e espaços.");
+        }
+    }
+
     public static void charLimitCheck(String str,int min,int max) throws Exception{
+        if(str.matches("^\\s*$")){
+            throw new CharLimitException("A resposta não pode estar vazia.");
+        }
         if(min==max && str.length()!=min){
             throw new CharLimitException("A resposta deve conter exatamente "+max+" "+(max>1?"caracteres":"caracter")+".");
         }
@@ -84,4 +98,5 @@ public class InputCheck {
             throw new CrmInvException("O CRM deve seguir o padrão 123456DF.");
         }
     }
+
 }

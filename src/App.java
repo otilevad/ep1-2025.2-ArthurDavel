@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 import Exceptions.*;
 
@@ -16,7 +17,7 @@ public class App {
         if(System.getProperty("os.name").toLowerCase().startsWith("windows")){
             iniciaANSI(); 
         }
-        Scanner sc = new Scanner(System.in).useLocale(Locale.US);
+        Scanner sc = new Scanner(System.in, "Cp852").useLocale(Locale.US);
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
         AllRep rep = new AllRep();
@@ -69,7 +70,7 @@ public class App {
         }
         sc.close();
     }
-    
+
     static boolean iniciaANSI(){ //Código que faz códigos ANSI funcionarem
         try(Arena arena=Arena.ofConfined()) {
             SymbolLookup sl=SymbolLookup.libraryLookup("kernel32.dll", arena);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import Entidades.Pessoa;
 import Repositorios.*;
 import Menu.*;
+import Utilitarios.Misc;
 import Utilitarios.Calendario.Historico;
 
 public class Paciente extends Pessoa{

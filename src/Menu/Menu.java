@@ -73,6 +73,7 @@ public class Menu {
 
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc) throws Exception{
         int telaTam=Misc.getTamanhoTela();
+        boolean skipDesenhaTabela=false;
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
         Misc.savePos();
         int tamTabela=0;
@@ -83,18 +84,6 @@ public class Menu {
         }
         int comandoPad=pad+tamTabela+2;
         Misc.gotoSavedPos();
-        System.out.println( Misc.setCol(pad)+"┌"+Misc.stringNum("─",tamTabela)+"┬"+
-                            Misc.stringNum("─",writePad)+"┐");
-        for(Comando cmd : inputs){ //Desenha a tabela
-            System.out.println( Misc.setCol(pad)+"│"+cmd.getComando()+Misc.setCol(tamTabela-cmd.getComando().length())+
-                                "│"+Misc.setCol(writePad)+"│");
-            System.out.println( Misc.setCol(pad)+(inputs.indexOf(cmd)!=inputs.size()-1 ? "├" : "└")+
-                                Misc.stringNum("─",tamTabela)+
-                                (inputs.indexOf(cmd)!=inputs.size()-1 ? "┼" : "┴")+
-                                Misc.stringNum("─",writePad)+
-                                (inputs.indexOf(cmd)!=inputs.size()-1 ? "┤" : "┘"));
-        }
-        Misc.gotoSavedPos();
         int num=0;
         String str="";
         String erro="";
@@ -104,6 +93,21 @@ public class Menu {
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 System.out.print(Misc.stringNum(" ",writePad)+"│"+Misc.stringNum(" ",extraWipe));
                 extraWipe=0;
+                if(!skipDesenhaTabela){
+                    Misc.gotoSavedPos();
+                    System.out.println( Misc.setCol(pad)+"┌"+Misc.stringNum("─",tamTabela)+"┬"+
+                                        Misc.stringNum("─",writePad)+"┐");
+                    for(Comando cmdTab : inputs){ //Desenha a tabela
+                        System.out.println( Misc.setCol(pad)+"│"+cmdTab.getComando()+Misc.setCol(tamTabela-cmdTab.getComando().length())+
+                                            "│"+Misc.setCol(writePad)+"│");
+                        System.out.println( Misc.setCol(pad)+(inputs.indexOf(cmdTab)!=inputs.size()-1 ? "├" : "└")+
+                                            Misc.stringNum("─",tamTabela)+
+                                            (inputs.indexOf(cmdTab)!=inputs.size()-1 ? "┼" : "┴")+
+                                            Misc.stringNum("─",writePad)+
+                                            (inputs.indexOf(cmdTab)!=inputs.size()-1 ? "┤" : "┘"));
+                    }
+                    skipDesenhaTabela=true;
+                }
                 Misc.resetSetPos(pad,1+2*(inputs.size()));
                 System.out.print(Misc.stringNum(" ",writePad*2));
                 if(erro!=""){
@@ -113,9 +117,10 @@ public class Menu {
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
                     str=sc.nextLine();
+                    InputCheck.charLimitCheck(str,1,writePad);
                     switch(cmd.getDado()){
                         case "nome":
-                            
+                            InputCheck.alphabeticCheck(str);
                             break;
                         case "cpf":
                             InputCheck.charLimitCheck(str,11,11);
@@ -132,7 +137,6 @@ public class Menu {
                             InputCheck.crmCheck(str);
                             break;
                     }
-                    InputCheck.charLimitCheck(str,1,writePad);
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);
                     erro="";
@@ -145,7 +149,8 @@ public class Menu {
                     if(str.length()>writePad){
                         extraWipe=str.length()-writePad;
                         if(telaTam!=0 && str.length()+pad+tamTabela>telaTam){
-                            erro="Você escreve muito né mano";
+                            skipDesenhaTabela=false;
+                            erro="Por favor, não ultrapasse os limites da tabela";
                         }
                     }
                     
