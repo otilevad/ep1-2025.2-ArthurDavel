@@ -7,6 +7,7 @@ import Exceptions.*;
 import Utilitarios.*;
 import Repositorios.*;
 import Entidades.Medico.*;
+import Entidades.PlanoSaude.*;
 
 public class Menu {
     private String nome;
@@ -78,6 +79,7 @@ public class Menu {
         ArrayList<String> opcoesStrings=stringArrayRep(rep,"");
         int maiorOpcaoTam=0;
         int opcaoPad=0;
+        int minWrite=1;
         boolean skipDesenhaTabela=false;
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
         int num=0;
@@ -154,7 +156,13 @@ public class Menu {
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
                     str=sc.nextLine();
-                    InputCheck.charLimitCheck(str,1,writePad);
+                    if(cmd.getDado()=="planosaude"){
+                        minWrite=0;
+                    }
+                    else{
+                        minWrite=1;
+                    }
+                    InputCheck.charLimitCheck(str,minWrite,writePad);
                     switch(cmd.getDado()){
                         case "nome":
                             InputCheck.alphabeticCheck(str);
@@ -213,6 +221,11 @@ public class Menu {
         switch(str){
             case "especialidade":
                 for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+                    strArray.add(i.getNome());
+                }
+                break;
+            case "planosaude":
+                for(PlanoSaude i : rep.getPlanosR().getPlanos()){
                     strArray.add(i.getNome());
                 }
                 break;

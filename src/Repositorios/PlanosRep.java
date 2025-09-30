@@ -9,6 +9,7 @@ public class PlanosRep{
     
     public PlanosRep(){
         this.planos = new ArrayList<PlanoSaude>();
+        addPlanosPadrao();
     }
 
     public PlanosRep(ArrayList<PlanoSaude> planos){
@@ -40,5 +41,11 @@ public class PlanosRep{
             System.out.println("Não há Planos de Saúde cadastrados");
         }
         System.out.println("Pressione Enter para retornar");
+    }
+
+    public void addPlanosPadrao(){
+        getPlanos().add(new PlanoSaude("Mais Saúde",new ArrayList<Desconto>()));
+        getPlanos().add(new PlanoSaude("Mais ou Menos Saúde",new ArrayList<Desconto>()));
+        getPlanos().add(new PlanoSaude("Tudo Saúde",new ArrayList<Desconto>()));
     }
 }
