@@ -1,6 +1,8 @@
 package Entidades.Medico;
 
 import java.util.ArrayList;
+import Repositorios.*;
+
 
 public class Especialidade {
     private String nome;
@@ -30,5 +32,14 @@ public class Especialidade {
 
     public double getValor(){
         return this.mult;
+    }
+
+    public static Especialidade buscaNomeEspec(String nome, AllRep rep){
+        for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+            if(i.getNome()==nome){
+                return i;
+            }
+        }
+        return null;
     }
 }

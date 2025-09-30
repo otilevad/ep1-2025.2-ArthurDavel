@@ -70,7 +70,7 @@ public class Paciente extends Pessoa{
 
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc));
+        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
         setAtributosPessoa();
         setCpf(Comando.buscaPorDado("cpf",getComandos()).getValorStr());
         setIdade(Comando.buscaPorDado("idade",getComandos()).getValorInt());

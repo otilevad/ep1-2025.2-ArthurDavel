@@ -9,6 +9,7 @@ public class EspecialidadesRep {
 
     public EspecialidadesRep(){
         this.especialidades=new ArrayList<Especialidade>();
+        addEspecialidadesPadrao();
     }
 
     public EspecialidadesRep(ArrayList<Especialidade> especialidades){

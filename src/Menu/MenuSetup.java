@@ -52,8 +52,6 @@ public class MenuSetup {
         switch(opt){
             case -3: //Cadastro de pacientes
                 new Paciente().cadastrar(rep, sc);
-                //Misc.limpaTela();
-                sc.nextLine(); //comente isso
                 destino=1;
                 break;
             case -4: //Listar Pacientes
@@ -63,7 +61,6 @@ public class MenuSetup {
                 break;
             case -5: //Cadastro de médico
                 new Medico().cadastrar(rep, sc);
-                Misc.limpaTela();
                 destino=2;
                 break;
             case -6: //Listar médicos

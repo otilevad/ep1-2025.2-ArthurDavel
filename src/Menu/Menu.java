@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import Exceptions.*;
 import Utilitarios.*;
+import Repositorios.*;
+import Entidades.Medico.*;
 
 public class Menu {
     private String nome;
@@ -71,8 +73,9 @@ public class Menu {
         }
     }
 
-    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc) throws Exception{
+    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc,AllRep rep) throws Exception{
         int telaTam=Misc.getTamanhoTela();
+        ArrayList<String> opcoesStrings=stringArrayRep(rep,"");
         boolean skipDesenhaTabela=false;
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
         Misc.savePos();
@@ -83,6 +86,7 @@ public class Menu {
             }
         }
         int comandoPad=pad+tamTabela+2;
+        int tamTotal=tamTabela+2+writePad+1;
         Misc.gotoSavedPos();
         int num=0;
         String str="";
@@ -109,10 +113,22 @@ public class Menu {
                     skipDesenhaTabela=true;
                 }
                 Misc.resetSetPos(pad,1+2*(inputs.size()));
-                System.out.print(Misc.stringNum(" ",writePad*2));
+                System.out.print(Misc.stringNum(" ",tamTotal));
                 if(erro!=""){
                     Misc.resetSetPos(pad,1+2*(inputs.size()));
                     System.out.print(erro);
+                }
+                opcoesStrings=stringArrayRep(rep,cmd.getDado());
+                if(!opcoesStrings.isEmpty()){
+                    Misc.resetSetPos(pad+comandoPad+writePad+2,0);
+                    System.out.println("Opções de "+cmd.getDado()+":");
+                    int j=1;
+                    for(String i : opcoesStrings){
+                        Misc.resetSetPos(pad+tamTotal+1,j);
+                        System.out.println("» "+i);
+                        j++;
+                    }
+                    Misc.gotoSavedPos();
                 }
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
@@ -135,6 +151,9 @@ public class Menu {
                         case "crm":
                             InputCheck.charLimitCheck(str,8,8);
                             InputCheck.crmCheck(str);
+                            break;
+                        case "especialidade":
+
                             break;
                     }
                     cmd.setValorInt(num);
@@ -160,6 +179,25 @@ public class Menu {
                 }
             }
         }
+        Misc.resetSetPos(pad,1+2*(inputs.size()));
+        System.out.print(Misc.stringNum(" ",tamTotal));
+        Misc.resetSetPos(pad,1+2*(inputs.size()));
+        System.out.println("Pressione Enter para continuar.");
+        sc.nextLine();
         return inputs;
+    }
+
+    public static ArrayList<String> stringArrayRep(AllRep rep,String str){
+        ArrayList<String> strArray=new ArrayList<String>();
+        switch(str){
+            case "especialidade":
+                for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+                    strArray.add(i.getNome());
+                }
+                break;
+            default:
+                break;
+        }
+        return strArray;
     }
 }

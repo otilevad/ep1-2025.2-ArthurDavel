@@ -31,16 +31,26 @@ public class Medico extends Pessoa{
         this.crm=crm;
     }
 
+	public Especialidade getEspec() {
+		return this.espec;
+	}
+
+	public void setEspec(Especialidade espec) {
+		this.espec = espec;
+	}
+
     @Override
     public void addComandos(){
         getComandos().add(new Comando("crm", "String", "Digite o CRM: "));
+        getComandos().add(new Comando("especialidade", "String", "Digite a especialidade: "));
     }
 
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc));
+        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
         setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
+        setEspec(Especialidade.buscaNomeEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorStr(),rep));
         rep.getMedicosR().adicionaMedico(this);
     }
 

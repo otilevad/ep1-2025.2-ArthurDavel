@@ -74,7 +74,7 @@ public class InputCheck {
 
     public static void alphabeticCheck(String str) throws Exception{
         if(!str.matches("^[\\p{L}\\s]*$")){
-            throw new AlphabeticException(str+"A resposta deve conter apenas letras e espaços.");
+            throw new AlphabeticException("A resposta deve conter apenas letras e espaços.");
         }
     }
 
