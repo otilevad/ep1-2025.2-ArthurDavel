@@ -79,4 +79,8 @@ public class Misc {
             return 0;
         }
     }
+
+    public static String formataStrProprio(String str){
+        return str.substring(0, 1).toUpperCase()+str.substring(1).toLowerCase();
+    }
 }

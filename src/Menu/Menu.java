@@ -122,10 +122,10 @@ public class Menu {
                 if(!opcoesStrings.isEmpty()){
                     Misc.resetSetPos(pad+comandoPad+writePad+2,0);
                     System.out.println("Opções de "+cmd.getDado()+":");
-                    int j=1;
+                    int j=0;
                     for(String i : opcoesStrings){
-                        Misc.resetSetPos(pad+tamTotal+1,j);
-                        System.out.println("» "+i);
+                        Misc.resetSetPos(pad+tamTotal+1,j+1);
+                        System.out.println(j+" » "+i);
                         j++;
                     }
                     Misc.gotoSavedPos();
@@ -153,7 +153,7 @@ public class Menu {
                             InputCheck.crmCheck(str);
                             break;
                         case "especialidade":
-
+                            num=InputCheck.optionListCheck(str,opcoesStrings);
                             break;
                     }
                     cmd.setValorInt(num);

@@ -2,6 +2,7 @@ package Entidades.Medico;
 
 import java.util.ArrayList;
 import Repositorios.*;
+import Utilitarios.Misc;
 
 
 public class Especialidade {
@@ -34,12 +35,7 @@ public class Especialidade {
         return this.mult;
     }
 
-    public static Especialidade buscaNomeEspec(String nome, AllRep rep){
-        for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
-            if(i.getNome()==nome){
-                return i;
-            }
-        }
-        return null;
+    public static Especialidade buscaValorEspec(int num, AllRep rep){
+        return rep.getEspecialidadesR().getEspecialidades().get(num);
     }
 }

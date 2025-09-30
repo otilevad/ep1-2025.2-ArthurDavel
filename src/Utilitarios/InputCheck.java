@@ -1,6 +1,7 @@
 package Utilitarios;
 
 import Exceptions.*;
+import Utilitarios.*;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
@@ -8,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class InputCheck {
     public static boolean isIntOrLong(String str) {
@@ -99,4 +101,16 @@ public class InputCheck {
         }
     }
 
+    public static int optionListCheck(String str, ArrayList<String> opcoesStrings) throws Exception{
+        int numOpt=opcoesStrings.size();
+        if(!((isInt(str) && Integer.parseInt(str)>=0 && Integer.parseInt(str)<=numOpt-1) || (opcoesStrings.contains(Misc.formataStrProprio(str))))){
+            throw new OptionsInvException("Por favor, digite a opção ou o número da opção.");
+        }
+        else if(InputCheck.isInt(str)){
+            return Integer.parseInt(str);
+        }
+        else{
+            return opcoesStrings.indexOf(Misc.formataStrProprio(str));
+        }
+    }
 }

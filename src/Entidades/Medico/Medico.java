@@ -50,7 +50,7 @@ public class Medico extends Pessoa{
         setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
         setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
-        setEspec(Especialidade.buscaNomeEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorStr(),rep));
+        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
         rep.getMedicosR().adicionaMedico(this);
     }
 
@@ -58,5 +58,6 @@ public class Medico extends Pessoa{
     public void imprimeDados(){
         System.out.println("Nome: "+getNome());
         System.out.println("CRM: "+getCrm());
+        System.out.println("Especialidade: "+getEspec().getNome());
     }
 }

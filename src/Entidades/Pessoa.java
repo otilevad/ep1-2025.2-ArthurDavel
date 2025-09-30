@@ -18,7 +18,7 @@ public abstract class Pessoa {
     }
 
     public Pessoa(String nome, ArrayList<Comando> comandos){
-        this.nome=nome;
+        this.nome=Misc.formataStrProprio(nome);
         this.comandos=comandos;
         this.comandos.add(new Comando("nome", "String", "Digite o nome: "));
     }
@@ -28,7 +28,7 @@ public abstract class Pessoa {
     }
 
     public void setNome(String nome) {
-        this.nome=nome;
+        this.nome=Misc.formataStrProprio(nome);
     }
 
     public ArrayList<Comando> getComandos() {
