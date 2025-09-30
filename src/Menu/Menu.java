@@ -120,24 +120,37 @@ public class Menu {
                     Misc.resetSetPos(pad,1+2*(inputs.size()));
                     System.out.print(erro);
                 }
+
+                //Imprime as opções, caso o comando seja compatível com opções
                 opcoesStrings=stringArrayRep(rep,cmd.getDado());
                 maiorOpcaoTam=tamMaiorString(opcoesStrings);
                 if(!opcoesStrings.isEmpty()){
-                    Misc.resetSetPos(pad+comandoPad+writePad+2,0);
-                    System.out.println("Opções de "+cmd.getDado()+":");
                     int j=0;
+                    int cols=1;
                     opcaoPad=0;
                     for(String i : opcoesStrings){
                         Misc.resetSetPos(pad+tamTotal+1+opcaoPad,j+1);
                         System.out.println(opcoesStrings.indexOf(i)+" » "+i);
                         j++;
-                        if(j==inputs.size()*2){
+                        if(j==inputs.size()*2-1){
                             opcaoPad+=maiorOpcaoTam+5;
                             j=0;
+                            cols++;
                         }
                     }
+                    String strTitleOpcoes="[Opções de "+cmd.getDado()+"]";
+                    int meioTitleOpcoes=cols*((maiorOpcaoTam+5)/2)-strTitleOpcoes.length()/2;
+                    Misc.resetSetPos(pad+comandoPad+writePad+1,0);
+                    System.out.println("┌"+Misc.stringNum("─",meioTitleOpcoes)+strTitleOpcoes+Misc.stringNum("─",meioTitleOpcoes)+"┐");
+                    for(int i=1;i<=inputs.size()*2-1;i++){
+                        Misc.resetSetPos(pad+comandoPad+writePad+1,i);
+                        System.out.println("│"+Misc.setCol(cols*(maiorOpcaoTam+5)-1)+"│");
+                    }
+                    Misc.resetSetPos(pad+comandoPad+writePad+1,inputs.size()*2);
+                    System.out.println("└"+Misc.stringNum("─",meioTitleOpcoes)+Misc.stringNum("─",strTitleOpcoes.length())+Misc.stringNum("─",meioTitleOpcoes)+"┘");
                     Misc.gotoSavedPos();
                 }
+
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
                     str=sc.nextLine();
