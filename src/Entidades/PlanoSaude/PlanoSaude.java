@@ -31,4 +31,8 @@ public class PlanoSaude {
     public ArrayList<Desconto> getDescontos() {
         return this.descontos;
     }
+
+    public void imprimeDados(){
+        System.out.println("Nome: "+getNome());
+    }
 }

@@ -4,17 +4,20 @@ public class AllRep {
     private PacientesRep pacientesR;
     private MedicosRep medicosR;
     private EspecialidadesRep especialidadesR;
+    private PlanosRep planosR;
 
     public AllRep(){
         this.pacientesR= new PacientesRep();
         this.medicosR= new MedicosRep();
         this.especialidadesR= new EspecialidadesRep();
+        this.planosR= new PlanosRep();
     }
 
-    public AllRep(PacientesRep pacientesR, MedicosRep medicosR, EspecialidadesRep especialidadesR){
+    public AllRep(PacientesRep pacientesR, MedicosRep medicosR, EspecialidadesRep especialidadesR, PlanosRep planosR){
         this.pacientesR=pacientesR;
         this.medicosR=medicosR;
         this.especialidadesR=especialidadesR;
+        this.planosR=planosR;
     }
 
     public PacientesRep getPacientesR() {
@@ -39,5 +42,13 @@ public class AllRep {
 
     public void setEspecialidadesR(EspecialidadesRep especialidadesR) {
         this.especialidadesR = especialidadesR;
+    }
+    
+    public PlanosRep getPlanosR() {
+        return this.planosR;
+    }
+
+    public void setPlanosR(PlanosRep planosR) {
+        this.planosR = planosR;
     }
 }
