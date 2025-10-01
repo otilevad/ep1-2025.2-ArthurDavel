@@ -80,6 +80,7 @@ public class Menu {
         int maiorOpcaoTam=0;
         int opcaoPad=0;
         int minWrite=1;
+        String avisoOpcoes="";
         boolean skipDesenhaTabela=false;
         ArrayList<Comando> inputs=new ArrayList<Comando>(comandos);
         int num=0;
@@ -98,6 +99,7 @@ public class Menu {
         Misc.gotoSavedPos();
         for(Comando cmd : inputs){
             whileTrue: while(true){
+                minWrite=1;
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 System.out.print(Misc.stringNum(" ",writePad)+"│"+Misc.stringNum(" ",extraWipe));
                 extraWipe=0;
@@ -127,6 +129,15 @@ public class Menu {
                 opcoesStrings=stringArrayRep(rep,cmd.getDado());
                 maiorOpcaoTam=tamMaiorString(opcoesStrings);
                 if(!opcoesStrings.isEmpty()){
+                    switch(cmd.getDado()){
+                        case "plano de saúde":
+                            minWrite=0;
+                            avisoOpcoes="Caso não tenha, deixe vazio.";
+                            break;
+                        default:
+                            avisoOpcoes="";
+                            break;
+                    }
                     int j=0;
                     int cols=1;
                     opcaoPad=0;
@@ -151,19 +162,21 @@ public class Menu {
                     }
                     Misc.resetSetPos(pad+comandoPad+writePad+1,inputs.size()*2);
                     System.out.println("└"+Misc.stringNum("─",meioTitleOpcoes)+Misc.stringNum("─",strTitleOpcoes.length())+Misc.stringNum("─",meioTitleOpcoes)+"┘");
+                    if(avisoOpcoes.length()>0){
+                        Misc.resetSetPos(pad+comandoPad+writePad+1,inputs.size()*2+1);
+                        System.out.println(avisoOpcoes);
+                    }
+                    else{
+                        Misc.resetSetPos(pad+comandoPad+writePad+1,inputs.size()*2+1);
+                        System.out.println(Misc.stringNum(" ", num));
+                    }
                     Misc.gotoSavedPos();
                 }
 
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
                     str=sc.nextLine();
-                    if(cmd.getDado()=="plano de saúde"){
-                        minWrite=0;
-                    }
-                    else{
-                        minWrite=1;
-                        InputCheck.vazioCheck(str);
-                    }
+                    if(minWrite!=0){InputCheck.vazioCheck(str);}
                     InputCheck.charLimitCheck(str,minWrite,writePad);
                     switch(cmd.getDado()){
                         case "nome":
