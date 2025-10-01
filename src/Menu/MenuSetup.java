@@ -2,7 +2,8 @@ package Menu;
 
 import Entidades.Medico.*;
 import Entidades.Paciente.*;
-import Repositorios.AllRep;
+import Entidades.PlanoSaude.*;
+import Repositorios.*;
 import Utilitarios.*;
 
 import java.util.ArrayList;
@@ -15,8 +16,6 @@ public class MenuSetup {
         menus.add(new Menu("Menu do Paciente", 1));
         menus.add(new Menu("Menu do Médico", 2));
         menus.add(new Menu("Menu do Plano de Saúde", 3));
-        menus.add(new Menu("Cadastro de Pacientes", 4));
-        menus.add(new Menu("Cadastro de Médicos", 5));
         for(int i = 0; i < menus.size(); i++) {
             Menu mn = menus.get(i);
             ArrayList<Opcao> opts = mn.iniciaOpcoes();
@@ -69,6 +68,7 @@ public class MenuSetup {
                 destino=2;
                 break;
             case -7: //Cadastro de plano de saúde
+                new PlanoSaude().cadastrar(rep, sc);
                 destino=3;
                 break;
             default:

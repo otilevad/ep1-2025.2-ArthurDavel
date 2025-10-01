@@ -124,15 +124,15 @@ public class InputCheck {
     public static void cpfExistsCheck(String str, AllRep rep) throws Exception{
         if(!rep.getPacientesR().getPacientes().isEmpty()){
             for(Paciente i : rep.getPacientesR().getPacientes()){
-                if(Long.parseLong(str)==Long.parseLong(i.getCpf())){
+                if(str.equals(i.getCpf())){
                     throw new CpfExistsException("Já existe um paciente com este CPF cadastrado.");
                 }
             }
         }
         if(!rep.getPacientesR().getPacientesEsp().isEmpty()){
             for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
-                if(Long.parseLong(str)==Long.parseLong(j.getCpf())){
-                    throw new CpfExistsException("Já existe um paciente (especial) com este CPF cadastrado.");
+                if(str.equals(j.getCpf())){
+                    throw new CpfExistsException("Já existe um paciente especial com este CPF cadastrado.");
                 }
             }
         }

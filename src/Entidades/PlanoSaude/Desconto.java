@@ -3,7 +3,7 @@ package Entidades.PlanoSaude;
 import Entidades.Medico.Especialidade;
 
 public class Desconto {
-    private float porcentagem;
+    private double porcentagem;
     private Especialidade espec;
 
     public Desconto(){
@@ -11,16 +11,16 @@ public class Desconto {
         this.espec=new Especialidade();
     }
 
-    public Desconto(float porcentagem, Especialidade espec){
+    public Desconto(double porcentagem, Especialidade espec){
         this.porcentagem=porcentagem;
         this.espec=espec;
     }
 
-    public void setPorcentagem(float porcentagem) {
+    public void setPorcentagem(double porcentagem) {
         this.porcentagem = porcentagem;
     }
 
-    public float getPorcentagem() {
+    public double getPorcentagem() {
         return this.porcentagem;
     }
     
