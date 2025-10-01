@@ -72,7 +72,7 @@ public class Paciente extends Pessoa{
 
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
         if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=0){
             PacienteEspecial pacienteEsp=new PacienteEspecial();
             pacienteEsp.setComandos(getComandos());

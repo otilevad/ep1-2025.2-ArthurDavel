@@ -66,7 +66,7 @@ public class Menu {
         opts.add(new Opcao(nome, destino));
     }
     
-    public void mostraMenu(ArrayList<Opcao> opts, int pad) {
+    public void mostraMenu(ArrayList<Opcao> opts, boolean centered) throws Exception{
         Misc.savePos();
         ArrayList<String> strArray=stringArrayOpts(opts);
         String menuTitle=("["+getNome()+"]");
@@ -75,6 +75,8 @@ public class Menu {
         strArray.add(menuSubtitle);
         int tamMaior=tamMaiorString(strArray)+8;
         String totalTitleStr="┌"+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+menuTitle+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+"┐";
+        int pad=0;
+        if(centered){pad=(Misc.getTamanhoTela()-totalTitleStr.length())/2;}
         System.out.println(Misc.setCol(pad)+totalTitleStr);
         String prevSubtitleStr="├"+Misc.stringNum("─",(tamMaior-menuSubtitle.length())/2)+menuSubtitle;
         System.out.println(Misc.setCol(pad)+prevSubtitleStr+Misc.stringNum("─",totalTitleStr.length()-prevSubtitleStr.length()-1)+"┤");
@@ -86,8 +88,9 @@ public class Menu {
         Misc.resetSetPos(pad,3+opts.size());
     }
 
-    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc,AllRep rep) throws Exception{
+    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,boolean centered, int writePad,Scanner sc,AllRep rep) throws Exception{
         int telaTam=Misc.getTamanhoTela();
+        int pad=0;
         ArrayList<String> opcoesStrings=stringArrayRep(rep,"");
         int maiorOpcaoTam=0;
         int opcaoPad=0;

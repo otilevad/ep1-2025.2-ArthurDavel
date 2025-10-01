@@ -59,7 +59,7 @@ public class Medico extends Pessoa{
 
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
         setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
         setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));

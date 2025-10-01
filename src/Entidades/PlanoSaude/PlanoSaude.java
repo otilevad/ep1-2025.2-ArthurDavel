@@ -60,7 +60,7 @@ public class PlanoSaude {
     }
 
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
         rep.getPlanosR().adicionaPlano(this);
     }
