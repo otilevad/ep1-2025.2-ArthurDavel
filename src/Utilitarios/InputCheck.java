@@ -1,6 +1,7 @@
 package Utilitarios;
 
 import Exceptions.*;
+import Repositorios.AllRep;
 import Utilitarios.*;
 
 import java.text.Normalizer;
@@ -9,6 +10,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import Entidades.Paciente.*;
+
 import java.util.ArrayList;
 
 public class InputCheck {
@@ -37,6 +41,19 @@ public class InputCheck {
         }
         try {
             Integer.parseInt(str);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isDouble(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            Double.parseDouble(str);
             return true;
         }
         catch (NumberFormatException e) {
@@ -101,6 +118,29 @@ public class InputCheck {
     public static void crmCheck(String str) throws Exception{
         if(!str.matches("^\\d{6}[A-Z]{2}")){
             throw new CrmInvException("O CRM deve seguir o padrão 123456DF.");
+        }
+    }
+
+    public static void cpfExistsCheck(String str, AllRep rep) throws Exception{
+        if(!rep.getPacientesR().getPacientes().isEmpty()){
+            for(Paciente i : rep.getPacientesR().getPacientes()){
+                if(Long.parseLong(str)==Long.parseLong(i.getCpf())){
+                    throw new CpfExistsException("Já existe um paciente com este CPF cadastrado.");
+                }
+            }
+        }
+        if(!rep.getPacientesR().getPacientesEsp().isEmpty()){
+            for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
+                if(Long.parseLong(str)==Long.parseLong(j.getCpf())){
+                    throw new CpfExistsException("Já existe um paciente (especial) com este CPF cadastrado.");
+                }
+            }
+        }
+    }
+
+    public static void doubleCheck(String str) throws Exception{
+        if(!isDouble(str)){
+            throw new NumberException("A resposta deve ser um número (. para separar a parte decimal).");
         }
     }
 

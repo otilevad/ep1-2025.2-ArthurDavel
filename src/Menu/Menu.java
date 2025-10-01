@@ -67,6 +67,7 @@ public class Menu {
     }
     
     public void mostraMenu(ArrayList<Opcao> opts, int pad) {
+        Misc.savePos();
         ArrayList<String> strArray=stringArrayOpts(opts);
         String menuTitle=("["+getNome()+"]");
         String menuSubtitle=("["+"Digite apenas o número"+"]");
@@ -82,6 +83,7 @@ public class Menu {
             System.out.println(Misc.setCol(pad)+prevOpt+Misc.setCol(totalTitleStr.length()-prevOpt.length()-1)+"│");
         }
         System.out.println(Misc.setCol(pad)+"└"+Misc.stringNum("─",totalTitleStr.length()-2)+"┘");
+        Misc.resetSetPos(pad,3+opts.size());
     }
 
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc,AllRep rep) throws Exception{
@@ -195,6 +197,7 @@ public class Menu {
                         case "cpf":
                             InputCheck.charLimitCheck(str,11,11);
                             InputCheck.numberCheck(str);
+                            InputCheck.cpfExistsCheck(str, rep);
                             break;
                         case "idade":
                             InputCheck.numberCheck(str);
@@ -208,6 +211,9 @@ public class Menu {
                             break;
                         case "especialidade":
                             num=InputCheck.optionListCheck(str,opcoesStrings);
+                            break;
+                        case "custo":
+                            InputCheck.doubleCheck(str);
                             break;
                         case "plano de saúde":
                             num=InputCheck.optionListCheck(str,opcoesStrings);

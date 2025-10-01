@@ -43,7 +43,7 @@ public class PacientesRep {
     }
 
     public void listarPacientes(){
-        if(pacientes.size()>0){
+        if(pacientes.size()>0||pacientesEsp.size()>0){
             System.out.println("---Lista de Pacientes---");
             for(int i=0; i<pacientes.size(); i++){
                 Paciente paciente=pacientes.get(i);

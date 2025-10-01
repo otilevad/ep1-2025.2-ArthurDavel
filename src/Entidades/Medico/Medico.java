@@ -11,16 +11,19 @@ import Repositorios.*;
 public class Medico extends Pessoa{
     private String crm;
     private Especialidade espec;
+    private double custoConsulta;
 
     public Medico(){
         super();
         this.crm="";
+        this.custoConsulta=0d;
         addComandos();
     }
 
-    public Medico(String nome, String crm, ArrayList<Comando> comandos){
+    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta){
         super(nome,comandos);
         this.crm=crm;
+        this.custoConsulta=custoConsulta;
     }
 
     public String getCrm() {
@@ -39,10 +42,19 @@ public class Medico extends Pessoa{
 		this.espec = espec;
 	}
 
+    public double getCustoConsulta() {
+        return this.custoConsulta;
+    }
+
+    public void setCustoConsulta(double custoConsulta) {
+        this.custoConsulta = custoConsulta;
+    }
+
     @Override
     public void addComandos(){
         getComandos().add(new Comando("crm", "String", "Digite o CRM: "));
         getComandos().add(new Comando("especialidade", "String", "Digite a especialidade: "));
+        getComandos().add(new Comando("custo", "String", "Digite o custo padrão da consulta: "));
     }
 
     @Override
@@ -51,6 +63,7 @@ public class Medico extends Pessoa{
         setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
         setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
+        setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
         rep.getMedicosR().adicionaMedico(this);
     }
 
@@ -59,5 +72,6 @@ public class Medico extends Pessoa{
         System.out.println("Nome: "+getNome());
         System.out.println("CRM: "+getCrm());
         System.out.println("Especialidade: "+getEspec().getNome());
+        System.out.println("Custo-padrão da consulta: R$ "+String.format("%.2f",getCustoConsulta()));
     }
 }
