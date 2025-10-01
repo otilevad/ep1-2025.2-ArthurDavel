@@ -66,12 +66,22 @@ public class Menu {
         opts.add(new Opcao(nome, destino));
     }
     
-    public void mostraMenu(ArrayList<Opcao> opts) {
-        System.out.println("-----"+getNome()+"-----");
-        System.out.println("Selecione a opção desejada:");
+    public void mostraMenu(ArrayList<Opcao> opts, int pad) {
+        ArrayList<String> strArray=stringArrayOpts(opts);
+        String menuTitle=("["+getNome()+"]");
+        String menuSubtitle=("["+"Digite apenas o número"+"]");
+        strArray.add(menuTitle);
+        strArray.add(menuSubtitle);
+        int tamMaior=tamMaiorString(strArray)+8;
+        String totalTitleStr="┌"+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+menuTitle+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+"┐";
+        System.out.println(Misc.setCol(pad)+totalTitleStr);
+        String prevSubtitleStr="├"+Misc.stringNum("─",(tamMaior-menuSubtitle.length())/2)+menuSubtitle;
+        System.out.println(Misc.setCol(pad)+prevSubtitleStr+Misc.stringNum("─",totalTitleStr.length()-prevSubtitleStr.length()-1)+"┤");
         for(int i = 0; i < opts.size(); i++) {
-            System.out.println(i+" ===> "+opts.get(i).getNome());
+            String prevOpt="│ "+i+" » "+opts.get(i).getNome();
+            System.out.println(Misc.setCol(pad)+prevOpt+Misc.setCol(totalTitleStr.length()-prevOpt.length()-1)+"│");
         }
+        System.out.println(Misc.setCol(pad)+"└"+Misc.stringNum("─",totalTitleStr.length()-2)+"┘");
     }
 
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,int pad, int writePad,Scanner sc,AllRep rep) throws Exception{
@@ -232,6 +242,14 @@ public class Menu {
         System.out.println("Pressione Enter para continuar.");
         sc.nextLine();
         return inputs;
+    }
+
+    public static ArrayList<String> stringArrayOpts(ArrayList<Opcao> opts){
+        ArrayList<String> strArray=new ArrayList<String>();
+        for(Opcao i : opts){
+            strArray.add(i.getNome());
+        }
+        return strArray;
     }
 
     public static ArrayList<String> stringArrayRep(AllRep rep,String str){
