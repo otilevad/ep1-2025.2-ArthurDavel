@@ -27,11 +27,11 @@ public class Especialidade {
         return this.nome;
     }
 
-    public void setValor(double mult){
+    public void setMult(double mult){
         this.mult=mult;
     }
 
-    public double getValor(){
+    public double getMult(){
         return this.mult;
     }
 

@@ -27,22 +27,23 @@ public class App {
         boolean skipInput=false;
         String obs="";
         String obsErro="";
-        while(true){
+        mainWhile: while(true){
             Misc.limpaTela();
             obs="";
-            if(opt>=0){
-                menuSelecionado=opt;
-            }
-            else if(opt==-2){
-                System.out.println("Saindo...");
-                break;
-            }
-            else if(opt==-1){
-                obs=obsErro+"\n";
-            }
-            else{
-                opt=MenuSetup.criaAcoes(opt, rep, sc);
-                skipInput=true;
+            switch(opt){
+                case -1:
+                    obs=obsErro+"\n";
+                    break;
+                case -2:
+                    System.out.println("Saindo...");
+                    break mainWhile;
+                default:
+                    if(opt>=0){menuSelecionado=opt;}
+                    else{
+                        opt=MenuSetup.criaAcoes(opt, rep, sc);
+                        skipInput=true;
+                    }
+                    break;
             }
             if(!skipInput){
                 menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
