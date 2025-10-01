@@ -80,6 +80,25 @@ public class Misc {
         }
     }
 
+    public static int getAlturaTela() throws Exception{
+        int terminalTam=0;
+        try{
+            if(System.getProperty("os.name").toLowerCase().startsWith("windows")){
+                Process process=Runtime.getRuntime().exec(new String[]{"powershell.exe", "-command", "(Get-Host).UI.RawUI.WindowSize.Height"});
+                java.io.BufferedReader reader=new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String line=reader.readLine();
+                if (line!=null){
+                    terminalTam=Integer.parseInt(line.trim());
+                }
+                process.waitFor();
+            }
+            return terminalTam;
+        }
+        catch(Exception e){
+            return 0;
+        }
+    }
+
     public static String formataStrProprio(String str){
         return str.substring(0, 1).toUpperCase()+str.substring(1).toLowerCase();
     }
