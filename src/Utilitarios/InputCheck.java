@@ -80,10 +80,13 @@ public class InputCheck {
         }
     }
 
-    public static void charLimitCheck(String str,int min,int max) throws Exception{
+    public static void vazioCheck(String str) throws Exception{
         if(str.matches("^\\s*$")){
             throw new CharLimitException("A resposta não pode estar vazia.");
         }
+    }
+
+    public static void charLimitCheck(String str,int min,int max) throws Exception{
         if(min==max && str.length()!=min){
             throw new CharLimitException("A resposta deve conter exatamente "+max+" "+(max>1?"caracteres":"caracter")+".");
         }
@@ -103,6 +106,9 @@ public class InputCheck {
 
     public static int optionListCheck(String str, ArrayList<String> opcoesStrings) throws Exception{
         int numOpt=opcoesStrings.size();
+        if(str.length()==0){
+            return -1;
+        }
         if(!((isInt(str) && Integer.parseInt(str)>=0 && Integer.parseInt(str)<=numOpt-1) || (opcoesStrings.contains(Misc.formataStrProprio(str))))){
             throw new OptionsInvException("Por favor, digite a opção ou o número da opção.");
         }

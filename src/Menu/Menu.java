@@ -143,10 +143,11 @@ public class Menu {
                     String strTitleOpcoes="[Opções de "+cmd.getDado()+"]";
                     int meioTitleOpcoes=cols*((maiorOpcaoTam+5)/2)-strTitleOpcoes.length()/2;
                     Misc.resetSetPos(pad+comandoPad+writePad+1,0);
-                    System.out.println("┌"+Misc.stringNum("─",meioTitleOpcoes)+strTitleOpcoes+Misc.stringNum("─",meioTitleOpcoes)+"┐");
+                    String titleOpcoesFormatado="┌"+Misc.stringNum("─",meioTitleOpcoes)+strTitleOpcoes+Misc.stringNum("─",meioTitleOpcoes)+"┐";
+                    System.out.println(titleOpcoesFormatado);
                     for(int i=1;i<=inputs.size()*2-1;i++){
                         Misc.resetSetPos(pad+comandoPad+writePad+1,i);
-                        System.out.println("│"+Misc.setCol(cols*(maiorOpcaoTam+5)-1)+"│");
+                        System.out.println("│"+Misc.setCol(titleOpcoesFormatado.length()-2)+"│");
                     }
                     Misc.resetSetPos(pad+comandoPad+writePad+1,inputs.size()*2);
                     System.out.println("└"+Misc.stringNum("─",meioTitleOpcoes)+Misc.stringNum("─",strTitleOpcoes.length())+Misc.stringNum("─",meioTitleOpcoes)+"┘");
@@ -156,11 +157,12 @@ public class Menu {
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
                 try{
                     str=sc.nextLine();
-                    if(cmd.getDado()=="planosaude"){
+                    if(cmd.getDado()=="plano de saúde"){
                         minWrite=0;
                     }
                     else{
                         minWrite=1;
+                        InputCheck.vazioCheck(str);
                     }
                     InputCheck.charLimitCheck(str,minWrite,writePad);
                     switch(cmd.getDado()){
@@ -182,6 +184,9 @@ public class Menu {
                             InputCheck.crmCheck(str);
                             break;
                         case "especialidade":
+                            num=InputCheck.optionListCheck(str,opcoesStrings);
+                            break;
+                        case "plano de saúde":
                             num=InputCheck.optionListCheck(str,opcoesStrings);
                             break;
                     }
@@ -224,7 +229,7 @@ public class Menu {
                     strArray.add(i.getNome());
                 }
                 break;
-            case "planosaude":
+            case "plano de saúde":
                 for(PlanoSaude i : rep.getPlanosR().getPlanos()){
                     strArray.add(i.getNome());
                 }

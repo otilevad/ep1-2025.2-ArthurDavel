@@ -47,5 +47,7 @@ public class PlanosRep{
         getPlanos().add(new PlanoSaude("Mais Saúde",new ArrayList<Desconto>()));
         getPlanos().add(new PlanoSaude("Mais ou Menos Saúde",new ArrayList<Desconto>()));
         getPlanos().add(new PlanoSaude("Tudo Saúde",new ArrayList<Desconto>()));
+        getPlanos().add(new PlanoSaude("Mil Planos",new ArrayList<Desconto>()));
+        getPlanos().add(new PlanoSaude("SauDAVEL",new ArrayList<Desconto>()));
     }
 }

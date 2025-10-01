@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Entidades.Pessoa;
+import Entidades.Medico.Especialidade;
+import Entidades.PlanoSaude.*;
 import Repositorios.*;
 import Menu.*;
 import Utilitarios.Misc;
@@ -14,7 +16,6 @@ public class Paciente extends Pessoa{
     private int idade;
     private boolean idoso;
     private HistoricoPaciente historicoPaciente;
-    //private ArrayList<Comando> comandos;
 
     public Paciente(){
         super();
@@ -66,15 +67,29 @@ public class Paciente extends Pessoa{
     public void addComandos(){
         getComandos().add(new Comando("cpf", "String", "Digite o CPF: "));
         getComandos().add(new Comando("idade", "int", "Digite a idade: "));
+        getComandos().add(new Comando("plano de saúde", "int", "Digite o plano saúde: "));
     }
 
     @Override
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
         setComandos(Menu.inputMenu(getComandos(), 0, 35, sc, rep));
+        if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=0){
+            PacienteEspecial pacienteEsp=new PacienteEspecial();
+            pacienteEsp.setComandos(getComandos());
+            pacienteEsp.setAtributosPaciente();
+            pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),rep));
+            rep.getPacientesR().adicionaPacienteEspecial(pacienteEsp);
+        }
+        else{
+            setAtributosPaciente();
+            rep.getPacientesR().adicionaPaciente(this);
+        }
+    }
+
+    public void setAtributosPaciente(){
         setAtributosPessoa();
         setCpf(Comando.buscaPorDado("cpf",getComandos()).getValorStr());
         setIdade(Comando.buscaPorDado("idade",getComandos()).getValorInt());
-        rep.getPacientesR().adicionaPaciente(this);
     }
 
     @Override
