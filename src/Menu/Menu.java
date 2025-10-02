@@ -66,7 +66,7 @@ public class Menu {
         opts.add(new Opcao(nome, destino));
     }
     
-    public void mostraMenu(ArrayList<Opcao> opts, boolean centered) throws Exception{
+    public void mostraMenu(ArrayList<Opcao> opts, int pad) throws Exception{
         Misc.savePos();
         ArrayList<String> strArray=stringArrayOpts(opts);
         String menuTitle=("["+getNome()+"]");
@@ -75,8 +75,6 @@ public class Menu {
         strArray.add(menuSubtitle);
         int tamMaior=tamMaiorString(strArray)+8;
         String totalTitleStr="┌"+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+menuTitle+Misc.stringNum("─",(tamMaior-menuTitle.length())/2)+"┐";
-        int pad=0;
-        if(centered){pad=(Misc.getTamanhoTela()-totalTitleStr.length())/2;}
         System.out.println(Misc.setCol(pad)+totalTitleStr);
         String prevSubtitleStr="├"+Misc.stringNum("─",(tamMaior-menuSubtitle.length())/2)+menuSubtitle;
         System.out.println(Misc.setCol(pad)+prevSubtitleStr+Misc.stringNum("─",totalTitleStr.length()-prevSubtitleStr.length()-1)+"┤");
@@ -220,6 +218,9 @@ public class Menu {
                             break;
                         case "plano de saúde":
                             num=InputCheck.optionListCheck(str,opcoesStrings);
+                            break;
+                        case "descontos":
+                            InputCheck.descCheck(str,rep);
                             break;
                     }
                     cmd.setValorInt(num);

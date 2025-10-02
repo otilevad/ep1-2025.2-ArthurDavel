@@ -71,6 +71,11 @@ public class MenuSetup {
                 new PlanoSaude().cadastrar(rep, sc);
                 destino=3;
                 break;
+            case -8: //Listar plano de saúde
+                rep.getPlanosR().listarPlanos();
+                sc.nextLine();
+                destino=3;
+                break;
             default:
                 break;
         }

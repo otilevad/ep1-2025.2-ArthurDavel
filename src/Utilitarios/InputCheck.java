@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import Entidades.Paciente.*;
+import Entidades.PlanoSaude.*;
 
 import java.util.ArrayList;
 
@@ -118,6 +119,15 @@ public class InputCheck {
     public static void crmCheck(String str) throws Exception{
         if(!str.matches("^\\d{6}[A-Z]{2}")){
             throw new CrmInvException("O CRM deve seguir o padrão 123456DF.");
+        }
+    }
+
+    public static void descCheck(String str, AllRep rep) throws Exception{
+        try{
+            PlanoSaude.stringSetDescontos(str,rep);
+        }
+        catch(Exception e){
+            throw new DescInvException("Padrão: desconto/index da especialidade (separados por \",\")");
         }
     }
 

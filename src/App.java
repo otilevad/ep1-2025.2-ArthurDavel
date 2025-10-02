@@ -47,7 +47,7 @@ public class App {
             }
             if(!skipInput){
                 menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado)); //ordem do menu no arraylist
-                menuAtual.mostraMenu(menuAtual.getOpts(),true);
+                menuAtual.mostraMenu(menuAtual.getOpts(),0);
                 Misc.savePos();
                 System.out.print(obs);
                 Misc.gotoSavedPos();
