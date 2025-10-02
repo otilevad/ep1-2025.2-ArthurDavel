@@ -209,6 +209,7 @@ public class Menu {
                         case "crm":
                             InputCheck.charLimitCheck(str,8,8);
                             InputCheck.crmCheck(str);
+                            InputCheck.crmExistsCheck(str,rep);
                             break;
                         case "especialidade":
                             num=InputCheck.optionListCheck(str,opcoesStrings);

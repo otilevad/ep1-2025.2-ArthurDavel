@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
+import Entidades.Medico.*;
 
 import java.util.ArrayList;
 
@@ -143,6 +144,16 @@ public class InputCheck {
             for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
                 if(str.equals(j.getCpf())){
                     throw new CpfExistsException("Já existe um paciente especial com este CPF cadastrado.");
+                }
+            }
+        }
+    }
+
+    public static void crmExistsCheck(String str, AllRep rep) throws Exception{
+        if(!rep.getMedicosR().getMedicos().isEmpty()){
+            for(Medico i : rep.getMedicosR().getMedicos()){
+                if(str.equals(i.getCrm())){
+                    throw new CrmExistsException("Já existe um médico com este CRM cadastrado.");
                 }
             }
         }
