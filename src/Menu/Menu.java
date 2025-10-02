@@ -282,6 +282,11 @@ public class Menu {
                     strArray.add(i.getNome());
                 }
                 break;
+            case "descontos":
+                for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+                    strArray.add(i.getNome());
+                }
+                break;
             default:
                 break;
         }

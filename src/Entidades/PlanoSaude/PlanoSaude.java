@@ -7,6 +7,7 @@ import Entidades.Medico.Especialidade;
 import Menu.Comando;
 import Menu.Menu;
 import Repositorios.*;
+import Exceptions.*;
 
 public class PlanoSaude {
     private String nome;
@@ -79,17 +80,20 @@ public class PlanoSaude {
         }
     }
 
-    public void setAtributosPlano(AllRep rep){
+    public void setAtributosPlano(AllRep rep) throws Exception{
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
         setDescontos(stringSetDescontos(Comando.buscaPorDado("descontos",getComandos()).getValorStr(),rep));
     }
 
-    public static ArrayList<Desconto> stringSetDescontos(String str, AllRep rep){
+    public static ArrayList<Desconto> stringSetDescontos(String str, AllRep rep) throws Exception{
         ArrayList<Desconto> descs=new ArrayList<Desconto>();
         String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split(",");
         for(String descontoStr : strs){
             String[] valores=descontoStr.split("/");
+            if(Double.parseDouble(valores[0])>=100){
+                throw new NumberException("Descontos devem ser menor que 100%.");
+            }
             descs.add(new Desconto(Double.parseDouble(valores[0]),Especialidade.buscaValorEspec(Integer.parseInt(valores[1]), rep)));
         }
         return descs;
