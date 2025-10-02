@@ -6,14 +6,17 @@ import Entidades.PlanoSaude.*;
 
 public class PlanosRep{
     private ArrayList<PlanoSaude> planos;
-    
+    private ArrayList<PlanoEspecial> planosEsp;
+
     public PlanosRep(){
-        this.planos = new ArrayList<PlanoSaude>();
+        this.planos= new ArrayList<PlanoSaude>();
+        this.planosEsp= new ArrayList<PlanoEspecial>();
         addPlanosPadrao();
     }
 
-    public PlanosRep(ArrayList<PlanoSaude> planos){
-        this.planos = planos;
+    public PlanosRep(ArrayList<PlanoSaude> planos, ArrayList<PlanoEspecial> planosEsp){
+        this.planos=planos;
+        this.planosEsp=planosEsp;
     }
 
     public ArrayList<PlanoSaude> getPlanos(){
@@ -24,8 +27,20 @@ public class PlanosRep{
         this.planos=planos;
     }
 
+    public ArrayList<PlanoEspecial> getPlanosEsp() {
+        return this.planosEsp;
+    }
+
+    public void setPlanosEsp(ArrayList<PlanoEspecial> planosEsp) {
+        this.planosEsp = planosEsp;
+    }
+
     public void adicionaPlano(PlanoSaude plano){
         planos.add(plano);
+    }
+
+    public void adicionaPlanoEsp(PlanoEspecial planoEsp){
+        planosEsp.add(planoEsp);
     }
 
     public void listarPlanos(){
@@ -34,6 +49,11 @@ public class PlanosRep{
             for(int i=0; i<planos.size(); i++){
                 PlanoSaude plano=planos.get(i);
                 plano.imprimeDados();
+                System.out.println("------------------------");
+            }
+            for(int i=0; i<planosEsp.size(); i++){
+                PlanoEspecial planoEsp=planosEsp.get(i);
+                planoEsp.imprimeDados();
                 System.out.println("------------------------");
             }
         }

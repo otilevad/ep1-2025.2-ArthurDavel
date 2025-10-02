@@ -77,7 +77,14 @@ public class Paciente extends Pessoa{
             PacienteEspecial pacienteEsp=new PacienteEspecial();
             pacienteEsp.setComandos(getComandos());
             pacienteEsp.setAtributosPaciente();
-            pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),rep));
+            if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=rep.getPacientesR().getPacientes().size()){
+                pacienteEsp.setPlanoEsp(PlanoEspecial.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()-rep.getPacientesR().getPacientes().size(),rep));
+                pacienteEsp.setIsEspecial(false);
+                pacienteEsp.setPlanoEsp(null);
+            }
+            else{
+
+            }
             rep.getPacientesR().adicionaPacienteEspecial(pacienteEsp);
         }
         else{

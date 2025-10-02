@@ -154,6 +154,12 @@ public class InputCheck {
         }
     }
 
+    public static void simNaoCheck(String str) throws Exception{
+        if(!(str.toLowerCase().equals("s") || str.toLowerCase().equals("n"))){
+            throw new SimNaoException("A resposta deve ser \"s\" ou \"n\".");
+        }
+    }
+
     public static int optionListCheck(String str, ArrayList<String> opcoesStrings) throws Exception{
         int numOpt=opcoesStrings.size();
         if(str.length()==0){

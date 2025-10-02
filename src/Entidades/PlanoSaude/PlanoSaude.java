@@ -55,25 +55,38 @@ public class PlanoSaude {
         System.out.println("Nome: "+getNome());
         System.out.println("Descontos: ");
         for(Desconto i : getDescontos()){
-            System.out.println(" "+i.getEspec().getNome()+" - "+i.getPorcentagem()+"%;");
+            System.out.println("  "+i.getEspec().getNome()+" - "+i.getPorcentagem()+"%;");
         }
     }
 
     public void addComandos(){
         getComandos().add(new Comando("nome", "String", "Digite o nome: "));
         getComandos().add(new Comando("descontos", "String", "Digite os descontos: "));
+        getComandos().add(new Comando("internacaogratis", "String", "Possui internação de até 1 semana grátis? (s/n) "));
     }
 
     public void cadastrar(AllRep rep, Scanner sc) throws Exception{
         setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
+        if(Comando.buscaPorDado("internacaogratis",getComandos()).getValorStr().equals("s")){
+            PlanoEspecial planoEsp=new PlanoEspecial();
+            planoEsp.setComandos(getComandos());
+            planoEsp.setAtributosPlano(rep);
+            rep.getPlanosR().adicionaPlanoEsp(planoEsp);
+        }
+        else{
+            setAtributosPlano(rep);
+            rep.getPlanosR().adicionaPlano(this);
+        }
+    }
+
+    public void setAtributosPlano(AllRep rep){
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
         setDescontos(stringSetDescontos(Comando.buscaPorDado("descontos",getComandos()).getValorStr(),rep));
-        rep.getPlanosR().adicionaPlano(this);
     }
 
     public static ArrayList<Desconto> stringSetDescontos(String str, AllRep rep){
         ArrayList<Desconto> descs=new ArrayList<Desconto>();
-        String strNova=str.replaceAll("\\s", "").replaceAll(";", "");
+        String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split(",");
         for(String descontoStr : strs){
             String[] valores=descontoStr.split("/");

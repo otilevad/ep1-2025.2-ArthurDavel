@@ -222,6 +222,10 @@ public class Menu {
                         case "descontos":
                             InputCheck.descCheck(str,rep);
                             break;
+                        case "internacaogratis":
+                            InputCheck.simNaoCheck(str);
+                            str.toLowerCase();
+                            break;
                     }
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);
@@ -271,6 +275,9 @@ public class Menu {
                 break;
             case "plano de saúde":
                 for(PlanoSaude i : rep.getPlanosR().getPlanos()){
+                    strArray.add(i.getNome());
+                }
+                for(PlanoEspecial i : rep.getPlanosR().getPlanosEsp()){
                     strArray.add(i.getNome());
                 }
                 break;
