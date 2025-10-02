@@ -109,6 +109,7 @@ public class Menu {
         }
         int comandoPad=pad+tamTabela+2;
         int tamTotal=tamTabela+2+writePad+1;
+        int prevOptsWipeCol=0;
         Misc.gotoSavedPos();
         for(Comando cmd : inputs){
             whileTrue: while(true){
@@ -168,6 +169,7 @@ public class Menu {
                     int meioTitleOpcoes=cols*((maiorOpcaoTam+5)/2)-strTitleOpcoes.length()/2;
                     Misc.resetSetPos(pad+comandoPad+writePad+1,0);
                     String titleOpcoesFormatado="┌"+Misc.stringNum("─",meioTitleOpcoes)+strTitleOpcoes+Misc.stringNum("─",meioTitleOpcoes)+"┐";
+                    prevOptsWipeCol=titleOpcoesFormatado.length();
                     System.out.println(titleOpcoesFormatado);
                     for(int i=1;i<=inputs.size()*2-1;i++){
                         Misc.resetSetPos(pad+comandoPad+writePad+1,i);
@@ -184,6 +186,10 @@ public class Menu {
                         System.out.println(Misc.stringNum(" ", num));
                     }
                     Misc.gotoSavedPos();
+                }
+                else{
+                    Misc.resetSetPos(0,0);
+                    Misc.limpaArea(pad+comandoPad+writePad+1,prevOptsWipeCol,inputs.size()*2+2," ");
                 }
 
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));

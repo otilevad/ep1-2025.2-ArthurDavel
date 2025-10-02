@@ -102,4 +102,10 @@ public class Misc {
     public static String formataStrProprio(String str){
         return str.substring(0, 1).toUpperCase()+str.substring(1).toLowerCase();
     }
+
+    public static void limpaArea(int pad, int cols, int lins, String fill){
+        for(int i=0; i<lins; i++){
+            System.out.println(setCol(pad)+stringNum(fill,cols));
+        }
+    }
 }
