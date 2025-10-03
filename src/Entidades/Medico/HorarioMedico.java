@@ -7,13 +7,16 @@ import Utilitarios.Calendario.Periodo;
 
 public class HorarioMedico {
     private ArrayList<Integer> inicioConsultas;
+    private int duracao;
 
     public HorarioMedico(){
         this.inicioConsultas=new ArrayList<Integer>();
+        this.duracao=0;
     }
 
-    public HorarioMedico(ArrayList<Integer> inicioConsultas){
+    public HorarioMedico(ArrayList<Integer> inicioConsultas,int duracao){
         this.inicioConsultas=inicioConsultas;
+        this.duracao=duracao;
     }
     
     public ArrayList<Integer> getInicioConsultas() {
@@ -24,8 +27,16 @@ public class HorarioMedico {
         this.inicioConsultas=inicioConsultas;
     }
 
-    public void addInicioConsultas(int horarioInicio, int horarioFim, int duracao){
-        for(int i=horarioInicio;i<horarioFim;i+=duracao){
+    public int getDuracao() {
+        return this.duracao;
+    }
+
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
+    }
+
+    public void addInicioConsultas(int horarioInicio, int horarioFim){
+        for(int i=horarioInicio;i<horarioFim;i+=getDuracao()){
             getInicioConsultas().add(i);
         }
         Collections.sort(getInicioConsultas());

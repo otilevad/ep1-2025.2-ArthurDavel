@@ -67,6 +67,9 @@ public class Medico extends Pessoa{
         getComandos().add(new Comando("especialidade", "String", "Digite a especialidade: "));
         getComandos().add(new Comando("custo", "String", "Digite o custo padrão da consulta: "));
         getComandos().add(new Comando("tempo médio", "int", "Digite o tempo médio da consulta (min): "));
+        getComandos().add(new Comando("dias não trabalha", "String", "Digite os dias que não trabalha separados por \"/\": "));
+        getComandos().add(new Comando("horario trabalha", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
+        getComandos().add(new Comando("horario intervalo", "String", "Horário de início e fim do intervalo separados por \"/\" e \",\" para adicionar mais intervalos: "));
     }
 
     @Override
