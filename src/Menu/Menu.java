@@ -242,6 +242,13 @@ public class Menu {
                             num=Integer.parseInt(str);
                             InputCheck.intervaloCheck(num, 15, 120);
                             break;
+                        case "folga":
+                            InputCheck.folgaCheck(str);
+                            break;
+                        case "horario":
+                        case "intervalo":
+                            InputCheck.horarioCheck(str);
+                            break;
                     }
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);

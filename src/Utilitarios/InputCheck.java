@@ -135,6 +135,30 @@ public class InputCheck {
         }
     }
 
+    public static void horarioCheck(String str) throws Exception{
+        try{
+            Agenda.horarioStr(str);
+        }
+        catch(IntervaloInvException e){
+            throw new DescInvException(e.getMessage());
+        }
+        catch(Exception e){
+            throw new DescInvException("Padrão: h. inicial/h. final (separados por \",\")");
+        }
+    }
+
+    public static void folgaCheck(String str) throws Exception{
+        try{
+            Agenda.folgaStr(str);
+        }
+        catch(IntervaloInvException e){
+            throw new DescInvException(e.getMessage());
+        }
+        catch(Exception e){
+            throw new DescInvException("Padrão: dias de 0 a 6 separados por \"/\" (0 = domingo, 6 = sábado)");
+        }
+    }
+
     public static void cpfExistsCheck(String str, AllRep rep) throws Exception{
         if(!rep.getPacientesR().getPacientes().isEmpty()){
             for(Paciente i : rep.getPacientesR().getPacientes()){

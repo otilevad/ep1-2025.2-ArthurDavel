@@ -69,7 +69,7 @@ public class Agenda {
         }
     }
     
-    public ArrayList<Integer> folgaStr(String str) throws Exception{
+    public static ArrayList<Integer> folgaStr(String str) throws Exception{
         ArrayList<Integer> folga=new ArrayList<Integer>();
         String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split("/");
@@ -86,7 +86,7 @@ public class Agenda {
         return folga;
     }
 
-    public ArrayList<Periodo> horarioStr(String str) throws Exception{
+    public static ArrayList<Periodo> horarioStr(String str) throws Exception{
         ArrayList<Periodo> pers=new ArrayList<Periodo>();
         String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split(",");
