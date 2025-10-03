@@ -7,26 +7,30 @@ import Entidades.Pessoa;
 import Menu.Comando;
 import Menu.Menu;
 import Repositorios.*;
+import Utilitarios.Misc;
 
 public class Medico extends Pessoa{
     private String crm;
     private Especialidade espec;
     private double custoConsulta;
     private int tempoMedio; //em minutos
+    private Agenda agnd;
 
     public Medico(){
         super();
         this.crm="";
         this.custoConsulta=0d;
         this.tempoMedio=0;
+        this.agnd=new Agenda();
         addComandos();
     }
 
-    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio){
+    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio,Agenda agnd){
         super(nome,comandos);
         this.crm=crm;
         this.custoConsulta=custoConsulta;
         this.tempoMedio=tempoMedio;
+        this.agnd=agnd;
     }
 
     public String getCrm() {
@@ -59,6 +63,15 @@ public class Medico extends Pessoa{
 
     public void setTempoMedio(int tempoMedio) {
         this.tempoMedio = tempoMedio;
+        getAgnd().setDuracao(tempoMedio);
+    }
+
+    public Agenda getAgnd() {
+        return this.agnd;
+    }
+
+    public void setAgnd(Agenda agnd) {
+        this.agnd = agnd;
     }
 
     @Override
@@ -67,9 +80,14 @@ public class Medico extends Pessoa{
         getComandos().add(new Comando("especialidade", "String", "Digite a especialidade: "));
         getComandos().add(new Comando("custo", "String", "Digite o custo padrão da consulta: "));
         getComandos().add(new Comando("tempo médio", "int", "Digite o tempo médio da consulta (min): "));
-        getComandos().add(new Comando("dias não trabalha", "String", "Digite os dias que não trabalha separados por \"/\": "));
-        getComandos().add(new Comando("horario trabalha", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
-        getComandos().add(new Comando("horario intervalo", "String", "Horário de início e fim do intervalo separados por \"/\" e \",\" para adicionar mais intervalos: "));
+    }
+
+    public ArrayList<Comando> inputAgenda(Scanner sc, AllRep rep) throws Exception{
+        ArrayList<Comando> agenda=new ArrayList<Comando>();
+        agenda.add(new Comando("dias não trabalha", "String", "Digite os dias que não trabalha separados por \"/\": "));
+        agenda.add(new Comando("horario trabalha", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
+        agenda.add(new Comando("horario intervalo", "String", "Início e fim do intervalo separados por \"/\" e \",\" para adicionar: "));
+        return Menu.inputMenu(agenda, false, 35, sc, rep);
     }
 
     @Override
@@ -80,6 +98,8 @@ public class Medico extends Pessoa{
         setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
         setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
         setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
+        Misc.limpaTela();
+        ArrayList<Comando> agenda=inputAgenda(sc, rep);
         rep.getMedicosR().adicionaMedico(this);
     }
 

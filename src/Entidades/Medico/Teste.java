@@ -4,7 +4,7 @@ import Utilitarios.Calendario.*;
 
 public class Teste {
     public static void main (String[] args) throws Exception {
-        HorarioMedico horario=new HorarioMedico();
+        Agenda horario=new Agenda();
         horario.setDuracao(5);
         horario.addInicioConsultas(12*60,24*60);
         horario.addInicioConsultas(8*60,9*60);
