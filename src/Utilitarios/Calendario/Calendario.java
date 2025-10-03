@@ -34,7 +34,7 @@ public class Calendario {
 		this.datasM = datasM;
 	}
 
-    enum Semana{
+    public enum Semana{
         Domingo,
         Segunda,
         Terça,
@@ -44,7 +44,7 @@ public class Calendario {
         Sábado
     }
 
-    enum Mes{
+    public enum Mes{
         Janeiro,
         Fevereiro,
         Março,

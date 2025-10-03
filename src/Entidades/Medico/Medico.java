@@ -84,9 +84,9 @@ public class Medico extends Pessoa{
 
     public ArrayList<Comando> inputAgenda(Scanner sc, AllRep rep) throws Exception{
         ArrayList<Comando> agenda=new ArrayList<Comando>();
-        agenda.add(new Comando("dias não trabalha", "String", "Digite os dias que não trabalha separados por \"/\": "));
-        agenda.add(new Comando("horario trabalha", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
-        agenda.add(new Comando("horario intervalo", "String", "Início e fim do intervalo separados por \"/\" e \",\" para adicionar: "));
+        agenda.add(new Comando("folga", "String", "Digite os dias que não trabalha separados por \"/\": "));
+        agenda.add(new Comando("horario", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
+        agenda.add(new Comando("intervalo", "String", "Início e fim do intervalo separados por \"/\" e \",\" para adicionar: "));
         return Menu.inputMenu(agenda, false, 35, sc, rep);
     }
 
@@ -100,6 +100,9 @@ public class Medico extends Pessoa{
         setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
         Misc.limpaTela();
         ArrayList<Comando> agenda=inputAgenda(sc, rep);
+        getAgnd().agendaStr(getAgnd().folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
+                            getAgnd().horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
+                            getAgnd().horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
         rep.getMedicosR().adicionaMedico(this);
     }
 
@@ -110,5 +113,6 @@ public class Medico extends Pessoa{
         System.out.println("Especialidade: "+getEspec().getNome());
         System.out.println("Custo padrão da consulta: R$ "+String.format("%.2f",getCustoConsulta()));
         System.out.println("Tempo médio da consulta: "+getTempoMedio()+" minutos");
+        getAgnd().imprimeAgenda();
     }
 }

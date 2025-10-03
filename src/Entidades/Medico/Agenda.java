@@ -3,9 +3,9 @@ package Entidades.Medico;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import Entidades.PlanoSaude.Desconto;
 import Exceptions.*;
 import Utilitarios.Calendario.*;
+import Utilitarios.Calendario.Calendario.*;
 
 public class Agenda {
     private ArrayList<Integer> inicioConsultas;
@@ -48,9 +48,8 @@ public class Agenda {
         this.folga = folga;
     }
 
-
     public void addInicioConsultas(int horarioInicio, int horarioFim){
-        for(int i=horarioInicio;i<horarioFim;i+=getDuracao()){
+        for(int i=horarioInicio;i<=horarioFim-getDuracao();i+=getDuracao()){
             if(!getInicioConsultas().contains(i)){
                 getInicioConsultas().add(i);
             }
@@ -61,7 +60,7 @@ public class Agenda {
     public void removeInicioConsultas(int horarioInicio, int horarioFim){
         ArrayList<Integer> removeList=new ArrayList<Integer>();
         for(int i : getInicioConsultas()){
-            if(i>=horarioInicio && i<=horarioFim){
+            if(i>horarioInicio-getDuracao() && i<horarioFim){
                 removeList.add(i);
             }
         }
@@ -75,6 +74,7 @@ public class Agenda {
         String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split("/");
         for(String diaStr : strs){
+            if(diaStr.equals("")){continue;}
             int dia=Integer.parseInt(diaStr);
             if(dia>6 || dia<0){
                 throw new IntervaloInvException("Dias vão de 0 a 6, domingo sendo 0.");
@@ -111,6 +111,16 @@ public class Agenda {
         }
         for(Periodo per : intervalo){
             removeInicioConsultas(per.getHorarioInicio(),per.getHorarioFim());
+        }
+    }
+
+    public void imprimeAgenda(){
+        for(int i=0;i<=6;i++){
+            if(getFolga().contains(i)){continue;}
+            System.out.println("===>"+Calendario.Semana.values()[i].toString());
+            for(int j : getInicioConsultas()){
+                System.out.println(">> "+Calendario.minutoTempo(j));
+            }
         }
     }
 }
