@@ -1,6 +1,7 @@
 package Entidades.Medico;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Utilitarios.Calendario.Periodo;
 
@@ -23,21 +24,22 @@ public class HorarioMedico {
         this.inicioConsultas=inicioConsultas;
     }
 
-    public ArrayList<Integer> addInicioConsultas(Periodo per, int duracao){
-        ArrayList<Integer> prevArray=new ArrayList<Integer>();
-        for(int i=per.getHorarioInicio();i<per.getHorarioFim();i+=duracao){
-            prevArray.add(i);
+    public void addInicioConsultas(int horarioInicio, int horarioFim, int duracao){
+        for(int i=horarioInicio;i<horarioFim;i+=duracao){
+            getInicioConsultas().add(i);
         }
-        return prevArray;
+        Collections.sort(getInicioConsultas());
     }
 
-    public ArrayList<Integer> removeInicioConsultas(Periodo per){
-        ArrayList<Integer> prevArray=getInicioConsultas();
-        for(int i : prevArray){
-            if(i>=per.getHorarioInicio() && i<=per.getHorarioFim()){
-                prevArray.remove(i);
+    public void removeInicioConsultas(int horarioInicio, int horarioFim){
+        ArrayList<Integer> removeList=new ArrayList<Integer>();
+        for(int i : getInicioConsultas()){
+            if(i>=horarioInicio && i<=horarioFim){
+                removeList.add(i);
             }
         }
-        return prevArray;
+        for(int i : removeList){
+            getInicioConsultas().remove(getInicioConsultas().indexOf(i));
+        }
     }
 }

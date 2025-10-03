@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import Utilitarios.Calendario.*;
 
 public class Agenda {
-    private ArrayList<ArrayList<Periodo>> horarios;
-    
+    private ArrayList<HorarioMedico> horarios;
+
     public Agenda(){
-        horarios=new ArrayList<ArrayList<Periodo>>();
+        horarios=new ArrayList<HorarioMedico>();
     }
 }

@@ -136,11 +136,11 @@ public class Calendario {
         return dSem;
     }
 
-    public int tempoMinuto(int hora, int min){
+    public static int tempoMinuto(int hora, int min){
         return hora*60+min;
     }
 
-    public String minutoTempo(int numTempo){
+    public static String minutoTempo(int numTempo){
         int hora=0;
         int min=0;
         for(int i=0;i<numTempo;i++){
