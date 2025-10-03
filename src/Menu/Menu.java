@@ -236,6 +236,12 @@ public class Menu {
                             InputCheck.simNaoCheck(str);
                             str.toLowerCase();
                             break;
+                        case "tempo médio":
+                            InputCheck.numberCheck(str);
+                            InputCheck.intCheck(str);
+                            num=Integer.parseInt(str);
+                            InputCheck.intervaloCheck(num, 15, 120);
+                            break;
                     }
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);

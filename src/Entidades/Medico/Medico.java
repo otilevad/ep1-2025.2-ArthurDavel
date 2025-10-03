@@ -12,18 +12,21 @@ public class Medico extends Pessoa{
     private String crm;
     private Especialidade espec;
     private double custoConsulta;
+    private int tempoMedio; //em minutos
 
     public Medico(){
         super();
         this.crm="";
         this.custoConsulta=0d;
+        this.tempoMedio=0;
         addComandos();
     }
 
-    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta){
+    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio){
         super(nome,comandos);
         this.crm=crm;
         this.custoConsulta=custoConsulta;
+        this.tempoMedio=tempoMedio;
     }
 
     public String getCrm() {
@@ -50,11 +53,20 @@ public class Medico extends Pessoa{
         this.custoConsulta = custoConsulta;
     }
 
+    public int getTempoMedio() {
+        return this.tempoMedio;
+    }
+
+    public void setTempoMedio(int tempoMedio) {
+        this.tempoMedio = tempoMedio;
+    }
+
     @Override
     public void addComandos(){
         getComandos().add(new Comando("crm", "String", "Digite o CRM: "));
         getComandos().add(new Comando("especialidade", "String", "Digite a especialidade: "));
         getComandos().add(new Comando("custo", "String", "Digite o custo padrão da consulta: "));
+        getComandos().add(new Comando("tempo médio", "int", "Digite o tempo médio da consulta (min): "));
     }
 
     @Override
@@ -64,6 +76,7 @@ public class Medico extends Pessoa{
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
         setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
         setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
+        setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
         rep.getMedicosR().adicionaMedico(this);
     }
 
@@ -72,6 +85,7 @@ public class Medico extends Pessoa{
         System.out.println("Nome: "+getNome());
         System.out.println("CRM: "+getCrm());
         System.out.println("Especialidade: "+getEspec().getNome());
-        System.out.println("Custo-padrão da consulta: R$ "+String.format("%.2f",getCustoConsulta()));
+        System.out.println("Custo padrão da consulta: R$ "+String.format("%.2f",getCustoConsulta()));
+        System.out.println("Tempo médio da consulta: "+getTempoMedio()+" minutos");
     }
 }
