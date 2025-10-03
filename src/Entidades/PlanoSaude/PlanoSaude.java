@@ -91,15 +91,30 @@ public class PlanoSaude {
         String[] strs=strNova.split(",");
         for(String descontoStr : strs){
             String[] valores=descontoStr.split("/");
-            if(Double.parseDouble(valores[0])>=100){
-                throw new NumberException("Descontos devem ser menor que 100%.");
+            Especialidade espec=Especialidade.buscaValorEspec(Integer.parseInt(valores[0]),rep);
+            Double valor=Double.parseDouble(valores[1]);
+            if(valor>=100){
+                throw new DescInvException("Descontos devem ser menores que 100%.");
+            }else if(valor<=0){
+                throw new DescInvException("Descontos devem ser maiores que 0%.");
+            }else if(descEspecExiste(espec,descs)==true){
+                throw new DescInvException("Deve haver apenas um desconto por especialidade.");
             }
-            descs.add(new Desconto(Double.parseDouble(valores[0]),Especialidade.buscaValorEspec(Integer.parseInt(valores[1]), rep)));
+            descs.add(new Desconto(valor,espec));
         }
         return descs;
     }
 
     public static PlanoSaude buscaValorPlano(int num, AllRep rep){
         return rep.getPlanosR().getPlanos().get(num);
+    }
+
+    public static boolean descEspecExiste(Especialidade espec, ArrayList<Desconto> descs){
+        for(Desconto i : descs){
+            if(i.getEspec().equals(espec)){
+                return true;
+            }
+        }
+        return false;
     }
 }

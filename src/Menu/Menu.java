@@ -148,6 +148,9 @@ public class Menu {
                             minWrite=0;
                             avisoOpcoes="Caso não tenha, deixe vazio.";
                             break;
+                        case "descontos":
+                            avisoOpcoes="Siga o formato: especialidade(id)/desconto(%),";
+                            break;
                         default:
                             avisoOpcoes="";
                             break;

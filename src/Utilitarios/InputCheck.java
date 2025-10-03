@@ -127,11 +127,11 @@ public class InputCheck {
         try{
             PlanoSaude.stringSetDescontos(str,rep);
         }
-        catch(NumberException e){
-            throw new NumberException(e.getMessage());
+        catch(DescInvException e){
+            throw new DescInvException(e.getMessage());
         }
         catch(Exception e){
-            throw new DescInvException("Padrão: desconto/index da especialidade (separados por \",\")");
+            throw new DescInvException("Padrão: num. da especialidade/desconto (separados por \",\")");
         }
     }
 
