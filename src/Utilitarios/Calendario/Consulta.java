@@ -1,16 +1,19 @@
 package Utilitarios.Calendario;
 
 import Entidades.Paciente.*;
+import Exceptions.*;
 import Menu.Comando;
 import Menu.Menu;
 import Repositorios.AllRep;
-import Utilitarios.Misc;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.time.DateTimeException;
 
 import Entidades.Medico.*;
+import Utilitarios.*;
 
 public class Consulta {
     private Paciente pac;
@@ -97,43 +100,94 @@ public class Consulta {
         agendamentoCalendario(sc,rep,cal);
     }
 
-    public void agendamentoCalendario(Scanner sc, AllRep rep, Calendario cal){
+    public void agendamentoCalendario(Scanner sc, AllRep rep, Calendario cal) throws Exception{
         int mesAgr=LocalDate.now().getMonthValue();
         int anoAgr=2025;
         String input="";
+        String obs="";
+        LocalDate dataSelecionada=null;
+        int horarioSelecionado=-1;
+        ArrayList<Integer> horarios=new ArrayList<Integer>();
         while(true){
             Misc.limpaTela();
             cal.mostraMes(mesAgr,anoAgr,0);
+            if(obs.length()>0){
+                System.out.println(obs);
+                obs="";
+            }
+            System.out.print("» ");
             input=sc.nextLine();
             try{
-                
-                switch(input){
-                    case "a":
-                        if(mesAgr-1<1){
-                            if(anoAgr-1>=cal.getAnos().get(0).getAno()){
-                                mesAgr=12;
-                                anoAgr--;
+                if(input.length()==1){
+                    switch(input){
+                        case "a":
+                            if(mesAgr-1<1){
+                                if(anoAgr-1>=cal.getAnos().get(0).getAno()){
+                                    mesAgr=12;
+                                    anoAgr--;
+                                }
                             }
-                        }
-                        else{mesAgr--;}
-                        break;
-                    case "d":
-                        if(mesAgr+1>12){
-                            if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
-                                mesAgr=1;
-                                anoAgr++;
+                            else{mesAgr--;}
+                            break;
+                        case "d":
+                            if(mesAgr+1>12){
+                                if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
+                                    mesAgr=1;
+                                    anoAgr++;
+                                }
                             }
-                        }
-                        else{mesAgr++;}
-                        break;
-                    default:
-                        break;
+                            else{mesAgr++;}
+                            break;
+                        case "r":
+                            mesAgr=LocalDate.now().getMonthValue();
+                            anoAgr=2025;
+                            input="";
+                            obs="";
+                            dataSelecionada=null;
+                            break;
+                        case "z":
+                            obs="->"+horarioSelecionado+", "+dataSelecionada;
+                            break;
+                        default:
+                            throw new OptionsInvException("Opção inválida.");
+                    }
                 }
-            
+                else{
+                    if(input.contains(":")){
+                        if(dataSelecionada==null){
+                            throw new DateTimeException("Antes de selecionar um horário, selecione uma data.");
+                        }
+                        horarioSelecionado=InputCheck.horarioSelecionadoCheck(input);
+                    }
+                    else{
+                        dataSelecionada=InputCheck.dataCheck(input);
+                        horarios=horariosDisponiveis(getEspec(),dataSelecionada,rep,cal);
+                    }
+                }
             }
             catch(Exception e){
-
+                obs=e.getMessage();
             }
         }
+    }
+
+    public ArrayList<Integer> horariosDisponiveis(Especialidade espec,LocalDate data, AllRep rep, Calendario cal){
+        ArrayList<Integer> horarios=new ArrayList<Integer>();
+        ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
+        int diaNum=cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear());
+        int diaSemana=cal.diaSemanaInt(diaNum);
+        for(Medico med : rep.getMedicosR().getMedicos()){
+            horariosMedico=med.getAgnd().getInicioConsultas();
+            horariosMedico.removeAll(med.getAgnd().getHorariosOcupado());
+            if(med.getEspec()==espec && !med.getAgnd().getFolga().contains(diaSemana)){
+                for(int hor : horariosMedico){
+                    if(!horarios.contains(hor)){
+                        horarios.add(hor);
+                        Collections.sort(horarios);
+                    }
+                }
+            }
+        }
+        return horarios;
     }
 }

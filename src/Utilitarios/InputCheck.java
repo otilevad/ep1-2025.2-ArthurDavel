@@ -3,9 +3,14 @@ package Utilitarios;
 import Exceptions.*;
 import Repositorios.AllRep;
 import Utilitarios.*;
+import Utilitarios.Calendario.*;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -145,6 +150,30 @@ public class InputCheck {
         catch(Exception e){
             throw new DescInvException("Padrão: h. inicial/h. final (separados por \",\")");
         }
+    }
+
+    public static int horarioSelecionadoCheck(String str) throws Exception{
+        int mins=0;
+        try{
+            String[] horaMinuto=str.split(":");
+            mins=Calendario.tempoMinuto(Integer.parseInt(horaMinuto[0]),Integer.parseInt(horaMinuto[1]));
+        } catch(Exception e){
+            throw new DateTimeException("O horário deve estar no padrão hh:mm.");
+        }
+        return mins;
+    }
+
+    public static LocalDate dataCheck(String dataString){
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
+        LocalDate data=null;
+        if(LocalDate.parse(dataString, formatador).getYear()>2026 || LocalDate.parse(dataString, formatador).getYear()<2025){
+            throw new DateTimeException("Ano inválido.");
+        }
+        data = LocalDate.parse(dataString, formatador);
+        if(data!=null){
+            return data;
+        }
+        throw new DateTimeException("A data está nula.");
     }
 
     public static void folgaCheck(String str) throws Exception{

@@ -100,9 +100,9 @@ public class Medico extends Pessoa{
         setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
         Misc.limpaTela();
         ArrayList<Comando> agenda=inputAgenda(sc, rep);
-        getAgnd().agendaStr(getAgnd().folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
-                            getAgnd().horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
-                            getAgnd().horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
+        getAgnd().agendaStr(Agenda.folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
+                            Agenda.horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
+                            Agenda.horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
         rep.getMedicosR().adicionaMedico(this);
     }
 
