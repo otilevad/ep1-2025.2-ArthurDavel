@@ -97,6 +97,7 @@ public class Consulta {
 
     public void agendar(Scanner sc, AllRep rep, Calendario cal) throws Exception{
         setComandos(Menu.inputMenu(getComandos(), false, 11, sc, rep));
+        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
         agendamentoCalendario(sc,rep,cal);
     }
 
@@ -170,7 +171,7 @@ public class Consulta {
                     }
                     else if(input.contains("/")){
                         dataSelecionada=InputCheck.dataCheck(input);
-                        horarios=horariosDisponiveis(getEspec(),dataSelecionada,rep,cal);
+                        horarios=horariosDisponiveis(dataSelecionada,rep,cal);
                     }
                     else{
                         throw new OptionsInvException("Comando inválido.");
@@ -183,7 +184,7 @@ public class Consulta {
         }
     }
 
-    public ArrayList<Integer> horariosDisponiveis(Especialidade espec,LocalDate data, AllRep rep, Calendario cal){
+    public ArrayList<Integer> horariosDisponiveis(LocalDate data, AllRep rep, Calendario cal){
         ArrayList<Integer> horarios=new ArrayList<Integer>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         int diaNum=cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear());
@@ -191,7 +192,7 @@ public class Consulta {
         boolean medicoOcupado=false;
         for(Medico med : rep.getMedicosR().getMedicos()){
             horariosMedico=med.getAgnd().getInicioConsultas();
-            if(med.getEspec().getNome()==espec.getNome() && !med.getAgnd().getFolga().contains(diaSemana)){
+            if(med.getEspec().equals(espec) && !med.getAgnd().getFolga().contains(diaSemana)){
                 for(int hor : horariosMedico){
                     for(Consulta i : med.getHist().getConsultas()){
                         medicoOcupado=false;
@@ -214,7 +215,7 @@ public class Consulta {
         ArrayList<String> opcoes=new ArrayList<String>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         for(Medico med : rep.getMedicosR().getMedicos()){
-            if(med.getEspec()!=getEspec()){continue;}
+            if(!med.getEspec().equals(espec)){continue;}
             horariosMedico=med.getAgnd().getInicioConsultas();
             if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear())))){
                 if(horariosMedico.contains(horario)){
