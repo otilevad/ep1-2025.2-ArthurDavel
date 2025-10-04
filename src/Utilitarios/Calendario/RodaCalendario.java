@@ -48,7 +48,7 @@ public class RodaCalendario {
                 break;
             case "s":
                 DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
-                String dataString = sc.nextLine();; // Exemplo de data inválida
+                String dataString = sc.nextLine(); // Exemplo de data inválida
                 LocalDate data=null;
                 try {
                     if(LocalDate.parse(dataString, formatador).getYear()>2026 || LocalDate.parse(dataString, formatador).getYear()<2025){

@@ -275,8 +275,12 @@ public class Menu {
         Misc.resetSetPos(pad,1+2*(inputs.size()));
         System.out.print(Misc.stringNum(" ",tamTotal));
         Misc.resetSetPos(pad,1+2*(inputs.size()));
-        System.out.println("Pressione Enter para continuar.");
+        String ultima="Pressione Enter para continuar.";
+        System.out.println(ultima);
         sc.nextLine();
+        Misc.resetSetPos(pad,1+2*(inputs.size()));
+        System.out.println(Misc.stringNum(" ", ultima.length()));
+        Misc.resetSetPos(pad,1+2*(inputs.size()));
         return inputs;
     }
 

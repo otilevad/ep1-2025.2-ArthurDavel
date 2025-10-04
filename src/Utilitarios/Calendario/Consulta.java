@@ -1,6 +1,15 @@
 package Utilitarios.Calendario;
 
 import Entidades.Paciente.*;
+import Menu.Comando;
+import Menu.Menu;
+import Repositorios.AllRep;
+import Utilitarios.Misc;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+import java.util.ArrayList;
+
 import Entidades.Medico.*;
 
 public class Consulta {
@@ -8,19 +17,26 @@ public class Consulta {
     private Medico med;
     private Especialidade espec;
     private Periodo per;
+    private String status;
+    private ArrayList<Comando> comandos;
     
     public Consulta(){
         this.pac=new Paciente();
         this.med=new Medico();
         this.espec=new Especialidade();
         this.per=Periodo.periodoConsulta(0,0,0);
+        this.status="Agendada";
+        this.comandos=new ArrayList<Comando>();
+        addComandos();
     }
 
-    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao){
+    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao, String status, ArrayList<Comando> comandos){
         this.pac=new Paciente();
         this.med=new Medico();
         this.espec=new Especialidade();
         this.per=Periodo.periodoConsulta(dia,horario,duracao);
+        this.status=status;
+        this.comandos=comandos;
     }
 
     public Paciente getPac() {
@@ -53,5 +69,71 @@ public class Consulta {
 
     public void setPer(Periodo per) {
         this.per = per;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ArrayList<Comando> getComandos() {
+        return this.comandos;
+    }
+
+    public void setComandos(ArrayList<Comando> comandos) {
+        this.comandos = comandos;
+    }
+
+    public void addComandos(){
+        getComandos().add(new Comando("cpf consulta", "String", "CPF do paciente: "));
+        getComandos().add(new Comando("especialidade", "String", "Especialidade da consulta: "));
+    }
+
+    public void agendar(Scanner sc, AllRep rep, Calendario cal) throws Exception{
+        setComandos(Menu.inputMenu(getComandos(), false, 11, sc, rep));
+        agendamentoCalendario(sc,rep,cal);
+    }
+
+    public void agendamentoCalendario(Scanner sc, AllRep rep, Calendario cal){
+        int mesAgr=LocalDate.now().getMonthValue();
+        int anoAgr=2025;
+        String input="";
+        while(true){
+            Misc.limpaTela();
+            cal.mostraMes(mesAgr,anoAgr,0);
+            input=sc.nextLine();
+            try{
+                
+                switch(input){
+                    case "a":
+                        if(mesAgr-1<1){
+                            if(anoAgr-1>=cal.getAnos().get(0).getAno()){
+                                mesAgr=12;
+                                anoAgr--;
+                            }
+                        }
+                        else{mesAgr--;}
+                        break;
+                    case "d":
+                        if(mesAgr+1>12){
+                            if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
+                                mesAgr=1;
+                                anoAgr++;
+                            }
+                        }
+                        else{mesAgr++;}
+                        break;
+                    default:
+                        break;
+                }
+            
+            }
+            catch(Exception e){
+
+            }
+        }
     }
 }

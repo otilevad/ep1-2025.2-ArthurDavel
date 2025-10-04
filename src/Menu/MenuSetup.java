@@ -5,6 +5,7 @@ import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
 import Repositorios.*;
 import Utilitarios.*;
+import Utilitarios.Calendario.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,8 +41,8 @@ public class MenuSetup {
                     mn.adcionaOpcoes(opts, "Listar plano de saúde", -8);
                     break;
                 case 4: //Menu do Consultas e Internações
-                    mn.adcionaOpcoes(opts, "Cadastrar consulta", -9);
-                    mn.adcionaOpcoes(opts, "Cadastrar internação", -10);
+                    mn.adcionaOpcoes(opts, "Agendar consulta", -9);
+                    mn.adcionaOpcoes(opts, "Agendar internação", -10);
                     break;
             }
             if(mn.getId()!=0){ //Adiciona a opção retornar ao menu inicial, a menos que já esteja nele
@@ -52,7 +53,7 @@ public class MenuSetup {
         return menus;
     }
 
-    public static int criaAcoes(int opt, AllRep rep, Scanner sc) throws Exception{
+    public static int criaAcoes(int opt, AllRep rep, Scanner sc,Calendario cal) throws Exception{
         int destino=0;
         switch(opt){
             case -3: //Cadastro de pacientes
@@ -81,6 +82,11 @@ public class MenuSetup {
                 rep.getPlanosR().listarPlanos();
                 sc.nextLine();
                 destino=3;
+                break;
+            case -9:
+                new Consulta().agendar(sc,rep,cal);
+                sc.nextLine();
+                destino=4;
                 break;
             default:
                 break;

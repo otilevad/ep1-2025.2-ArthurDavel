@@ -1,5 +1,6 @@
 import Menu.*;
 import Utilitarios.*;
+import Utilitarios.Calendario.*;
 import Repositorios.*;
 
 import java.lang.invoke.MethodHandle;
@@ -18,6 +19,8 @@ public class App {
             iniciaANSI(); 
         }
         Scanner sc = new Scanner(System.in, "Cp852").useLocale(Locale.US);
+        Calendario cal = new Calendario();
+        cal.calendarioSetup();
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
         AllRep rep = new AllRep();
@@ -40,7 +43,7 @@ public class App {
                 default:
                     if(opt>=0){menuSelecionado=opt;}
                     else{
-                        opt=MenuSetup.criaAcoes(opt, rep, sc);
+                        opt=MenuSetup.criaAcoes(opt, rep, sc, cal);
                         skipInput=true;
                     }
                     break;
