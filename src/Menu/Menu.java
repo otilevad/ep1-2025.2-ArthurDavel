@@ -249,6 +249,9 @@ public class Menu {
                         case "intervalo":
                             InputCheck.horarioCheck(str);
                             break;
+                        case "cpf consulta":
+                            InputCheck.cpfNaoExistsCheck(str,rep);
+                            break;
                     }
                     cmd.setValorInt(num);
                     cmd.setValorStr(str);

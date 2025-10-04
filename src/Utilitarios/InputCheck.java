@@ -166,10 +166,16 @@ public class InputCheck {
     public static LocalDate dataCheck(String dataString){
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
         LocalDate data=null;
-        if(LocalDate.parse(dataString, formatador).getYear()>2026 || LocalDate.parse(dataString, formatador).getYear()<2025){
-            throw new DateTimeException("Ano inválido.");
+        try{
+            if(LocalDate.parse(dataString, formatador).getYear()>2026 || LocalDate.parse(dataString, formatador).getYear()<2025){
+                throw new NumberException("Ano inválido.");
+            }
+            data=LocalDate.parse(dataString, formatador);
+        } catch (NumberException e){
+            throw new DateTimeException(e.getMessage());
+        }catch (Exception e){
+            throw new DateTimeException("Para datas, siga o padrão: dd/MM/yyyy");
         }
-        data = LocalDate.parse(dataString, formatador);
         if(data!=null){
             return data;
         }
@@ -203,6 +209,24 @@ public class InputCheck {
                 }
             }
         }
+    }
+
+    public static void cpfNaoExistsCheck(String str, AllRep rep) throws Exception{
+        if(!rep.getPacientesR().getPacientes().isEmpty()){
+            for(Paciente i : rep.getPacientesR().getPacientes()){
+                if(str.equals(i.getCpf())){
+                    return;
+                }
+            }
+        }
+        if(!rep.getPacientesR().getPacientesEsp().isEmpty()){
+            for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
+                if(str.equals(j.getCpf())){
+                    return;
+                }
+            }
+        }
+        throw new CpfExistsException("Paciente não encontrado.");
     }
 
     public static void crmExistsCheck(String str, AllRep rep) throws Exception{

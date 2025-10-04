@@ -111,6 +111,11 @@ public class Consulta {
         while(true){
             Misc.limpaTela();
             cal.mostraMes(mesAgr,anoAgr,0);
+            if(dataSelecionada!=null && !horarios.isEmpty()){
+                Misc.gotoHome();
+                cal.mostraHorario(horarios,40,8);
+            }
+            if(horarioSelecionado>=0){mostraOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep);}
             if(obs.length()>0){
                 System.out.println(obs);
                 obs="";
@@ -146,7 +151,7 @@ public class Consulta {
                             dataSelecionada=null;
                             break;
                         case "z":
-                            obs="->"+horarioSelecionado+", "+dataSelecionada;
+                            obs="==>"+Calendario.minutoTempo(horarioSelecionado)+", "+dataSelecionada;
                             break;
                         default:
                             throw new OptionsInvException("Opção inválida.");
@@ -158,10 +163,17 @@ public class Consulta {
                             throw new DateTimeException("Antes de selecionar um horário, selecione uma data.");
                         }
                         horarioSelecionado=InputCheck.horarioSelecionadoCheck(input);
+                        if(!horarios.contains(horarioSelecionado)){
+                            horarioSelecionado=-1;
+                            throw new DateTimeException("Horário indisponível.");
+                        }
                     }
-                    else{
+                    else if(input.contains("/")){
                         dataSelecionada=InputCheck.dataCheck(input);
                         horarios=horariosDisponiveis(getEspec(),dataSelecionada,rep,cal);
+                    }
+                    else{
+                        throw new OptionsInvException("Comando inválido.");
                     }
                 }
             }
@@ -176,12 +188,19 @@ public class Consulta {
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         int diaNum=cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear());
         int diaSemana=cal.diaSemanaInt(diaNum);
+        boolean medicoOcupado=false;
         for(Medico med : rep.getMedicosR().getMedicos()){
             horariosMedico=med.getAgnd().getInicioConsultas();
-            horariosMedico.removeAll(med.getAgnd().getHorariosOcupado());
-            if(med.getEspec()==espec && !med.getAgnd().getFolga().contains(diaSemana)){
+            if(med.getEspec().getNome()==espec.getNome() && !med.getAgnd().getFolga().contains(diaSemana)){
                 for(int hor : horariosMedico){
-                    if(!horarios.contains(hor)){
+                    for(Consulta i : med.getHist().getConsultas()){
+                        medicoOcupado=false;
+                        if(i.getPer().getDiaInicio()==diaNum && i.getPer().getDiaInicio()==hor && i.getStatus()=="Agendada"){
+                            medicoOcupado=true;
+                            break;
+                        }
+                    }
+                    if(!horarios.contains(hor) && !medicoOcupado){
                         horarios.add(hor);
                         Collections.sort(horarios);
                     }
@@ -189,5 +208,22 @@ public class Consulta {
             }
         }
         return horarios;
+    }
+
+    public void mostraOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
+        ArrayList<String> opcoes=new ArrayList<String>();
+        ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
+        for(Medico med : rep.getMedicosR().getMedicos()){
+            if(med.getEspec()!=getEspec()){continue;}
+            horariosMedico=med.getAgnd().getInicioConsultas();
+            if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear())))){
+                if(horariosMedico.contains(horario)){
+                    opcoes.add(med.getNome());
+                }
+            }
+        }
+        for(String str : opcoes){
+            System.out.println(str);
+        }
     }
 }

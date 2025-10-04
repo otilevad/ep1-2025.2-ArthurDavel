@@ -8,6 +8,7 @@ import Menu.Comando;
 import Menu.Menu;
 import Repositorios.*;
 import Utilitarios.Misc;
+import Utilitarios.Calendario.*;
 
 public class Medico extends Pessoa{
     private String crm;
@@ -15,6 +16,7 @@ public class Medico extends Pessoa{
     private double custoConsulta;
     private int tempoMedio; //em minutos
     private Agenda agnd;
+    private HistoricoMedico hist;
 
     public Medico(){
         super();
@@ -22,15 +24,17 @@ public class Medico extends Pessoa{
         this.custoConsulta=0d;
         this.tempoMedio=0;
         this.agnd=new Agenda();
+        this.hist=new HistoricoMedico();
         addComandos();
     }
 
-    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio,Agenda agnd){
+    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio,Agenda agnd,HistoricoMedico hist){
         super(nome,comandos);
         this.crm=crm;
         this.custoConsulta=custoConsulta;
         this.tempoMedio=tempoMedio;
         this.agnd=agnd;
+        this.hist=hist;
     }
 
     public String getCrm() {
@@ -72,6 +76,14 @@ public class Medico extends Pessoa{
 
     public void setAgnd(Agenda agnd) {
         this.agnd = agnd;
+    }
+    
+    public HistoricoMedico getHist() {
+        return this.hist;
+    }
+
+    public void setHist(HistoricoMedico hist) {
+        this.hist = hist;
     }
 
     @Override

@@ -269,6 +269,43 @@ public class Calendario {
         System.out.print(Misc.setLin(11));        
     }
 
+    public void mostraHorario(ArrayList<Integer> horarios,int pad, int qtdLin){
+        //ArrayList<String> horarios=new ArrayList<String>();
+        int tempPad=pad+1;
+        int cols=0;
+        int ordCol=0;
+        System.out.print(Misc.setLin(2));
+        Misc.savePos();
+        for(int i : horarios){
+            System.out.println(Misc.setCol(tempPad)+minutoTempo(i));
+            ordCol++;
+            if(ordCol==qtdLin){
+                tempPad+=6;
+                cols++;
+                ordCol=0;
+                Misc.gotoSavedPos();
+            }
+        }
+        Misc.gotoSavedPos();
+        System.out.print(Misc.sobeLin(2));
+        tempPad=pad;
+        String title="│Horários│";
+        int titlePad=((cols*6)-title.length())/2+(ordCol!=0 ? 4 : 1);
+        System.out.println(Misc.setCol(titlePad+tempPad)+title);
+        if(ordCol==0){cols--;}
+        Misc.savePos();
+        for(int i=0;i<=cols;i++){
+            System.out.println(Misc.setCol(tempPad)+(i==0 ? "┌─────" : "┬─────")+(i==cols ? "┐" : ""));
+            for(int j=0;j<qtdLin;j++){
+                System.out.println(Misc.setCol(tempPad)+"│"+Misc.setCol(5)+(i==cols ? "│" : ""));
+            }
+            System.out.println(Misc.setCol(tempPad)+(i==0 ? "└─────" : "┴─────")+(i==cols ? "┘" : ""));
+            tempPad+=6;
+            Misc.gotoSavedPos();
+        }
+        System.out.print(Misc.setLin(11));        
+    }
+
     public void mostraMesData(int data){
         int mes=diaData(data,"mes");
         int ano=diaData(data, "ano");

@@ -9,7 +9,6 @@ import Utilitarios.Calendario.Calendario.*;
 
 public class Agenda {
     private ArrayList<Integer> inicioConsultas;
-    private ArrayList<Integer> horariosOcupado;
     private ArrayList<Integer> folga;
     private int duracao;
 
@@ -17,14 +16,12 @@ public class Agenda {
         this.inicioConsultas=new ArrayList<Integer>();
         this.duracao=0;
         this.folga=new ArrayList<Integer>();
-        this.horariosOcupado=new ArrayList<Integer>();
     }
 
-    public Agenda(ArrayList<Integer> inicioConsultas,int duracao,ArrayList<Integer> folga,ArrayList<Integer> horariosOcupado){
+    public Agenda(ArrayList<Integer> inicioConsultas,int duracao,ArrayList<Integer> folga){
         this.inicioConsultas=inicioConsultas;
         this.duracao=duracao;
         this.folga=folga;
-        this.horariosOcupado=horariosOcupado;
     }
     
     public ArrayList<Integer> getInicioConsultas() {
@@ -49,14 +46,6 @@ public class Agenda {
 
     public void setFolga(ArrayList<Integer> folga) {
         this.folga = folga;
-    }
-
-    public ArrayList<Integer> getHorariosOcupado() {
-        return this.horariosOcupado;
-    }
-
-    public void setHorariosOcupado(ArrayList<Integer> horariosOcupado) {
-        this.horariosOcupado = horariosOcupado;
     }
 
     public void addInicioConsultas(int horarioInicio, int horarioFim){
