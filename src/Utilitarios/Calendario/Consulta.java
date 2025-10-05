@@ -109,8 +109,11 @@ public class Consulta {
         LocalDate dataSelecionada=null;
         int horarioSelecionado=-1;
         ArrayList<Integer> horarios=new ArrayList<Integer>();
+        ArrayList<DataMarcada> datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
         while(true){
             Misc.limpaTela();
+            datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
+            cal.setDatasM(datasM);
             cal.mostraMes(mesAgr,anoAgr,0);
             if(dataSelecionada!=null && !horarios.isEmpty()){
                 Misc.gotoHome();
@@ -232,8 +235,8 @@ public class Consulta {
         }
     }
 
-    public ArrayList<Integer> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
-        ArrayList<Integer> disp=new ArrayList<Integer>();
+    public ArrayList<DataMarcada> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
+        ArrayList<DataMarcada> disp=new ArrayList<DataMarcada>();
         ArrayList<Integer> horariosOcupados=new ArrayList<Integer>(); 
         ArrayList<Integer> horariosMed=new ArrayList<Integer>(); 
         Ano anoObj=cal.numAno(ano);
@@ -252,7 +255,7 @@ public class Consulta {
                     }
                     horariosMed.removeAll(horariosOcupados);
                     if(!horariosMed.isEmpty()){
-                        disp.add(dia);
+                        disp.add(new DataMarcada(dia,0));
                         break;
                     }
                 }
