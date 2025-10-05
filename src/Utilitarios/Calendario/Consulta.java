@@ -140,8 +140,12 @@ public class Consulta {
         String obs="";
         LocalDate dataSelecionada=null;
         int horarioSelecionado=-1;
+        int opcaoSelecionada=-1;
         ArrayList<Integer> horarios=new ArrayList<Integer>();
         ArrayList<DataMarcada> datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
+        ArrayList<OpcaoConsulta> opcoes=new ArrayList<OpcaoConsulta>(); 
+        Medico medicoSelecionado=new Medico();
+        double valorSelecionado=0d;
         while(true){
             Misc.limpaTela();
             datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
@@ -152,8 +156,9 @@ public class Consulta {
                 cal.mostraHorario(horarios,40,8);
             }
             if(horarioSelecionado>=0 && dataSelecionada!=null){
-                for(String str : criaOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep)){
-                    System.out.println(str);
+                opcoes=criaOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep);
+                for(OpcaoConsulta op : opcoes){
+                    System.out.println(op.getStr());
                 }
             }
             if(obs.length()>0){
@@ -164,43 +169,56 @@ public class Consulta {
             input=sc.nextLine();
             try{
                 if(input.length()==1){
-                    switch(input){
-                        case "a":
-                            if(mesAgr-1<1){
-                                if(anoAgr-1>=cal.getAnos().get(0).getAno()){
-                                    mesAgr=12;
-                                    anoAgr--;
+                    if(horarioSelecionado>=0 && dataSelecionada!=null && InputCheck.isInt(input)){
+                        opcaoSelecionada=Integer.parseInt(input);
+                        if(opcaoSelecionada>=0 && opcaoSelecionada<opcoes.size()){
+                            medicoSelecionado=opcoes.get(opcaoSelecionada).getMed();
+                            valorSelecionado=opcoes.get(opcaoSelecionada).getValor();
+                        }
+                        else{
+                            opcaoSelecionada=-1;
+                            throw new OptionsInvException("Escolha entre 0 e "+(opcoes.size()-1)+".");
+                        }
+                    }
+                    else{
+                        switch(input){
+                            case "a":
+                                if(mesAgr-1<1){
+                                    if(anoAgr-1>=cal.getAnos().get(0).getAno()){
+                                        mesAgr=12;
+                                        anoAgr--;
+                                    }
                                 }
-                            }
-                            else{mesAgr--;}
-                            obs="";
-                            dataSelecionada=null;
-                            horarioSelecionado=-1;
-                            break;
-                        case "d":
-                            if(mesAgr+1>12){
-                                if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
-                                    mesAgr=1;
-                                    anoAgr++;
+                                else{mesAgr--;}
+                                obs="";
+                                dataSelecionada=null;
+                                horarioSelecionado=-1;
+                                break;
+                            case "d":
+                                if(mesAgr+1>12){
+                                    if(anoAgr+1<=cal.getAnos().get(cal.getAnos().size()-1).getAno()){
+                                        mesAgr=1;
+                                        anoAgr++;
+                                    }
                                 }
-                            }
-                            else{mesAgr++;}
-                            obs="";
-                            dataSelecionada=null;
-                            horarioSelecionado=-1;
-                            break;
-                        case "r":
-                            mesAgr=LocalDate.now().getMonthValue();
-                            anoAgr=2025;
-                            input="";
-                            obs="";
-                            dataSelecionada=null;
-                            break;
-                        case "z":
-                            obs="==>"+Calendario.minutoTempo(horarioSelecionado)+", "+dataSelecionada;
-                            break;
-                        default:
-                            throw new OptionsInvException("Opção inválida.");
+                                else{mesAgr++;}
+                                obs="";
+                                dataSelecionada=null;
+                                horarioSelecionado=-1;
+                                break;
+                            case "r":
+                                mesAgr=LocalDate.now().getMonthValue();
+                                anoAgr=2025;
+                                input="";
+                                obs="";
+                                dataSelecionada=null;
+                                break;
+                            case "z":
+                                obs="==>"+Calendario.minutoTempo(horarioSelecionado)+", "+dataSelecionada;
+                                break;
+                            default:
+                                throw new OptionsInvException("Opção inválida.");
+                        }
                     }
                 }
                 else{
@@ -258,8 +276,8 @@ public class Consulta {
         return horarios;
     }
 
-    public ArrayList<String> criaOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
-        ArrayList<String> opcoes=new ArrayList<String>();
+    public ArrayList<OpcaoConsulta> criaOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
+        ArrayList<OpcaoConsulta> opcoes=new ArrayList<OpcaoConsulta>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         double custo=0d;
         double desconto=0d;
@@ -289,7 +307,7 @@ public class Consulta {
                             }
                         }
                     }
-                    opcoes.add(opcoes.size()+" » "+med.getNome()+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo));
+                    opcoes.add(new OpcaoConsulta(opcoes.size()+" » "+med.getNome()+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo), custo, med));
                 }
             }
         }
