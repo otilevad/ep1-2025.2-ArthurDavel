@@ -134,6 +134,8 @@ public class Consulta {
                                 }
                             }
                             else{mesAgr--;}
+                            obs="";
+                            dataSelecionada=null;
                             break;
                         case "d":
                             if(mesAgr+1>12){
@@ -143,6 +145,8 @@ public class Consulta {
                                 }
                             }
                             else{mesAgr++;}
+                            obs="";
+                            dataSelecionada=null;
                             break;
                         case "r":
                             mesAgr=LocalDate.now().getMonthValue();
@@ -226,5 +230,34 @@ public class Consulta {
         for(String str : opcoes){
             System.out.println(str);
         }
+    }
+
+    public ArrayList<Integer> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
+        ArrayList<Integer> disp=new ArrayList<Integer>();
+        ArrayList<Integer> horariosOcupados=new ArrayList<Integer>(); 
+        ArrayList<Integer> horariosMed=new ArrayList<Integer>(); 
+        Ano anoObj=cal.numAno(ano);
+        int mesDuracao=anoObj.getMeses()[mes-1];
+        int dia=0;
+        for(int i=1;i<=mesDuracao;i++){
+            dia=cal.dataDia(i,mes,ano);
+            for(Medico med : rep.getMedicosR().getMedicos()){
+                horariosMed=med.getAgnd().getInicioConsultas();
+                if(!med.getEspec().equals(espec)){continue;}
+                if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(dia))){
+                    horariosOcupados=new ArrayList<Integer>(); 
+                    for(Consulta cons : med.getHist().getConsultas()){
+                        if(cons.getPer().getDiaInicio()!=dia){continue;}
+                        horariosOcupados.add(cons.getPer().getHorarioInicio());
+                    }
+                    horariosMed.removeAll(horariosOcupados);
+                    if(!horariosMed.isEmpty()){
+                        disp.add(dia);
+                        break;
+                    }
+                }
+            }
+        }
+        return disp;
     }
 }
