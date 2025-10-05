@@ -3,6 +3,7 @@ package Repositorios;
 import java.util.ArrayList;
 
 import Entidades.Paciente.*;
+import Exceptions.*;
 
 public class PacientesRep {
     private ArrayList<Paciente> pacientes;
@@ -40,6 +41,42 @@ public class PacientesRep {
 
     public void adicionaPacienteEspecial(PacienteEspecial pacienteEsp){
         pacientesEsp.add(pacienteEsp);
+    }
+
+    public boolean cpfEspecial(String str) throws Exception{
+        if(getPacientes().isEmpty()){
+            for(Paciente i : getPacientes()){
+                if(str.equals(i.getCpf())){
+                    return false;
+                }
+            }
+        }
+        if(!getPacientesEsp().isEmpty()){
+            for(PacienteEspecial j : getPacientesEsp()){
+                if(str.equals(j.getCpf())){
+                    return true;
+                }
+            }
+        }
+        throw new CpfExistsException("CPF não cadastrado.");
+    }
+
+    public PacienteEspecial buscaCpfEsp(String str){
+        for(PacienteEspecial i : getPacientesEsp()){
+            if(str.equals(i.getCpf())){
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Paciente buscaCpf(String str){
+        for(Paciente i : getPacientes()){
+            if(str.equals(i.getCpf())){
+                return i;
+            }
+        }
+        return null;
     }
 
     public void listarPacientes(){

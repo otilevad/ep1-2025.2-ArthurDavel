@@ -13,10 +13,13 @@ import java.util.Collections;
 import java.time.DateTimeException;
 
 import Entidades.Medico.*;
+import Entidades.PlanoSaude.*;
 import Utilitarios.*;
 
 public class Consulta {
     private Paciente pac;
+    private PacienteEspecial pacEsp;
+    private boolean pacIsEsp;
     private Medico med;
     private Especialidade espec;
     private Periodo per;
@@ -25,6 +28,8 @@ public class Consulta {
     
     public Consulta(){
         this.pac=new Paciente();
+        this.pacEsp=new PacienteEspecial();
+        this.pacIsEsp=false;
         this.med=new Medico();
         this.espec=new Especialidade();
         this.per=Periodo.periodoConsulta(0,0,0);
@@ -33,8 +38,10 @@ public class Consulta {
         addComandos();
     }
 
-    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao, String status, ArrayList<Comando> comandos){
+    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao, String status, ArrayList<Comando> comandos, PacienteEspecial pacEsp, boolean pacIsEsp){
         this.pac=new Paciente();
+        this.pacEsp=pacEsp;
+        this.pacIsEsp=pacIsEsp;
         this.med=new Medico();
         this.espec=new Especialidade();
         this.per=Periodo.periodoConsulta(dia,horario,duracao);
@@ -48,6 +55,22 @@ public class Consulta {
 
     public void setPac(Paciente pac) {
         this.pac = pac;
+    }
+
+    public PacienteEspecial getPacEsp() {
+        return this.pacEsp;
+    }
+
+    public void setPacEsp(PacienteEspecial pacEsp) {
+        this.pacEsp = pacEsp;
+    }
+
+    public boolean isPacIsEsp() {
+        return this.pacIsEsp;
+    }
+
+    public void setPacIsEsp(boolean pacIsEsp) {
+        this.pacIsEsp = pacIsEsp;
     }
 
     public Medico getMed() {
@@ -98,6 +121,15 @@ public class Consulta {
     public void agendar(Scanner sc, AllRep rep, Calendario cal) throws Exception{
         setComandos(Menu.inputMenu(getComandos(), false, 11, sc, rep));
         setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
+        String cpfPac=Comando.buscaPorDado("cpf consulta",getComandos()).getValorStr();
+        if(rep.getPacientesR().cpfEspecial(cpfPac)){
+            setPacIsEsp(true);
+            setPacEsp(rep.getPacientesR().buscaCpfEsp(cpfPac)); 
+        }
+        else{
+            setPacIsEsp(false);
+            setPac(rep.getPacientesR().buscaCpf(cpfPac)); 
+        }
         agendamentoCalendario(sc,rep,cal);
     }
 
@@ -119,7 +151,11 @@ public class Consulta {
                 Misc.gotoHome();
                 cal.mostraHorario(horarios,40,8);
             }
-            if(horarioSelecionado>=0){mostraOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep);}
+            if(horarioSelecionado>=0 && dataSelecionada!=null){
+                for(String str : criaOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep)){
+                    System.out.println(str);
+                }
+            }
             if(obs.length()>0){
                 System.out.println(obs);
                 obs="";
@@ -139,6 +175,7 @@ public class Consulta {
                             else{mesAgr--;}
                             obs="";
                             dataSelecionada=null;
+                            horarioSelecionado=-1;
                             break;
                         case "d":
                             if(mesAgr+1>12){
@@ -150,6 +187,7 @@ public class Consulta {
                             else{mesAgr++;}
                             obs="";
                             dataSelecionada=null;
+                            horarioSelecionado=-1;
                             break;
                         case "r":
                             mesAgr=LocalDate.now().getMonthValue();
@@ -178,6 +216,8 @@ public class Consulta {
                     }
                     else if(input.contains("/")){
                         dataSelecionada=InputCheck.dataCheck(input);
+                        mesAgr=dataSelecionada.getMonthValue();
+                        anoAgr=dataSelecionada.getYear();
                         horarios=horariosDisponiveis(dataSelecionada,rep,cal);
                     }
                     else{
@@ -218,21 +258,42 @@ public class Consulta {
         return horarios;
     }
 
-    public void mostraOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
+    public ArrayList<String> criaOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
         ArrayList<String> opcoes=new ArrayList<String>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
+        double custo=0d;
+        double desconto=0d;
         for(Medico med : rep.getMedicosR().getMedicos()){
             if(!med.getEspec().equals(espec)){continue;}
             horariosMedico=med.getAgnd().getInicioConsultas();
             if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear())))){
                 if(horariosMedico.contains(horario)){
-                    opcoes.add(med.getNome());
+                    custo=med.getCustoConsulta()*getEspec().getMult();
+                    if(pacIsEsp){
+                        if(getPacEsp().getIsEspecial()==false){
+                            for(Desconto i : getPacEsp().getPlano().getDescontos()){
+                                if(i.getEspec()==getEspec()){
+                                    desconto=custo*(i.getPorcentagem()/100d);
+                                    custo-=desconto;
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            for(Desconto i : getPacEsp().getPlanoEsp().getDescontos()){
+                                if(i.getEspec()==getEspec()){
+                                    desconto=custo*(i.getPorcentagem()/100d);
+                                    custo-=desconto;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    opcoes.add(opcoes.size()+" » "+med.getNome()+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo));
                 }
             }
         }
-        for(String str : opcoes){
-            System.out.println(str);
-        }
+        return opcoes;
     }
 
     public ArrayList<DataMarcada> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
