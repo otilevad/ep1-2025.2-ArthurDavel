@@ -212,6 +212,11 @@ public class InputCheck {
     }
 
     public static void cpfNaoExistsCheck(String str, AllRep rep) throws Exception{
+        try{
+            rep.getPacientesR().cpfEspecial(str);
+        }catch(Exception e){
+            throw new CpfExistsException("CPF não cadastrado.");
+        }
         if(!rep.getPacientesR().getPacientes().isEmpty()){
             for(Paciente i : rep.getPacientesR().getPacientes()){
                 if(str.equals(i.getCpf())){

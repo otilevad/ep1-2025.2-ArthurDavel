@@ -188,6 +188,7 @@ public class Consulta {
                             setMed(medicoSelecionado);
                             setPer(Periodo.periodoConsulta(cal.dataDia(dataSelecionada.getDayOfMonth(),dataSelecionada.getMonthValue(),dataSelecionada.getYear()),horarioSelecionado,getMed().getTempoMedio()));
                             setValor(valorSelecionado);
+                            setStatus("Agendada");
                             break;
                         }
                         else{
@@ -284,7 +285,7 @@ public class Consulta {
                 for(int hor : horariosMedico){
                     for(Consulta i : med.getHist().getConsultas()){
                         medicoOcupado=false;
-                        if(i.getPer().getDiaInicio()==diaNum && i.getPer().getDiaInicio()==hor && i.getStatus()=="Agendada"){
+                        if(i.getPer().getDiaInicio()==diaNum && i.getPer().getHorarioInicio()==hor && i.getStatus()=="Agendada"){
                             medicoOcupado=true;
                             break;
                         }
@@ -337,27 +338,33 @@ public class Consulta {
 
     public ArrayList<DataMarcada> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
         ArrayList<DataMarcada> disp=new ArrayList<DataMarcada>();
-        ArrayList<Integer> horariosOcupados=new ArrayList<Integer>(); 
         ArrayList<Integer> horariosMed=new ArrayList<Integer>(); 
         Ano anoObj=cal.numAno(ano);
         int mesDuracao=anoObj.getMeses()[mes-1];
         int dia=0;
+        int consultaNoDia=0;
         for(int i=1;i<=mesDuracao;i++){
             dia=cal.dataDia(i,mes,ano);
-            for(Medico med : rep.getMedicosR().getMedicos()){
+            medLoop: for(Medico med : rep.getMedicosR().getMedicos()){
                 horariosMed=med.getAgnd().getInicioConsultas();
                 if(!med.getEspec().equals(espec)){continue;}
-                if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(dia))){
-                    horariosOcupados=new ArrayList<Integer>(); 
+                if(med.getAgnd().getFolga().contains(cal.diaSemanaInt(dia))){continue;}
+                if(med.getHist().getConsultas().size()==0 && horariosMed.size()>0){
+                    disp.add(new DataMarcada(dia,0));
+                    break;
+                }
+                consultaNoDia=0;
+                for(int j : horariosMed){
                     for(Consulta cons : med.getHist().getConsultas()){
                         if(cons.getPer().getDiaInicio()!=dia){continue;}
-                        horariosOcupados.add(cons.getPer().getHorarioInicio());
+                        if(j==cons.getPer().getHorarioInicio() && cons.getStatus()=="Agendada"){
+                            consultaNoDia++;
+                        }
                     }
-                    horariosMed.removeAll(horariosOcupados);
-                    if(!horariosMed.isEmpty()){
-                        disp.add(new DataMarcada(dia,0));
-                        break;
-                    }
+                }
+                if(consultaNoDia<horariosMed.size()){
+                    disp.add(new DataMarcada(dia,0));
+                    break;
                 }
             }
         }
