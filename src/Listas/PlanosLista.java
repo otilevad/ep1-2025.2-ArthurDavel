@@ -1,20 +1,20 @@
-package Repositorios;
+package Listas;
 
 import java.util.ArrayList;
 
 import Entidades.PlanoSaude.*;
 
-public class PlanosRep{
+public class PlanosLista{
     private ArrayList<PlanoSaude> planos;
     private ArrayList<PlanoEspecial> planosEsp;
 
-    public PlanosRep(){
+    public PlanosLista(){
         this.planos= new ArrayList<PlanoSaude>();
         this.planosEsp= new ArrayList<PlanoEspecial>();
         addPlanosPadrao();
     }
 
-    public PlanosRep(ArrayList<PlanoSaude> planos, ArrayList<PlanoEspecial> planosEsp){
+    public PlanosLista(ArrayList<PlanoSaude> planos, ArrayList<PlanoEspecial> planosEsp){
         this.planos=planos;
         this.planosEsp=planosEsp;
     }

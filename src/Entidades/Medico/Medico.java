@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Entidades.Pessoa;
+import Listas.*;
 import Menu.Comando;
 import Menu.Menu;
-import Repositorios.*;
 import Utilitarios.Misc;
 import Utilitarios.Calendario.*;
 
@@ -94,28 +94,28 @@ public class Medico extends Pessoa{
         getComandos().add(new Comando("tempo médio", "int", "Digite o tempo médio da consulta (min): "));
     }
 
-    public ArrayList<Comando> inputAgenda(Scanner sc, AllRep rep) throws Exception{
+    public ArrayList<Comando> inputAgenda(Scanner sc, AllLista lista) throws Exception{
         ArrayList<Comando> agenda=new ArrayList<Comando>();
         agenda.add(new Comando("folga", "String", "Digite os dias que não trabalha separados por \"/\": "));
         agenda.add(new Comando("horario", "String", "Horário (hh:mm) de início e fim do expediente separados por \"/\": "));
         agenda.add(new Comando("intervalo", "String", "Início e fim do intervalo separados por \"/\" e \",\" para adicionar: "));
-        return Menu.inputMenu(agenda, false, 35, sc, rep);
+        return Menu.inputMenu(agenda, false, 35, sc, lista);
     }
 
     @Override
-    public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
+    public void cadastrar(AllLista lista, Scanner sc) throws Exception{
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
         setAtributosPessoa();
         setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
-        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
+        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
         setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
         setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
         Misc.limpaTela();
-        ArrayList<Comando> agenda=inputAgenda(sc, rep);
+        ArrayList<Comando> agenda=inputAgenda(sc, lista);
         getAgnd().agendaStr(Agenda.folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
                             Agenda.horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
                             Agenda.horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
-        rep.getMedicosR().adicionaMedico(this);
+        lista.getMedicosL().adicionaMedico(this);
     }
 
     @Override

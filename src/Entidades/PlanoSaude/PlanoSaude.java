@@ -6,8 +6,8 @@ import java.util.Scanner;
 import Entidades.Medico.Especialidade;
 import Menu.Comando;
 import Menu.Menu;
-import Repositorios.*;
 import Exceptions.*;
+import Listas.*;
 
 public class PlanoSaude {
     private String nome;
@@ -66,32 +66,32 @@ public class PlanoSaude {
         getComandos().add(new Comando("internacaogratis", "String", "Possui internação de até 1 semana grátis? (s/n) "));
     }
 
-    public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
+    public void cadastrar(AllLista lista, Scanner sc) throws Exception{
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
         if(Comando.buscaPorDado("internacaogratis",getComandos()).getValorStr().equals("s")){
             PlanoEspecial planoEsp=new PlanoEspecial();
             planoEsp.setComandos(getComandos());
-            planoEsp.setAtributosPlano(rep);
-            rep.getPlanosR().adicionaPlanoEsp(planoEsp);
+            planoEsp.setAtributosPlano(lista);
+            lista.getPlanosL().adicionaPlanoEsp(planoEsp);
         }
         else{
-            setAtributosPlano(rep);
-            rep.getPlanosR().adicionaPlano(this);
+            setAtributosPlano(lista);
+            lista.getPlanosL().adicionaPlano(this);
         }
     }
 
-    public void setAtributosPlano(AllRep rep) throws Exception{
+    public void setAtributosPlano(AllLista lista) throws Exception{
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
-        setDescontos(stringSetDescontos(Comando.buscaPorDado("descontos",getComandos()).getValorStr(),rep));
+        setDescontos(stringSetDescontos(Comando.buscaPorDado("descontos",getComandos()).getValorStr(),lista));
     }
 
-    public static ArrayList<Desconto> stringSetDescontos(String str, AllRep rep) throws Exception{
+    public static ArrayList<Desconto> stringSetDescontos(String str, AllLista lista) throws Exception{
         ArrayList<Desconto> descs=new ArrayList<Desconto>();
         String strNova=str.replaceAll("\\s", "");
         String[] strs=strNova.split(",");
         for(String descontoStr : strs){
             String[] valores=descontoStr.split("/");
-            Especialidade espec=Especialidade.buscaValorEspec(Integer.parseInt(valores[0]),rep);
+            Especialidade espec=Especialidade.buscaValorEspec(Integer.parseInt(valores[0]),lista);
             Double valor=Double.parseDouble(valores[1]);
             if(valor>=100){
                 throw new DescInvException("Descontos devem ser menores que 100%.");
@@ -105,8 +105,8 @@ public class PlanoSaude {
         return descs;
     }
 
-    public static PlanoSaude buscaValorPlano(int num, AllRep rep){
-        return rep.getPlanosR().getPlanos().get(num);
+    public static PlanoSaude buscaValorPlano(int num, AllLista lista){
+        return lista.getPlanosL().getPlanos().get(num);
     }
 
     public static boolean descEspecExiste(Especialidade espec, ArrayList<Desconto> descs){

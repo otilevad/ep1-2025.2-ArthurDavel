@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Exceptions.*;
+import Listas.*;
 import Utilitarios.*;
-import Repositorios.*;
 import Entidades.Medico.*;
 import Entidades.PlanoSaude.*;
 
@@ -86,10 +86,10 @@ public class Menu {
         Misc.resetSetPos(pad,3+opts.size());
     }
 
-    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,boolean centered, int writePad,Scanner sc,AllRep rep) throws Exception{
+    public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,boolean centered, int writePad,Scanner sc,AllLista lista) throws Exception{
         int telaTam=Misc.getTamanhoTela();
         int pad=0;
-        ArrayList<String> opcoesStrings=stringArrayRep(rep,"");
+        ArrayList<String> opcoesStrings=stringArrayRep(lista,"");
         int maiorOpcaoTam=0;
         int opcaoPad=0;
         int minWrite=1;
@@ -140,7 +140,7 @@ public class Menu {
                 }
 
                 //Imprime as opções, caso o comando seja compatível com opções
-                opcoesStrings=stringArrayRep(rep,cmd.getDado());
+                opcoesStrings=stringArrayRep(lista,cmd.getDado());
                 maiorOpcaoTam=tamMaiorString(opcoesStrings);
                 if(!opcoesStrings.isEmpty()){
                     switch(cmd.getDado()){
@@ -207,7 +207,7 @@ public class Menu {
                         case "cpf":
                             InputCheck.charLimitCheck(str,11,11);
                             InputCheck.numberCheck(str);
-                            InputCheck.cpfExistsCheck(str, rep);
+                            InputCheck.cpfExistsCheck(str, lista);
                             break;
                         case "idade":
                             InputCheck.numberCheck(str);
@@ -218,7 +218,7 @@ public class Menu {
                         case "crm":
                             InputCheck.charLimitCheck(str,8,8);
                             InputCheck.crmCheck(str);
-                            InputCheck.crmExistsCheck(str,rep);
+                            InputCheck.crmExistsCheck(str,lista);
                             break;
                         case "especialidade":
                             num=InputCheck.optionListCheck(str,opcoesStrings);
@@ -230,7 +230,7 @@ public class Menu {
                             num=InputCheck.optionListCheck(str,opcoesStrings);
                             break;
                         case "descontos":
-                            InputCheck.descCheck(str,rep);
+                            InputCheck.descCheck(str,lista);
                             break;
                         case "internacaogratis":
                             InputCheck.simNaoCheck(str);
@@ -250,7 +250,7 @@ public class Menu {
                             InputCheck.horarioCheck(str);
                             break;
                         case "cpf consulta":
-                            InputCheck.cpfNaoExistsCheck(str,rep);
+                            InputCheck.cpfNaoExistsCheck(str,lista);
                             break;
                     }
                     cmd.setValorInt(num);
@@ -295,24 +295,24 @@ public class Menu {
         return strArray;
     }
 
-    public static ArrayList<String> stringArrayRep(AllRep rep,String str){
+    public static ArrayList<String> stringArrayRep(AllLista lista,String str){
         ArrayList<String> strArray=new ArrayList<String>();
         switch(str){
             case "especialidade":
-                for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+                for(Especialidade i : lista.getEspecialidadesL().getEspecialidades()){
                     strArray.add(i.getNome());
                 }
                 break;
             case "plano de saúde":
-                for(PlanoSaude i : rep.getPlanosR().getPlanos()){
+                for(PlanoSaude i : lista.getPlanosL().getPlanos()){
                     strArray.add(i.getNome());
                 }
-                for(PlanoEspecial i : rep.getPlanosR().getPlanosEsp()){
+                for(PlanoEspecial i : lista.getPlanosL().getPlanosEsp()){
                     strArray.add(i.getNome());
                 }
                 break;
             case "descontos":
-                for(Especialidade i : rep.getEspecialidadesR().getEspecialidades()){
+                for(Especialidade i : lista.getEspecialidadesL().getEspecialidades()){
                     strArray.add(i.getNome());
                 }
                 break;

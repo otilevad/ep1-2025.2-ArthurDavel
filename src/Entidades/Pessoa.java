@@ -1,10 +1,12 @@
 package Entidades;
 
 import Utilitarios.*;
-import Repositorios.*;
 import Menu.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import Listas.*;
+
 import java.util.ArrayList;
 
 public abstract class Pessoa {
@@ -43,6 +45,6 @@ public abstract class Pessoa {
     public void setAtributosPessoa(){
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
     }
-    abstract public void cadastrar(AllRep rep, Scanner sc) throws Exception;
+    abstract public void cadastrar(AllLista lista, Scanner sc) throws Exception;
     abstract public void imprimeDados();
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import Entidades.Pessoa;
 import Entidades.Medico.Especialidade;
 import Entidades.PlanoSaude.*;
-import Repositorios.*;
+import Listas.*;
 import Menu.*;
 import Utilitarios.Misc;
 import Utilitarios.Calendario.Historico;
@@ -71,27 +71,27 @@ public class Paciente extends Pessoa{
     }
 
     @Override
-    public void cadastrar(AllRep rep, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, rep));
+    public void cadastrar(AllLista lista, Scanner sc) throws Exception{
+        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
         if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=0){
             PacienteEspecial pacienteEsp=new PacienteEspecial();
             pacienteEsp.setComandos(getComandos());
             pacienteEsp.setAtributosPaciente();
-            if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=rep.getPlanosR().getPlanos().size()){
-                pacienteEsp.setPlanoEsp(PlanoEspecial.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()-rep.getPlanosR().getPlanos().size(),rep));
+            if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=lista.getPlanosL().getPlanos().size()){
+                pacienteEsp.setPlanoEsp(PlanoEspecial.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()-lista.getPlanosL().getPlanos().size(),lista));
                 pacienteEsp.setIsEspecial(true);
                 pacienteEsp.setPlano(null);
             }
             else{
-                pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),rep));
+                pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),lista));
                 pacienteEsp.setIsEspecial(false);
                 pacienteEsp.setPlanoEsp(null);
             }
-            rep.getPacientesR().adicionaPacienteEspecial(pacienteEsp);
+            lista.getPacientesL().adicionaPacienteEspecial(pacienteEsp);
         }
         else{
             setAtributosPaciente();
-            rep.getPacientesR().adicionaPaciente(this);
+            lista.getPacientesL().adicionaPaciente(this);
         }
     }
 

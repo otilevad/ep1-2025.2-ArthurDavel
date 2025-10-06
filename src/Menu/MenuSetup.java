@@ -3,7 +3,7 @@ package Menu;
 import Entidades.Medico.*;
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
-import Repositorios.*;
+import Listas.*;
 import Utilitarios.*;
 import Utilitarios.Calendario.*;
 
@@ -53,38 +53,38 @@ public class MenuSetup {
         return menus;
     }
 
-    public static int criaAcoes(int opt, AllRep rep, Scanner sc,Calendario cal) throws Exception{
+    public static int criaAcoes(int opt, AllLista lista, Scanner sc,Calendario cal) throws Exception{
         int destino=0;
         switch(opt){
             case -3: //Cadastro de pacientes
-                new Paciente().cadastrar(rep, sc);
+                new Paciente().cadastrar(lista, sc);
                 destino=1;
                 break;
             case -4: //Listar Pacientes
-                rep.getPacientesR().listarPacientes();
+                lista.getPacientesL().listarPacientes();
                 sc.nextLine();
                 destino=1;
                 break;
             case -5: //Cadastro de médico
-                new Medico().cadastrar(rep, sc);
+                new Medico().cadastrar(lista, sc);
                 destino=2;
                 break;
             case -6: //Listar médicos
-                rep.getMedicosR().listarMedicos();
+                lista.getMedicosL().listarMedicos();
                 sc.nextLine();
                 destino=2;
                 break;
             case -7: //Cadastro de plano de saúde
-                new PlanoSaude().cadastrar(rep, sc);
+                new PlanoSaude().cadastrar(lista, sc);
                 destino=3;
                 break;
             case -8: //Listar plano de saúde
-                rep.getPlanosR().listarPlanos();
+                lista.getPlanosL().listarPlanos();
                 sc.nextLine();
                 destino=3;
                 break;
             case -9:
-                new Consulta().agendar(sc,rep,cal);
+                new Consulta().agendar(sc,lista,cal);
                 sc.nextLine();
                 destino=4;
                 break;

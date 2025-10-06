@@ -1,20 +1,20 @@
-package Repositorios;
+package Listas;
 
 import java.util.ArrayList;
 
 import Entidades.Paciente.*;
 import Exceptions.*;
 
-public class PacientesRep {
+public class PacientesLista {
     private ArrayList<Paciente> pacientes;
     private ArrayList<PacienteEspecial> pacientesEsp;
     
-    public PacientesRep(){
+    public PacientesLista(){
         pacientes= new ArrayList<Paciente>();
         pacientesEsp= new ArrayList<PacienteEspecial>();
     }
 
-    public PacientesRep(ArrayList<Paciente> pacientes, ArrayList<PacienteEspecial> pacientesEsp){
+    public PacientesLista(ArrayList<Paciente> pacientes, ArrayList<PacienteEspecial> pacientesEsp){
         this.pacientes=pacientes;
         this.pacientesEsp=pacientesEsp;
     }

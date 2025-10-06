@@ -2,9 +2,9 @@ package Utilitarios.Calendario;
 
 import Entidades.Paciente.*;
 import Exceptions.*;
+import Listas.AllLista;
 import Menu.Comando;
 import Menu.Menu;
-import Repositorios.AllRep;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -129,22 +129,22 @@ public class Consulta {
         getComandos().add(new Comando("especialidade", "String", "Especialidade da consulta: "));
     }
 
-    public void agendar(Scanner sc, AllRep rep, Calendario cal) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 11, sc, rep));
-        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),rep));
+    public void agendar(Scanner sc, AllLista lista, Calendario cal) throws Exception{
+        setComandos(Menu.inputMenu(getComandos(), false, 11, sc, lista));
+        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
         String cpfPac=Comando.buscaPorDado("cpf consulta",getComandos()).getValorStr();
-        if(rep.getPacientesR().cpfEspecial(cpfPac)){
+        if(lista.getPacientesL().cpfEspecial(cpfPac)){
             setPacIsEsp(true);
-            setPacEsp(rep.getPacientesR().buscaCpfEsp(cpfPac)); 
+            setPacEsp(lista.getPacientesL().buscaCpfEsp(cpfPac)); 
         }
         else{
             setPacIsEsp(false);
-            setPac(rep.getPacientesR().buscaCpf(cpfPac)); 
+            setPac(lista.getPacientesL().buscaCpf(cpfPac)); 
         }
-        agendamentoCalendario(sc,rep,cal);
+        agendamentoCalendario(sc,lista,cal);
     }
 
-    public void agendamentoCalendario(Scanner sc, AllRep rep, Calendario cal) throws Exception{
+    public void agendamentoCalendario(Scanner sc, AllLista lista, Calendario cal) throws Exception{
         int mesAgr=LocalDate.now().getMonthValue();
         int anoAgr=2025;
         String input="";
@@ -153,13 +153,13 @@ public class Consulta {
         int horarioSelecionado=-1;
         int opcaoSelecionada=-1;
         ArrayList<Integer> horarios=new ArrayList<Integer>();
-        ArrayList<DataMarcada> datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
+        ArrayList<DataMarcada> datasM=datasDisponiveis(mesAgr,anoAgr,cal,lista);
         ArrayList<OpcaoConsulta> opcoes=new ArrayList<OpcaoConsulta>(); 
         Medico medicoSelecionado=new Medico();
         double valorSelecionado=0d;
         while(true){
             Misc.limpaTela();
-            datasM=datasDisponiveis(mesAgr,anoAgr,cal,rep);
+            datasM=datasDisponiveis(mesAgr,anoAgr,cal,lista);
             cal.setDatasM(datasM);
             cal.mostraMes(mesAgr,anoAgr,0);
             if(dataSelecionada!=null && !horarios.isEmpty()){
@@ -167,7 +167,7 @@ public class Consulta {
                 cal.mostraHorario(horarios,40,8);
             }
             if(horarioSelecionado>=0 && dataSelecionada!=null){
-                opcoes=criaOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,rep);
+                opcoes=criaOpcoesMedicos(horarioSelecionado,dataSelecionada,cal,lista);
                 for(OpcaoConsulta op : opcoes){
                     System.out.println(op.getStr());
                 }
@@ -252,7 +252,7 @@ public class Consulta {
                         dataSelecionada=InputCheck.dataCheck(input);
                         mesAgr=dataSelecionada.getMonthValue();
                         anoAgr=dataSelecionada.getYear();
-                        horarios=horariosDisponiveis(dataSelecionada,rep,cal);
+                        horarios=horariosDisponiveis(dataSelecionada,lista,cal);
                     }
                     else{
                         throw new OptionsInvException("Comando inválido.");
@@ -273,13 +273,13 @@ public class Consulta {
         System.out.println("\nConsulta agendada com sucesso, pressione Enter para prosseguir.");
     }
 
-    public ArrayList<Integer> horariosDisponiveis(LocalDate data, AllRep rep, Calendario cal){
+    public ArrayList<Integer> horariosDisponiveis(LocalDate data, AllLista lista, Calendario cal){
         ArrayList<Integer> horarios=new ArrayList<Integer>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         int diaNum=cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear());
         int diaSemana=cal.diaSemanaInt(diaNum);
         boolean medicoOcupado=false;
-        for(Medico med : rep.getMedicosR().getMedicos()){
+        for(Medico med : lista.getMedicosL().getMedicos()){
             horariosMedico=med.getAgnd().getInicioConsultas();
             if(med.getEspec().equals(espec) && !med.getAgnd().getFolga().contains(diaSemana)){
                 for(int hor : horariosMedico){
@@ -300,12 +300,12 @@ public class Consulta {
         return horarios;
     }
 
-    public ArrayList<OpcaoConsulta> criaOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllRep rep){
+    public ArrayList<OpcaoConsulta> criaOpcoesMedicos(int horario,LocalDate data,Calendario cal,AllLista lista){
         ArrayList<OpcaoConsulta> opcoes=new ArrayList<OpcaoConsulta>();
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         double custo=0d;
         double desconto=0d;
-        for(Medico med : rep.getMedicosR().getMedicos()){
+        for(Medico med : lista.getMedicosL().getMedicos()){
             if(!med.getEspec().equals(espec)){continue;}
             horariosMedico=med.getAgnd().getInicioConsultas();
             if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear()))) && horariosMedico.contains(horario)){
@@ -336,7 +336,7 @@ public class Consulta {
         return opcoes;
     }
 
-    public ArrayList<DataMarcada> datasDisponiveis(int mes, int ano,Calendario cal,AllRep rep){
+    public ArrayList<DataMarcada> datasDisponiveis(int mes, int ano,Calendario cal,AllLista lista){
         ArrayList<DataMarcada> disp=new ArrayList<DataMarcada>();
         ArrayList<Integer> horariosMed=new ArrayList<Integer>(); 
         Ano anoObj=cal.numAno(ano);
@@ -345,7 +345,7 @@ public class Consulta {
         int consultaNoDia=0;
         for(int i=1;i<=mesDuracao;i++){
             dia=cal.dataDia(i,mes,ano);
-            medLoop: for(Medico med : rep.getMedicosR().getMedicos()){
+            medLoop: for(Medico med : lista.getMedicosL().getMedicos()){
                 horariosMed=med.getAgnd().getInicioConsultas();
                 if(!med.getEspec().equals(espec)){continue;}
                 if(med.getAgnd().getFolga().contains(cal.diaSemanaInt(dia))){continue;}

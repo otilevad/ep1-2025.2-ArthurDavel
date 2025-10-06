@@ -3,7 +3,7 @@ package Entidades.Medico;
 import java.util.ArrayList;
 
 import Entidades.Sala.*;
-import Repositorios.*;
+import Listas.*;
 import Utilitarios.Misc;
 import Utilitarios.Calendario.Periodo;
 
@@ -58,7 +58,7 @@ public class Especialidade {
         return arrayPrev;
     }
 
-    public static Especialidade buscaValorEspec(int num, AllRep rep){
-        return rep.getEspecialidadesR().getEspecialidades().get(num);
+    public static Especialidade buscaValorEspec(int num, AllLista lista){
+        return lista.getEspecialidadesL().getEspecialidades().get(num);
     }
 }

@@ -1,17 +1,17 @@
-package Repositorios;
+package Listas;
 
 import java.util.ArrayList;
 
 import Entidades.Medico.Medico;
 
-public class MedicosRep {
+public class MedicosLista {
     private ArrayList<Medico> medicos;
     
-    public MedicosRep(){
+    public MedicosLista(){
         medicos = new ArrayList<Medico>();
     }
 
-    public MedicosRep(ArrayList<Medico> medicos){
+    public MedicosLista(ArrayList<Medico> medicos){
         this.medicos = medicos;
     }
 

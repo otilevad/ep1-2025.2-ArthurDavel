@@ -1,7 +1,7 @@
 package Utilitarios;
 
 import Exceptions.*;
-import Repositorios.AllRep;
+import Listas.AllLista;
 import Utilitarios.*;
 import Utilitarios.Calendario.*;
 
@@ -128,9 +128,9 @@ public class InputCheck {
         }
     }
 
-    public static void descCheck(String str, AllRep rep) throws Exception{
+    public static void descCheck(String str, AllLista lista) throws Exception{
         try{
-            PlanoSaude.stringSetDescontos(str,rep);
+            PlanoSaude.stringSetDescontos(str,lista);
         }
         catch(DescInvException e){
             throw new DescInvException(e.getMessage());
@@ -194,16 +194,16 @@ public class InputCheck {
         }
     }
 
-    public static void cpfExistsCheck(String str, AllRep rep) throws Exception{
-        if(!rep.getPacientesR().getPacientes().isEmpty()){
-            for(Paciente i : rep.getPacientesR().getPacientes()){
+    public static void cpfExistsCheck(String str, AllLista lista) throws Exception{
+        if(!lista.getPacientesL().getPacientes().isEmpty()){
+            for(Paciente i : lista.getPacientesL().getPacientes()){
                 if(str.equals(i.getCpf())){
                     throw new CpfExistsException("Já existe um paciente com este CPF cadastrado.");
                 }
             }
         }
-        if(!rep.getPacientesR().getPacientesEsp().isEmpty()){
-            for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
+        if(!lista.getPacientesL().getPacientesEsp().isEmpty()){
+            for(PacienteEspecial j : lista.getPacientesL().getPacientesEsp()){
                 if(str.equals(j.getCpf())){
                     throw new CpfExistsException("Já existe um paciente especial com este CPF cadastrado.");
                 }
@@ -211,21 +211,21 @@ public class InputCheck {
         }
     }
 
-    public static void cpfNaoExistsCheck(String str, AllRep rep) throws Exception{
+    public static void cpfNaoExistsCheck(String str, AllLista lista) throws Exception{
         try{
-            rep.getPacientesR().cpfEspecial(str);
+            lista.getPacientesL().cpfEspecial(str);
         }catch(Exception e){
             throw new CpfExistsException("CPF não cadastrado.");
         }
-        if(!rep.getPacientesR().getPacientes().isEmpty()){
-            for(Paciente i : rep.getPacientesR().getPacientes()){
+        if(!lista.getPacientesL().getPacientes().isEmpty()){
+            for(Paciente i : lista.getPacientesL().getPacientes()){
                 if(str.equals(i.getCpf())){
                     return;
                 }
             }
         }
-        if(!rep.getPacientesR().getPacientesEsp().isEmpty()){
-            for(PacienteEspecial j : rep.getPacientesR().getPacientesEsp()){
+        if(!lista.getPacientesL().getPacientesEsp().isEmpty()){
+            for(PacienteEspecial j : lista.getPacientesL().getPacientesEsp()){
                 if(str.equals(j.getCpf())){
                     return;
                 }
@@ -234,9 +234,9 @@ public class InputCheck {
         throw new CpfExistsException("Paciente não encontrado.");
     }
 
-    public static void crmExistsCheck(String str, AllRep rep) throws Exception{
-        if(!rep.getMedicosR().getMedicos().isEmpty()){
-            for(Medico i : rep.getMedicosR().getMedicos()){
+    public static void crmExistsCheck(String str, AllLista lista) throws Exception{
+        if(!lista.getMedicosL().getMedicos().isEmpty()){
+            for(Medico i : lista.getMedicosL().getMedicos()){
                 if(str.equals(i.getCrm())){
                     throw new CrmExistsException("Já existe um médico com este CRM cadastrado.");
                 }

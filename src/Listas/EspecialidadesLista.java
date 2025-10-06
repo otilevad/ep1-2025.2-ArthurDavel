@@ -1,19 +1,19 @@
-package Repositorios;
+package Listas;
 
 import java.util.ArrayList;
 
 import Entidades.Medico.Especialidade;
 import Entidades.Sala.SalaConsulta;
 
-public class EspecialidadesRep {
+public class EspecialidadesLista {
     private ArrayList<Especialidade> especialidades;
 
-    public EspecialidadesRep(){
+    public EspecialidadesLista(){
         this.especialidades=new ArrayList<Especialidade>();
         addEspecialidadesPadrao();
     }
 
-    public EspecialidadesRep(ArrayList<Especialidade> especialidades){
+    public EspecialidadesLista(ArrayList<Especialidade> especialidades){
         this.especialidades=especialidades;
     }
 

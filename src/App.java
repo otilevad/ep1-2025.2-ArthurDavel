@@ -1,7 +1,6 @@
 import Menu.*;
 import Utilitarios.*;
 import Utilitarios.Calendario.*;
-import Repositorios.*;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.foreign.*;
@@ -12,6 +11,7 @@ import java.util.Scanner;
 import java.nio.charset.StandardCharsets;
 
 import Exceptions.*;
+import Listas.*;
 
 public class App {
     public static void main (String[] args) throws Exception {
@@ -23,7 +23,7 @@ public class App {
         cal.calendarioSetup();
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
-        AllRep rep = new AllRep();
+        AllLista lista = new AllLista();
         int menuSelecionado=0; //id do menu
         int opt=0;
         Menu menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado));
@@ -43,7 +43,7 @@ public class App {
                 default:
                     if(opt>=0){menuSelecionado=opt;}
                     else{
-                        opt=MenuSetup.criaAcoes(opt, rep, sc, cal);
+                        opt=MenuSetup.criaAcoes(opt, lista, sc, cal);
                         skipInput=true;
                     }
                     break;

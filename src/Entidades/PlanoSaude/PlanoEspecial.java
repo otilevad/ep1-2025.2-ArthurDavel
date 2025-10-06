@@ -1,6 +1,6 @@
 package Entidades.PlanoSaude;
 
-import Repositorios.AllRep;
+import Listas.AllLista;
 
 public class PlanoEspecial extends PlanoSaude{
     @Override
@@ -13,7 +13,7 @@ public class PlanoEspecial extends PlanoSaude{
         System.out.println("Internação de no máximo 1 semana gratuita!");
     }
     
-    public static PlanoEspecial buscaValorPlano(int num, AllRep rep){
-        return rep.getPlanosR().getPlanosEsp().get(num);
+    public static PlanoEspecial buscaValorPlano(int num, AllLista lista){
+        return lista.getPlanosL().getPlanosEsp().get(num);
     }
 }
