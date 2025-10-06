@@ -24,6 +24,7 @@ public class Consulta {
     private Especialidade espec;
     private Periodo per;
     private String status;
+    private double valor;
     private ArrayList<Comando> comandos;
     
     public Consulta(){
@@ -35,10 +36,11 @@ public class Consulta {
         this.per=Periodo.periodoConsulta(0,0,0);
         this.status="Agendada";
         this.comandos=new ArrayList<Comando>();
+        this.valor=0d;
         addComandos();
     }
 
-    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao, String status, ArrayList<Comando> comandos, PacienteEspecial pacEsp, boolean pacIsEsp){
+    public Consulta(Paciente pac, Medico med, Especialidade espec, int dia, int horario, int duracao, String status, ArrayList<Comando> comandos, PacienteEspecial pacEsp, boolean pacIsEsp,double valor){
         this.pac=new Paciente();
         this.pacEsp=pacEsp;
         this.pacIsEsp=pacIsEsp;
@@ -47,6 +49,7 @@ public class Consulta {
         this.per=Periodo.periodoConsulta(dia,horario,duracao);
         this.status=status;
         this.comandos=comandos;
+        this.valor=valor;
     }
 
     public Paciente getPac() {
@@ -65,7 +68,7 @@ public class Consulta {
         this.pacEsp = pacEsp;
     }
 
-    public boolean isPacIsEsp() {
+    public boolean getPacIsEsp() {
         return this.pacIsEsp;
     }
 
@@ -111,6 +114,14 @@ public class Consulta {
 
     public void setComandos(ArrayList<Comando> comandos) {
         this.comandos = comandos;
+    }
+
+    public double getValor() {
+        return this.valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     public void addComandos(){
@@ -174,6 +185,10 @@ public class Consulta {
                         if(opcaoSelecionada>=0 && opcaoSelecionada<opcoes.size()){
                             medicoSelecionado=opcoes.get(opcaoSelecionada).getMed();
                             valorSelecionado=opcoes.get(opcaoSelecionada).getValor();
+                            setMed(medicoSelecionado);
+                            setPer(Periodo.periodoConsulta(cal.dataDia(dataSelecionada.getDayOfMonth(),dataSelecionada.getMonthValue(),dataSelecionada.getYear()),horarioSelecionado,getMed().getTempoMedio()));
+                            setValor(valorSelecionado);
+                            break;
                         }
                         else{
                             opcaoSelecionada=-1;
@@ -247,6 +262,14 @@ public class Consulta {
                 obs=e.getMessage();
             }
         }
+        getMed().getHist().getConsultas().add(this);
+        if(getPacIsEsp()){
+            getPacEsp().getHistoricoPaciente().getConsultas().add(this);
+        }
+        else{
+            getPac().getHistoricoPaciente().getConsultas().add(this);
+        }
+        System.out.println("\nConsulta agendada com sucesso, pressione Enter para prosseguir.");
     }
 
     public ArrayList<Integer> horariosDisponiveis(LocalDate data, AllRep rep, Calendario cal){
@@ -284,31 +307,29 @@ public class Consulta {
         for(Medico med : rep.getMedicosR().getMedicos()){
             if(!med.getEspec().equals(espec)){continue;}
             horariosMedico=med.getAgnd().getInicioConsultas();
-            if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear())))){
-                if(horariosMedico.contains(horario)){
-                    custo=med.getCustoConsulta()*getEspec().getMult();
-                    if(pacIsEsp){
-                        if(getPacEsp().getIsEspecial()==false){
-                            for(Desconto i : getPacEsp().getPlano().getDescontos()){
-                                if(i.getEspec()==getEspec()){
-                                    desconto=custo*(i.getPorcentagem()/100d);
-                                    custo-=desconto;
-                                    break;
-                                }
-                            }
-                        }
-                        else{
-                            for(Desconto i : getPacEsp().getPlanoEsp().getDescontos()){
-                                if(i.getEspec()==getEspec()){
-                                    desconto=custo*(i.getPorcentagem()/100d);
-                                    custo-=desconto;
-                                    break;
-                                }
+            if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear()))) && horariosMedico.contains(horario)){
+                custo=med.getCustoConsulta()*getEspec().getMult();
+                if(getPacIsEsp()){
+                    if(getPacEsp().getIsEspecial()==false){
+                        for(Desconto i : getPacEsp().getPlano().getDescontos()){
+                            if(i.getEspec()==getEspec()){
+                                desconto=custo*(i.getPorcentagem()/100d);
+                                custo-=desconto;
+                                break;
                             }
                         }
                     }
-                    opcoes.add(new OpcaoConsulta(opcoes.size()+" » "+med.getNome()+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo), custo, med));
+                    else{
+                        for(Desconto i : getPacEsp().getPlanoEsp().getDescontos()){
+                            if(i.getEspec()==getEspec()){
+                                desconto=custo*(i.getPorcentagem()/100d);
+                                custo-=desconto;
+                                break;
+                            }
+                        }
+                    }
                 }
+                opcoes.add(new OpcaoConsulta(opcoes.size()+" » "+med.getNome()+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo), custo, med));
             }
         }
         return opcoes;
