@@ -13,18 +13,21 @@ public class PlanoSaude {
     private String nome;
     private ArrayList<Desconto> descontos;
     private ArrayList<Comando> comandos;
+    private int id;
 
     public PlanoSaude(){
         this.nome="";
         this.descontos=new ArrayList<Desconto>();
         this.comandos=new ArrayList<Comando>();
+        this.id=-1;
         addComandos();
     }
 
-    public PlanoSaude(String nome, ArrayList<Desconto> descontos){
+    public PlanoSaude(String nome, ArrayList<Desconto> descontos,int id){
         this.nome=nome;
         this.descontos=descontos;
         this.comandos=new ArrayList<Comando>();
+        this.id=id;
         addComandos();
     }
 
@@ -50,6 +53,14 @@ public class PlanoSaude {
 
     public void setComandos(ArrayList<Comando> comandos) {
         this.comandos = comandos;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void imprimeDados(){
@@ -83,6 +94,7 @@ public class PlanoSaude {
     public void setAtributosPlano(AllLista lista) throws Exception{
         setNome(Comando.buscaPorDado("nome",getComandos()).getValorStr());
         setDescontos(stringSetDescontos(Comando.buscaPorDado("descontos",getComandos()).getValorStr(),lista));
+        setId(lista.getPlanosL().getPlanos().size()+lista.getPlanosL().getPlanosEsp().size());
     }
 
     public static ArrayList<Desconto> stringSetDescontos(String str, AllLista lista) throws Exception{

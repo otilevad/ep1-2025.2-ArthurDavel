@@ -265,10 +265,10 @@ public class Consulta {
         }
         getMed().getHist().getConsultas().add(this);
         if(getPacIsEsp()){
-            getPacEsp().getHistoricoPaciente().getConsultas().add(this);
+            getPacEsp().getHist().getConsultas().add(this);
         }
         else{
-            getPac().getHistoricoPaciente().getConsultas().add(this);
+            getPac().getHist().getConsultas().add(this);
         }
         System.out.println("\nConsulta agendada com sucesso, pressione Enter para prosseguir.");
     }

@@ -16,7 +16,7 @@ public class Medico extends Pessoa{
     private double custoConsulta;
     private int tempoMedio; //em minutos
     private Agenda agnd;
-    private HistoricoMedico hist;
+    private Historico hist;
 
     public Medico(){
         super();
@@ -24,11 +24,11 @@ public class Medico extends Pessoa{
         this.custoConsulta=0d;
         this.tempoMedio=0;
         this.agnd=new Agenda();
-        this.hist=new HistoricoMedico();
+        this.hist=new Historico();
         addComandos();
     }
 
-    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio,Agenda agnd,HistoricoMedico hist){
+    public Medico(String nome, String crm, ArrayList<Comando> comandos,double custoConsulta,int tempoMedio,Agenda agnd,Historico hist){
         super(nome,comandos);
         this.crm=crm;
         this.custoConsulta=custoConsulta;
@@ -78,11 +78,11 @@ public class Medico extends Pessoa{
         this.agnd = agnd;
     }
     
-    public HistoricoMedico getHist() {
+    public Historico getHist() {
         return this.hist;
     }
 
-    public void setHist(HistoricoMedico hist) {
+    public void setHist(Historico hist) {
         this.hist = hist;
     }
 

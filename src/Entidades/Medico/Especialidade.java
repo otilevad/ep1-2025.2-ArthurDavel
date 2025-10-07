@@ -12,17 +12,20 @@ public class Especialidade {
     private String nome;
     private double mult;
     private ArrayList<SalaConsulta> salas;
+    private int id;
 
     public Especialidade(){
         this.nome="";
         this.mult=0;
         this.salas=new ArrayList<SalaConsulta>();
+        this.id=-1;
     }
 
-    public Especialidade(String nome, double mult, ArrayList<SalaConsulta> salas, int qtdSalas){
+    public Especialidade(String nome, double mult, ArrayList<SalaConsulta> salas, int qtdSalas,int id){
         this.nome=nome;
         this.mult=mult;
         this.salas=salas;
+        this.id=id;
         addSalasConsulta(qtdSalas);
     }
     
@@ -49,7 +52,19 @@ public class Especialidade {
     public void setSalas(ArrayList<SalaConsulta> salas) {
         this.salas=salas;
     }
+    
+    public int getId() {
+        return this.id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getQtdSalas(){
+        return getSalas().size();
+    }
+    
     public ArrayList<SalaConsulta> addSalasConsulta(int qtd){
         ArrayList<SalaConsulta> arrayPrev=getSalas();
         for(int i=0;i<qtd;i++){

@@ -3,6 +3,7 @@ package Entidades.Paciente;
 import java.util.ArrayList;
 
 import Entidades.PlanoSaude.*;
+import Utilitarios.Calendario.*;
 import Menu.Comando;
 
 public class PacienteEspecial extends Paciente{
@@ -17,8 +18,8 @@ public class PacienteEspecial extends Paciente{
         this.isEspecial=false;
     }
 
-    public PacienteEspecial(String nome, String cpf, int idade, HistoricoPaciente historicoPaciente, ArrayList<Comando> comandos, PlanoSaude plano, PlanoEspecial planoEsp, boolean isEspecial){
-        super(nome, cpf, idade, historicoPaciente, comandos);
+    public PacienteEspecial(String nome, String cpf, int idade, Historico hist, ArrayList<Comando> comandos, PlanoSaude plano, PlanoEspecial planoEsp, boolean isEspecial){
+        super(nome, cpf, idade, hist, comandos);
         this.plano=plano;
         this.planoEsp=planoEsp;
         this.isEspecial=isEspecial;

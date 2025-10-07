@@ -64,10 +64,10 @@ public class PlanosLista{
     }
 
     public void addPlanosPadrao(){
-        getPlanos().add(new PlanoSaude("Mais Saúde",new ArrayList<Desconto>()));
-        getPlanos().add(new PlanoSaude("Mais ou Menos Saúde",new ArrayList<Desconto>()));
-        getPlanos().add(new PlanoSaude("Tudo Saúde",new ArrayList<Desconto>()));
-        getPlanos().add(new PlanoSaude("Mil Planos",new ArrayList<Desconto>()));
-        getPlanos().add(new PlanoSaude("SauDAVEL",new ArrayList<Desconto>()));
+        getPlanos().add(new PlanoSaude("Mais Saúde",new ArrayList<Desconto>(),0));
+        getPlanos().add(new PlanoSaude("Mais ou Menos Saúde",new ArrayList<Desconto>(),1));
+        getPlanos().add(new PlanoSaude("Tudo Saúde",new ArrayList<Desconto>(),2));
+        getPlanos().add(new PlanoSaude("Mil Planos",new ArrayList<Desconto>(),3));
+        getPlanos().add(new PlanoSaude("SauDAVEL",new ArrayList<Desconto>(),4));
     }
 }

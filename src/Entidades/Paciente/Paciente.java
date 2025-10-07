@@ -9,29 +9,29 @@ import Entidades.PlanoSaude.*;
 import Listas.*;
 import Menu.*;
 import Utilitarios.Misc;
-import Utilitarios.Calendario.Historico;
+import Utilitarios.Calendario.*;
 
 public class Paciente extends Pessoa{
     private String cpf;
     private int idade;
     private boolean idoso;
-    private HistoricoPaciente historicoPaciente;
+    private Historico hist;
 
     public Paciente(){
         super();
         this.cpf="";
         this.idade=0;
         this.idoso=false;
-        this.historicoPaciente=new HistoricoPaciente();
+        this.hist=new Historico();
         addComandos();
     }
 
-    public Paciente(String nome, String cpf, int idade, HistoricoPaciente historicoPaciente, ArrayList<Comando> comandos){
+    public Paciente(String nome, String cpf, int idade, Historico hist, ArrayList<Comando> comandos){
         super(nome,comandos);
         this.cpf=cpf;
         this.idade=idade;
         this.idoso=(this.idade>=60);
-        this.historicoPaciente=historicoPaciente;
+        this.hist=hist;
     }
 
     public String getCpf() {
@@ -55,12 +55,12 @@ public class Paciente extends Pessoa{
         return this.idoso;
     }
 
-    public void setHistoricoPaciente(HistoricoPaciente historicoPaciente){
-        this.historicoPaciente=historicoPaciente;
+    public void setHist(Historico hist){
+        this.hist=hist;
     }
 
-    public Historico getHistoricoPaciente(){
-        return this.historicoPaciente;
+    public Historico getHist(){
+        return this.hist;
     }
 
     @Override

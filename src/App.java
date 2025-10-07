@@ -1,6 +1,7 @@
 import Menu.*;
 import Utilitarios.*;
 import Utilitarios.Calendario.*;
+import Repositorios.*;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.foreign.*;
@@ -18,12 +19,15 @@ public class App {
         if(System.getProperty("os.name").toLowerCase().startsWith("windows")){
             iniciaANSI(); 
         }
+        AllLista lista = new AllLista();
+        MiscRep.criaArquivos(MiscRep.setDir());
+        EspecialidadesRep.carregaEspecialidades(lista);
+        PacientesRep.carregaPacientes(lista);
         Scanner sc = new Scanner(System.in, "Cp852").useLocale(Locale.US);
         Calendario cal = new Calendario();
         cal.calendarioSetup();
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();
-        AllLista lista = new AllLista();
         int menuSelecionado=0; //id do menu
         int opt=0;
         Menu menuAtual=menus.get(MenuSetup.procuraMenu(menus, menuSelecionado));
@@ -39,6 +43,8 @@ public class App {
                     break;
                 case -2:
                     System.out.println("Saindo...");
+                    EspecialidadesRep.salvaEspecialidades(lista);
+                    PacientesRep.salvaPacientes(lista);
                     break mainWhile;
                 default:
                     if(opt>=0){menuSelecionado=opt;}
