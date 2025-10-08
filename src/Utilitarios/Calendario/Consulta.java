@@ -130,18 +130,20 @@ public class Consulta {
     }
 
     public void agendar(Scanner sc, AllLista lista, Calendario cal) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 11, sc, lista));
-        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
-        String cpfPac=Comando.buscaPorDado("cpf consulta",getComandos()).getValorStr();
-        if(lista.getPacientesL().cpfEspecial(cpfPac)){
-            setPacIsEsp(true);
-            setPacEsp(lista.getPacientesL().buscaCpfEsp(cpfPac)); 
+        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
+            setComandos(Menu.inputMenu(getComandos(), false, 11, sc, lista));
+            setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
+            String cpfPac=Comando.buscaPorDado("cpf consulta",getComandos()).getValorStr();
+            if(lista.getPacientesL().cpfEspecial(cpfPac)){
+                setPacIsEsp(true);
+                setPacEsp(lista.getPacientesL().buscaCpfEsp(cpfPac)); 
+            }
+            else{
+                setPacIsEsp(false);
+                setPac(lista.getPacientesL().buscaCpf(cpfPac)); 
+            }
+            agendamentoCalendario(sc,lista,cal);
         }
-        else{
-            setPacIsEsp(false);
-            setPac(lista.getPacientesL().buscaCpf(cpfPac)); 
-        }
-        agendamentoCalendario(sc,lista,cal);
     }
 
     public void agendamentoCalendario(Scanner sc, AllLista lista, Calendario cal) throws Exception{

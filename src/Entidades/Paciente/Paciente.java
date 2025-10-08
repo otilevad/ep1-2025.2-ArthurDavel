@@ -72,26 +72,28 @@ public class Paciente extends Pessoa{
 
     @Override
     public void cadastrar(AllLista lista, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
-        if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=0){
-            PacienteEspecial pacienteEsp=new PacienteEspecial();
-            pacienteEsp.setComandos(getComandos());
-            pacienteEsp.setAtributosPaciente();
-            if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=lista.getPlanosL().getPlanos().size()){
-                pacienteEsp.setPlanoEsp(PlanoEspecial.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()-lista.getPlanosL().getPlanos().size(),lista));
-                pacienteEsp.setIsEspecial(true);
-                pacienteEsp.setPlano(null);
+        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
+            setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
+            if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=0){
+                PacienteEspecial pacienteEsp=new PacienteEspecial();
+                pacienteEsp.setComandos(getComandos());
+                pacienteEsp.setAtributosPaciente();
+                if(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()>=lista.getPlanosL().getPlanos().size()){
+                    pacienteEsp.setPlanoEsp(PlanoEspecial.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt()-lista.getPlanosL().getPlanos().size(),lista));
+                    pacienteEsp.setIsEspecial(true);
+                    pacienteEsp.setPlano(null);
+                }
+                else{
+                    pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),lista));
+                    pacienteEsp.setIsEspecial(false);
+                    pacienteEsp.setPlanoEsp(null);
+                }
+                lista.getPacientesL().adicionaPacienteEspecial(pacienteEsp);
             }
             else{
-                pacienteEsp.setPlano(PlanoSaude.buscaValorPlano(Comando.buscaPorDado("plano de saúde",getComandos()).getValorInt(),lista));
-                pacienteEsp.setIsEspecial(false);
-                pacienteEsp.setPlanoEsp(null);
+                setAtributosPaciente();
+                lista.getPacientesL().adicionaPaciente(this);
             }
-            lista.getPacientesL().adicionaPacienteEspecial(pacienteEsp);
-        }
-        else{
-            setAtributosPaciente();
-            lista.getPacientesL().adicionaPaciente(this);
         }
     }
 

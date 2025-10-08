@@ -88,6 +88,7 @@ public class Menu {
 
     public static ArrayList<Comando> inputMenu(ArrayList<Comando> comandos,boolean centered, int writePad,Scanner sc,AllLista lista) throws Exception{
         int telaTam=Misc.getTamanhoTela();
+        int erroNum=0;
         int pad=0;
         ArrayList<String> opcoesStrings=stringArrayRep(lista,"");
         int maiorOpcaoTam=0;
@@ -111,7 +112,8 @@ public class Menu {
         int tamTotal=tamTabela+2+writePad+1;
         int prevOptsWipeCol=0;
         Misc.gotoSavedPos();
-        for(Comando cmd : inputs){
+        inputsFor: for(Comando cmd : inputs){
+            erroNum=0;
             whileTrue: while(true){
                 minWrite=1;
                 Misc.resetSetPos(comandoPad,1+2*(inputs.indexOf(cmd)));
@@ -261,7 +263,11 @@ public class Menu {
                     break whileTrue;
                 }
                 catch(CharLimitException e){
-                    erro=e.getMessage();
+                    erroNum++;
+                    if(erroNum>=5){
+                        return null;
+                    }else if(erroNum>=4){erro="Apenas mais uma tentativa.";
+                    }else{erro=e.getMessage();}
                     if(str.length()>writePad){
                         extraWipe=str.length()-writePad;
                         if(telaTam!=0 && str.length()+pad+tamTabela>telaTam){
@@ -271,7 +277,11 @@ public class Menu {
                     }
                 }
                 catch(Exception e){
-                    erro=e.getMessage();
+                    erroNum++;
+                    if(erroNum>=5){
+                        return null;
+                    }else if(erroNum>=4){erro="Apenas mais uma tentativa.";
+                    }else{erro=e.getMessage();}
                 }
             }
         }

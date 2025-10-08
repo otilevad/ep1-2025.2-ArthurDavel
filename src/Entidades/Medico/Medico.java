@@ -104,18 +104,20 @@ public class Medico extends Pessoa{
 
     @Override
     public void cadastrar(AllLista lista, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
-        setAtributosPessoa();
-        setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
-        setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
-        setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
-        setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
-        Misc.limpaTela();
-        ArrayList<Comando> agenda=inputAgenda(sc, lista);
-        getAgnd().agendaStr(Agenda.folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
-                            Agenda.horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
-                            Agenda.horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
-        lista.getMedicosL().adicionaMedico(this);
+        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
+            setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
+            setAtributosPessoa();
+            setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
+            setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
+            setCustoConsulta(Double.parseDouble(Comando.buscaPorDado("custo",getComandos()).getValorStr()));
+            setTempoMedio(Comando.buscaPorDado("tempo médio",getComandos()).getValorInt());
+            Misc.limpaTela();
+            ArrayList<Comando> agenda=inputAgenda(sc, lista);
+            getAgnd().agendaStr(Agenda.folgaStr(Comando.buscaPorDado("folga",agenda).getValorStr()),
+                                Agenda.horarioStr(Comando.buscaPorDado("horario",agenda).getValorStr()),
+                                Agenda.horarioStr(Comando.buscaPorDado("intervalo",agenda).getValorStr()));
+            lista.getMedicosL().adicionaMedico(this);
+        }
     }
 
     @Override

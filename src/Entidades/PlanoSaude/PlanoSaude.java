@@ -78,16 +78,18 @@ public class PlanoSaude {
     }
 
     public void cadastrar(AllLista lista, Scanner sc) throws Exception{
-        setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
-        if(Comando.buscaPorDado("internacaogratis",getComandos()).getValorStr().equals("s")){
-            PlanoEspecial planoEsp=new PlanoEspecial();
-            planoEsp.setComandos(getComandos());
-            planoEsp.setAtributosPlano(lista);
-            lista.getPlanosL().adicionaPlanoEsp(planoEsp);
-        }
-        else{
-            setAtributosPlano(lista);
-            lista.getPlanosL().adicionaPlano(this);
+        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
+            setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
+            if(Comando.buscaPorDado("internacaogratis",getComandos()).getValorStr().equals("s")){
+                PlanoEspecial planoEsp=new PlanoEspecial();
+                planoEsp.setComandos(getComandos());
+                planoEsp.setAtributosPlano(lista);
+                lista.getPlanosL().adicionaPlanoEsp(planoEsp);
+            }
+            else{
+                setAtributosPlano(lista);
+                lista.getPlanosL().adicionaPlano(this);
+            }
         }
     }
 
