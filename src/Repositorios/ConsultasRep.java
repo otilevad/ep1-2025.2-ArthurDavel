@@ -25,7 +25,7 @@ public class ConsultasRep{
                                 (cons.getPacIsEsp() ? cons.getPacEsp().getCpf() : cons.getPac().getCpf())+";"+
                                 cons.getEspec().getId()+";"+
                                 cons.getValor()+";"+
-                                cons.getStatus());
+                                cons.getStatus()+"\n");
             }
         }catch(IOException e){
             System.out.println(e.getMessage());

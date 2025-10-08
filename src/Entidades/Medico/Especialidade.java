@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Entidades.Sala.*;
 import Listas.*;
-import Utilitarios.Misc;
 import Utilitarios.Calendario.Periodo;
 
 
@@ -75,5 +74,14 @@ public class Especialidade {
 
     public static Especialidade buscaValorEspec(int num, AllLista lista){
         return lista.getEspecialidadesL().getEspecialidades().get(num);
+    }
+
+    public SalaConsulta salaByNum(int num){
+        for(SalaConsulta sala : salas){
+            if(sala.getNum()==num){
+                return sala;
+            }
+        }
+        return null;
     }
 }

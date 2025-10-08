@@ -19,7 +19,7 @@ public class PacientesEspRep{
                 escritor.printf(pac.getNome()+";"+
                                 pac.getCpf()+";"+
                                 pac.getIdade()+";"+
-                                (pac.getIsEspecial() ? pac.getPlanoEsp().getId() : pac.getPlano().getId()));
+                                (pac.getIsEspecial() ? pac.getPlanoEsp().getId() : pac.getPlano().getId())+"\n");
             }
         }catch(IOException e){
             System.out.println(e.getMessage());

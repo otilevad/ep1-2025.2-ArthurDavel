@@ -31,4 +31,8 @@ public class Historico {
     public ArrayList<Internacao> getInternacoes(){
         return this.internacoes;
     }
+
+    public void addConsulta(Consulta cons){
+        this.consultas.add(cons);
+    }
 }

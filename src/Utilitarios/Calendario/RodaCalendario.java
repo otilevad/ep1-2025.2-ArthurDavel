@@ -6,7 +6,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.Properties;
 import Utilitarios.*;
 
 public class RodaCalendario {
@@ -24,7 +23,7 @@ public class RodaCalendario {
             Misc.savePos();
             cal.mostraMes(mesAgr,anoAgr,calPad);
             Misc.gotoSavedPos();
-            cal.mostraHorario(30,cal.tempoMinuto(00,00),cal.tempoMinuto(24,00),horPad,8);
+            cal.mostraHorario(30,Calendario.tempoMinuto(00,00),Calendario.tempoMinuto(24,00),horPad,8);
             input=sc.nextLine();
             Misc.limpaTela();
             switch(input){

@@ -3,10 +3,8 @@ package Entidades.Medico;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import Entidades.PlanoSaude.Desconto;
 import Exceptions.*;
 import Utilitarios.Calendario.*;
-import Utilitarios.Calendario.Calendario.*;
 
 public class Agenda {
     private ArrayList<Integer> inicioConsultas;

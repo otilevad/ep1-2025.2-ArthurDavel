@@ -2,19 +2,13 @@ package Utilitarios;
 
 import Exceptions.*;
 import Listas.AllLista;
-import Utilitarios.*;
 import Utilitarios.Calendario.*;
 
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;

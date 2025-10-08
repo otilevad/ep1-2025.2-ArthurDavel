@@ -4,7 +4,6 @@ import Entidades.Medico.*;
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
 import Listas.*;
-import Utilitarios.*;
 import Utilitarios.Calendario.*;
 
 import java.util.ArrayList;

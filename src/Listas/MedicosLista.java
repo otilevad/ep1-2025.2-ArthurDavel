@@ -3,7 +3,6 @@ package Listas;
 import java.util.ArrayList;
 
 import Entidades.Medico.Medico;
-import Entidades.Paciente.Paciente;
 
 public class MedicosLista {
     private ArrayList<Medico> medicos;

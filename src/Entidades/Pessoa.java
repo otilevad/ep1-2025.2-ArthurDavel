@@ -2,7 +2,6 @@ package Entidades;
 
 import Utilitarios.*;
 import Menu.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Listas.*;

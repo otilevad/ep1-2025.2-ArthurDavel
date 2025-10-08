@@ -33,4 +33,8 @@ public class Sala {
     public void setOcupado(ArrayList<Periodo> ocupado) {
         this.ocupado = ocupado;
     }
+
+    public void addOcupado(Periodo per) {
+        this.getOcupado().add(per);
+    }
 }

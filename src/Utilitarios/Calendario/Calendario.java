@@ -266,7 +266,7 @@ public class Calendario {
             tempPad+=6;
             Misc.gotoSavedPos();
         }
-        System.out.print(Misc.setLin(11));        
+        System.out.print(Misc.setLin(10));        
     }
 
     public void mostraHorario(ArrayList<Integer> horarios,int pad, int qtdLin){

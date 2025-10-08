@@ -24,7 +24,7 @@ public class MedicosRep{
                                 med.getCustoConsulta()+";"+
                                 med.getTempoMedio()+";"+
                                 med.getAgnd().inicioConsultasStr()+";"+
-                                med.getAgnd().folgaStr());
+                                med.getAgnd().folgaStr()+"\n");
             }
         }catch(IOException e){
             System.out.println(e.getMessage());

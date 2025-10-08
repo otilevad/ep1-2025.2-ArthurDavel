@@ -2,10 +2,7 @@ package Listas;
 
 import java.util.ArrayList;
 
-import Entidades.Paciente.Paciente;
-import Entidades.Paciente.PacienteEspecial;
 import Entidades.PlanoSaude.*;
-import Exceptions.CpfExistsException;
 import Exceptions.NumberException;
 
 public class PlanosLista{

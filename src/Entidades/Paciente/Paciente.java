@@ -4,11 +4,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Entidades.Pessoa;
-import Entidades.Medico.Especialidade;
 import Entidades.PlanoSaude.*;
 import Listas.*;
 import Menu.*;
-import Utilitarios.Misc;
 import Utilitarios.Calendario.*;
 
 public class Paciente extends Pessoa{
