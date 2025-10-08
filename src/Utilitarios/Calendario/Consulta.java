@@ -165,6 +165,7 @@ public class Consulta {
         String input="";
         String obs="";
         LocalDate dataSelecionada=null;
+        int dataNum=0;
         int horarioSelecionado=-1;
         int opcaoSelecionada=-1;
         SalaConsulta salaSelecionada=null;
@@ -183,7 +184,7 @@ public class Consulta {
             cal.mostraMes(mesAgr,anoAgr,0);
             if(dataSelecionada!=null && !horarios.isEmpty()){
                 Misc.gotoHome();
-                cal.mostraHorario(horarios,40,8);
+                cal.mostraHorario(horarios,38,8);
             }
             Misc.resetSetPos(0, (instrucao ? 17 : 13));
             if(horarioSelecionado>=0 && dataSelecionada!=null){
@@ -213,7 +214,6 @@ public class Consulta {
                             setStatus("Agendada");
                             setSala(salaSelecionada);
                             getEspec().salaByNum(salaSelecionada.getNum()).addOcupado(getPer());
-                            System.out.println(horarioSelecionado);
                             break;
                         }
                         else{
@@ -265,7 +265,14 @@ public class Consulta {
                         if(dataSelecionada==null){
                             throw new DateTimeException("Antes de selecionar um horário, selecione uma data.");
                         }
+                        dataNum=cal.dataDia(dataSelecionada.getDayOfMonth(),dataSelecionada.getMonthValue(),dataSelecionada.getYear());
                         horarioSelecionado=InputCheck.horarioSelecionadoCheck(input);
+                        for(Consulta i : (getPacIsEsp()?getPacEsp().getHist().getConsultas():getPac().getHist().getConsultas())){
+                            if(i.getPer().getDiaInicio()==dataNum && i.getPer().getHorarioInicio()==horarioSelecionado && i.getStatus()=="Agendada"){
+                                horarioSelecionado=-1;
+                                throw new DateTimeException("Paciente já tem consulta nesse horário.");
+                            }
+                        }
                         if(!horarios.contains(horarioSelecionado)){
                             horarioSelecionado=-1;
                             throw new DateTimeException("Horário indisponível.");
@@ -374,7 +381,9 @@ public class Consulta {
                     salaOcupada=false;
                     if(!i.getOcupado().isEmpty()){
                         for(Periodo j : i.getOcupado()){
-                            if((j.getDiaInicio()==dataNum)){
+                            if((j.getDiaInicio()==dataNum && ((j.getHorarioInicio()>=horario && j.getHorarioInicio()<horario+duracao) || 
+                            (j.getHorarioFim()>horario && j.getHorarioFim()<=horario+duracao) ||
+                            (j.getDiaInicio()<=horario && j.getHorarioFim()>=horario+duracao)))){
                                 salaOcupada=true;
                             }
                         }
