@@ -3,6 +3,7 @@ package Entidades.Medico;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Entidades.PlanoSaude.Desconto;
 import Exceptions.*;
 import Utilitarios.Calendario.*;
 import Utilitarios.Calendario.Calendario.*;
@@ -112,6 +113,22 @@ public class Agenda {
         for(Periodo per : intervalo){
             removeInicioConsultas(per.getHorarioInicio(),per.getHorarioFim());
         }
+    }
+
+    public String inicioConsultasStr(){
+        ArrayList<String> hors=new ArrayList<String>();
+        for(int i : getInicioConsultas()){
+            hors.add(""+i);
+        }
+        return String.join(",", hors);
+    }
+
+    public String folgaStr(){
+        ArrayList<String> folga=new ArrayList<String>();
+        for(int i : getFolga()){
+            folga.add(""+i);
+        }
+        return String.join(",", folga);
     }
 
     public void imprimeAgenda(){
