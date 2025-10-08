@@ -130,8 +130,9 @@ public class Consulta {
     }
 
     public void agendar(Scanner sc, AllLista lista, Calendario cal) throws Exception{
-        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
-            setComandos(Menu.inputMenu(getComandos(), false, 11, sc, lista));
+        ArrayList<Comando> input=Menu.inputMenu(getComandos(), false, 35, sc, lista);
+        if(input!=null){
+            setComandos(input);
             setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));
             String cpfPac=Comando.buscaPorDado("cpf consulta",getComandos()).getValorStr();
             if(lista.getPacientesL().cpfEspecial(cpfPac)){
@@ -154,6 +155,7 @@ public class Consulta {
         LocalDate dataSelecionada=null;
         int horarioSelecionado=-1;
         int opcaoSelecionada=-1;
+        boolean instrucao=true;
         ArrayList<Integer> horarios=new ArrayList<Integer>();
         ArrayList<DataMarcada> datasM=datasDisponiveis(mesAgr,anoAgr,cal,lista);
         ArrayList<OpcaoConsulta> opcoes=new ArrayList<OpcaoConsulta>(); 
@@ -161,6 +163,8 @@ public class Consulta {
         double valorSelecionado=0d;
         while(true){
             Misc.limpaTela();
+            if(instrucao){instrucoes();}
+            else{System.out.println("Digite \"i\" para ativar as instruções.");}
             datasM=datasDisponiveis(mesAgr,anoAgr,cal,lista);
             cal.setDatasM(datasM);
             cal.mostraMes(mesAgr,anoAgr,0);
@@ -224,16 +228,14 @@ public class Consulta {
                                 dataSelecionada=null;
                                 horarioSelecionado=-1;
                                 break;
-                            case "r":
-                                mesAgr=LocalDate.now().getMonthValue();
-                                anoAgr=2025;
-                                input="";
-                                obs="";
-                                dataSelecionada=null;
+                            case "i":
+                                instrucao=!instrucao;
                                 break;
+                                /* Debug
                             case "z":
                                 obs="==>"+Calendario.minutoTempo(horarioSelecionado)+", "+dataSelecionada;
                                 break;
+                                */
                             default:
                                 throw new OptionsInvException("Opção inválida.");
                         }
@@ -372,5 +374,13 @@ public class Consulta {
             }
         }
         return disp;
+    }
+
+    public void instrucoes(){
+        System.out.println("Digite uma data para verificar seus horários;");
+        System.out.println("Datas verdes têm horários disponíveis;");
+        System.out.println("Digite um horário para selecionar e escolha sua opção;");
+        System.out.println("\"a\" e \"d\" para navegar pelo calendário;");
+        System.out.println("Digite \"i\" para desativar as instruções.");
     }
 }

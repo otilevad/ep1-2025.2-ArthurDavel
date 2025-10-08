@@ -78,8 +78,9 @@ public class PlanoSaude {
     }
 
     public void cadastrar(AllLista lista, Scanner sc) throws Exception{
-        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
-            setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
+        ArrayList<Comando> input=Menu.inputMenu(getComandos(), false, 35, sc, lista);
+        if(input!=null){
+            setComandos(input);
             if(Comando.buscaPorDado("internacaogratis",getComandos()).getValorStr().equals("s")){
                 PlanoEspecial planoEsp=new PlanoEspecial();
                 planoEsp.setComandos(getComandos());

@@ -104,8 +104,9 @@ public class Medico extends Pessoa{
 
     @Override
     public void cadastrar(AllLista lista, Scanner sc) throws Exception{
-        if(Menu.inputMenu(getComandos(), false, 35, sc, lista)!=null){
-            setComandos(Menu.inputMenu(getComandos(), false, 35, sc, lista));
+        ArrayList<Comando> input=Menu.inputMenu(getComandos(), false, 35, sc, lista);
+        if(input!=null){
+            setComandos(input);
             setAtributosPessoa();
             setCrm(Comando.buscaPorDado("crm",getComandos()).getValorStr());
             setEspec(Especialidade.buscaValorEspec(Comando.buscaPorDado("especialidade",getComandos()).getValorInt(),lista));

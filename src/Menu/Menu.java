@@ -112,7 +112,7 @@ public class Menu {
         int tamTotal=tamTabela+2+writePad+1;
         int prevOptsWipeCol=0;
         Misc.gotoSavedPos();
-        inputsFor: for(Comando cmd : inputs){
+        for(Comando cmd : inputs){
             erroNum=0;
             whileTrue: while(true){
                 minWrite=1;
