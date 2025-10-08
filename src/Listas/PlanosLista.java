@@ -2,7 +2,11 @@ package Listas;
 
 import java.util.ArrayList;
 
+import Entidades.Paciente.Paciente;
+import Entidades.Paciente.PacienteEspecial;
 import Entidades.PlanoSaude.*;
+import Exceptions.CpfExistsException;
+import Exceptions.NumberException;
 
 public class PlanosLista{
     private ArrayList<PlanoSaude> planos;
@@ -69,5 +73,39 @@ public class PlanosLista{
         getPlanos().add(new PlanoSaude("Tudo Saúde",new ArrayList<Desconto>(),2));
         getPlanos().add(new PlanoSaude("Mil Planos",new ArrayList<Desconto>(),3));
         getPlanos().add(new PlanoSaude("SauDAVEL",new ArrayList<Desconto>(),4));
+    }
+
+    public boolean isPlanoEspecial(int id) throws Exception{
+
+            for(PlanoSaude i : getPlanos()){
+                if(id==i.getId()){
+                    return false;
+                }
+            }
+
+            for(PlanoEspecial i : getPlanosEsp()){
+                if(id==i.getId()){
+                    return true;
+                }
+            }
+        throw new NumberException("id não encontrado.");
+    }
+
+    public PlanoEspecial buscaIdEsp(int id){
+        for(PlanoEspecial i : getPlanosEsp()){
+            if(id==i.getId()){
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public PlanoSaude buscaId(int id){
+        for(PlanoSaude i : getPlanos()){
+            if(id==i.getId()){
+                return i;
+            }
+        }
+        return null;
     }
 }

@@ -129,4 +129,12 @@ public class PlanoSaude {
         }
         return false;
     }
+
+    public String descontosStr(){
+        ArrayList<String> descs=new ArrayList<String>();
+        for(Desconto i : getDescontos()){
+            descs.add(i.getEspec().getId()+"/"+i.getPorcentagem());
+        }
+        return String.join(",", descs);
+    }
 }

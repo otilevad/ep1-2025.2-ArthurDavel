@@ -21,8 +21,7 @@ public class App {
         }
         AllLista lista = new AllLista();
         MiscRep.criaArquivos(MiscRep.setDir());
-        EspecialidadesRep.carregaEspecialidades(lista);
-        PacientesRep.carregaPacientes(lista);
+        MiscRep.carregaArquivos(lista);
         Scanner sc = new Scanner(System.in, "Cp852").useLocale(Locale.US);
         Calendario cal = new Calendario();
         cal.calendarioSetup();
@@ -43,8 +42,7 @@ public class App {
                     break;
                 case -2:
                     System.out.println("Saindo...");
-                    EspecialidadesRep.salvaEspecialidades(lista);
-                    PacientesRep.salvaPacientes(lista);
+                    MiscRep.salvaArquivos(lista);
                     break mainWhile;
                 default:
                     if(opt>=0){menuSelecionado=opt;}

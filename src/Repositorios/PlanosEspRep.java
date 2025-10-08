@@ -10,44 +10,45 @@ import java.util.ArrayList;
 import Entidades.Medico.Especialidade;
 import Entidades.Paciente.Paciente;
 import Entidades.PlanoSaude.Desconto;
+import Entidades.PlanoSaude.PlanoEspecial;
 import Entidades.PlanoSaude.PlanoSaude;
 import Listas.AllLista;
 
-public class PlanosRep{
-    private static final String arquivo="src/Dados/planos.txt";
+public class PlanosEspRep{
+    private static final String arquivo="src/Dados/planosEspeciais.txt";
 
-    public static void salvaPlanos(AllLista lista) throws IOException{
+    public static void salvaPlanosEsp(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){
-            for(PlanoSaude plano : lista.getPlanosL().getPlanos()){
-                escritor.printf(plano.getNome()+";"+
-                                plano.descontosStr()+";"+
-                                plano.getId()+"\n");
+            for(PlanoEspecial planoEsp : lista.getPlanosL().getPlanosEsp()){
+                escritor.printf(planoEsp.getNome()+";"+
+                                planoEsp.descontosStr()+";"+
+                                planoEsp.getId()+"\n");
             }
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
     }
 
-    public static void carregaPlanos(AllLista lista){
-        ArrayList<PlanoSaude> planosL=new ArrayList<PlanoSaude>();
+    public static void carregaPlanosEsp(AllLista lista){
+        ArrayList<PlanoEspecial> planosEspL=new ArrayList<PlanoEspecial>();
         try{
             BufferedReader leitor=new BufferedReader(new FileReader(arquivo));
             String str;
             while((str=leitor.readLine()) != null){
-                planosL.add(planoStr(str,lista));
+                planosEspL.add(planoEspStr(str,lista));
             }
             leitor.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-        if(!planosL.isEmpty()){
-            lista.getPlanosL().setPlanos(planosL);
+        if(!planosEspL.isEmpty()){
+            lista.getPlanosL().setPlanosEsp(planosEspL);
         }
     }
 
-    public static PlanoSaude planoStr(String str, AllLista lista){
+    public static PlanoEspecial planoEspStr(String str, AllLista lista){
         String[] planoDados=str.split(";");
-        PlanoSaude plano=new PlanoSaude();
+        PlanoEspecial plano=new PlanoEspecial();
         plano.setNome(planoDados[0]);
         ArrayList<Desconto> descs=new ArrayList<Desconto>();
         if(planoDados[1].contains("/")){
