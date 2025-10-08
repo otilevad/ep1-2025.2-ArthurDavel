@@ -3,6 +3,7 @@ package Listas;
 import java.util.ArrayList;
 
 import Entidades.Medico.Medico;
+import Entidades.Paciente.Paciente;
 
 public class MedicosLista {
     private ArrayList<Medico> medicos;
@@ -25,6 +26,15 @@ public class MedicosLista {
 
     public void adicionaMedico(Medico medico){
         medicos.add(medico);
+    }
+
+    public Medico buscaCrm(String str){
+        for(Medico i : getMedicos()){
+            if(str.equals(i.getCrm())){
+                return i;
+            }
+        }
+        return null;
     }
 
     public void listarMedicos(){

@@ -13,6 +13,7 @@ public class MiscRep{
         PacientesRep.carregaPacientes(lista);
         PacientesEspRep.carregaPacientesEsp(lista);
         MedicosRep.carregaMedicos(lista);
+        ConsultasRep.carregaConsultas(lista);
     }
 
     public static void salvaArquivos(AllLista lista) throws Exception{
@@ -22,6 +23,7 @@ public class MiscRep{
         PacientesRep.salvaPacientes(lista);
         PacientesEspRep.salvaPacientesEsp(lista);
         MedicosRep.salvaMedicos(lista);
+        ConsultasRep.salvaConsultas(lista);
     }
 
     public static String[] setDir(){
@@ -31,7 +33,8 @@ public class MiscRep{
             "src/Dados/planosEspeciais.txt",
             "src/Dados/pacientes.txt",
             "src/Dados/pacientesEspeciais.txt",
-            "src/Dados/medicos.txt"
+            "src/Dados/medicos.txt",
+            "src/Dados/consultas.txt"
         };
     }
 

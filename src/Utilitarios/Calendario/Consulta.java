@@ -263,6 +263,7 @@ public class Consulta {
                 obs=e.getMessage();
             }
         }
+        lista.getConsultasL().getConsultas().add(this);
         getMed().getHist().getConsultas().add(this);
         if(getPacIsEsp()){
             getPacEsp().getHist().getConsultas().add(this);

@@ -8,10 +8,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Entidades.Medico.Especialidade;
-import Entidades.Paciente.Paciente;
 import Entidades.PlanoSaude.Desconto;
 import Entidades.PlanoSaude.PlanoEspecial;
-import Entidades.PlanoSaude.PlanoSaude;
 import Listas.AllLista;
 
 public class PlanosEspRep{
