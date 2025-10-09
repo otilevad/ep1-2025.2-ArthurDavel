@@ -10,26 +10,35 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Dados do Aluno
 
-- **Nome completo:** [Preencher aqui]
-- **Matrícula:** [Preencher aqui]
-- **Curso:** [Preencher aqui]
-- **Turma:** [Preencher aqui]
+- **Nome completo:** Arthur Davel Vieira Belarmino
+- **Matrícula:** 241038165
+- **Curso:** Engenharia de Software
+- **Turma:** Orientação a Objetos - Turma 02 - 2025.2
 
 ---
 
 ## Instruções para Compilação e Execução
 
 1. **Compilação:**  
-   [Descrever aqui como compilar o projeto. Exemplo: `javac Main.java` ou o script usado]
+   javac App.java
 
 2. **Execução:**  
-   [Descrever aqui como executar o projeto. Exemplo: `java Main` ou o script usado]
+   java App.java
 
-3. **Estrutura de Pastas:**  
-   [Descrever aqui as principais pastas do projeto]
+3. **Estrutura de Pastas:**
+   
+   Calendario - Classes relacionadas e/ou que dependem de fatores temporais, como Consulta e Internacao;
+   Dados - Armazena os arquivos .txt para a persistência dos dados;
+   Entidades - Classes de pessoas e planos de saúde;
+   Exceptions - Exceções criadas para melhor tratamento;
+   Listas - Classes que armazenam listas de cada objeto que pode ser criado;
+   Menu - Classes relacionadas aos menus de navegação;
+   Repositorios - Classes que salvam e carregam dados através de arquivos presentes na pasta Calendario;
+   Utilitarios - Classes que contém métodos auxiliares.
+   
 
 3. **Versão do JAVA utilizada:**  
-   [Descrever aqui como versão do JAVA utilizada no projeto. Sugestão: `java 21`]
+   Java 22
 
 ---
 
@@ -42,13 +51,13 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 ## Prints da Execução
 
 1. Menu Principal:  
-   ![Inserir Print 1](caminho/do/print1.png)
+   ![Print 1](images/sistema1.png)
 
 2. Cadastro de Médico:  
-   ![Inserir Print 2](caminho/do/print2.png)
+   ![Print 2](images/sistema2.png)
 
 3. Relatório de ?:  
-   ![Inserir Print 3](caminho/do/print3.png)
+   ![Print 3](images/sistema3.png)
 
 ---
 
@@ -56,13 +65,14 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Observações (Extras ou Dificuldades)
 
-- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+   Sobre o projeto, foquei bastante na modularidade, principalmente na parte dos menus e da leitura de informações do usuário, também fiz um vizualizador de calendário dinâmico para melhor visualização das datas no agendamento das consultas, além da implementação de um padrão de layout adaptável. Sobre as dificuldades, acredito que a maior tenha sido o tempo, infelizmente não pude programar tudo que gostaria, mas o trabalho serviu de grande aprendizado para mim. Fazer o sistema de consultas e internações também foi um tanto quanto complicado devido a alguns bugs que surgiram e acabei demorando tempo demais para identificá-los. 
+   (De preferência, execute no terminal do windows)
 
 ---
 
 ## Contato
 
-- [Opcional: E-mail pessoal do aluno.]
+ arthurdavelvb@gmail.com
 
 ---
 
