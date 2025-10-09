@@ -455,4 +455,14 @@ public class Consulta {
         System.out.println("\"a\" e \"d\" para navegar pelo calendário;");
         System.out.println("Digite \"i\" para desativar as instruções.");
     }
+
+    public void imprimeDados(Calendario cal){
+        System.out.println("Paciente: "+(getPacIsEsp() ? getPacEsp().getNome() : getPacEsp().getNome()));
+        System.out.println("Médico: "+getMed().getNome());
+        System.out.println("Dia e horário: "+cal.diaData(getPer().getDiaInicio(),"dia")+"/"+cal.diaData(getPer().getDiaInicio(),"mes")+"/"+
+                            cal.diaData(getPer().getDiaInicio(),"ano")+", às "+Calendario.minutoTempo(getPer().getHorarioInicio()));
+        System.out.println("Especialidade e sala: "+getEspec().getNome()+" n° "+getSala().getNum());
+        System.out.println("Custo: R$ "+String.format("%.2f",getValor()));
+        System.out.println("Status: "+getStatus());
+    }
 }

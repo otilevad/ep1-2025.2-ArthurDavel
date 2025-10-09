@@ -42,6 +42,8 @@ public class MenuSetup {
                 case 4: //Menu do Consultas e Internações
                     mn.adcionaOpcoes(opts, "Agendar consulta", -9);
                     mn.adcionaOpcoes(opts, "Agendar internação", -10);
+                    mn.adcionaOpcoes(opts, "Listar consultas", -11);
+                    mn.adcionaOpcoes(opts, "Listar internações", -12);
                     break;
             }
             if(mn.getId()!=0){ //Adiciona a opção retornar ao menu inicial, a menos que já esteja nele
@@ -95,6 +97,16 @@ public class MenuSetup {
                 }
                 sc.nextLine();
                 destino=4;
+                break;
+            case -11: //Listar consultas
+                lista.getConsultasL().listarConsultas(cal);
+                sc.nextLine();
+                destino=4;  
+                break;
+            case -12: //Listar internações
+                lista.getInternacoesL().listarInternacoes(cal);
+                sc.nextLine();
+                destino=4;  
                 break;
             default:
                 break;

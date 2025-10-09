@@ -3,6 +3,8 @@ package Listas;
 import java.util.ArrayList;
 
 import Entidades.Sala.SalaInternacao;
+import Utilitarios.Calendario.Calendario;
+import Utilitarios.Calendario.Consulta;
 import Utilitarios.Calendario.Internacao;
 
 public class InternacoesLista {
@@ -50,5 +52,19 @@ public class InternacoesLista {
             if(i.getNum()==num){return i;}
         }
         throw new Exception("Este quarto não existe.");
+    }
+
+    public void listarInternacoes(Calendario cal){
+        if(internacoes.size()>0){
+            System.out.println("---Lista de internações---");
+            for(Internacao i : internacoes){
+                i.imprimeDados(cal);
+                System.out.println("------------------------");
+            }
+        }
+        else{
+            System.out.println("Não há internações cadastradas");
+        }
+        System.out.println("Pressione Enter para retornar");
     }
 }

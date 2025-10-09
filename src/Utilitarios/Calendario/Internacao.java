@@ -179,7 +179,7 @@ public class Internacao{
                 }
             }
             if(dataEntradaNum>=dataSaidaNum){
-                throw new Exception("A data de entrda deve ser anterior à de saída.");
+                throw new Exception("A data de entrada deve ser anterior à de saída.");
             }
             setCusto((dataSaidaNum-dataEntradaNum+1)*Double.parseDouble(Comando.buscaPorDado("custo dia",getComandos()).getValorStr()));
             if(getPacIsEsp()){
@@ -197,5 +197,16 @@ public class Internacao{
                 getPac().getHist().getInternacoes().add(this);
             }
         }
+    }
+
+    public void imprimeDados(Calendario cal){
+        System.out.println("Paciente: "+(getPacIsEsp() ? getPacEsp().getNome() : getPacEsp().getNome()));
+        System.out.println("Médico: "+getMed().getNome());
+        System.out.println("Período previsto: "+cal.diaData(getDataEntrada(),"dia")+"/"+cal.diaData(getDataEntrada(),"mes")+"/"+
+                            cal.diaData(getDataEntrada(),"ano")+" até "+cal.diaData(getDataSaida(),"dia")+"/"+cal.diaData(getDataSaida(),"mes")+"/"+
+                            cal.diaData(getDataSaida(),"ano"));
+        System.out.println("Quarto: Quarto n° "+getSala().getNum());
+        System.out.println("Custo: R$ "+String.format("%.2f",getCusto()));
+        System.out.println("Status: "+getStatus());
     }
 }

@@ -2,6 +2,8 @@ package Listas;
 
 import java.util.ArrayList;
 
+import Entidades.Paciente.Paciente;
+import Entidades.Paciente.PacienteEspecial;
 import Utilitarios.Calendario.*;
 
 public class ConsultasLista{
@@ -21,5 +23,19 @@ public class ConsultasLista{
 
     public ArrayList<Consulta> getConsultas(){
         return this.consultas;
+    }
+
+    public void listarConsultas(Calendario cal){
+        if(consultas.size()>0){
+            System.out.println("---Lista de consultas---");
+            for(Consulta i : consultas){
+                i.imprimeDados(cal);
+                System.out.println("------------------------");
+            }
+        }
+        else{
+            System.out.println("Não há consultas cadastradas");
+        }
+        System.out.println("Pressione Enter para retornar");
     }
 }
