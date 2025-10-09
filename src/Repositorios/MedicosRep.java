@@ -13,7 +13,7 @@ import Entidades.Medico.Medico;
 import Listas.AllLista;
 
 public class MedicosRep{
-    private static final String arquivo="src/Dados/medicos.txt";
+    private static final String arquivo="Dados/medicos.txt";
 
     public static void salvaMedicos(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){

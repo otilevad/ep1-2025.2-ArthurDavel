@@ -11,7 +11,7 @@ import Entidades.Paciente.*;
 import Listas.AllLista;
 
 public class PacientesRep{
-    private static final String arquivo="src/Dados/pacientes.txt";
+    private static final String arquivo="Dados/pacientes.txt";
 
     public static void salvaPacientes(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){

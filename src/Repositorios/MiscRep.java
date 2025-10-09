@@ -30,14 +30,14 @@ public class MiscRep{
 
     public static String[] setDir(){
         return new String[]{
-            "src/Dados/especialidades.txt",
-            "src/Dados/planos.txt",
-            "src/Dados/planosEspeciais.txt",
-            "src/Dados/pacientes.txt",
-            "src/Dados/pacientesEspeciais.txt",
-            "src/Dados/medicos.txt",
-            "src/Dados/consultas.txt",
-            "src/Dados/internacoes.txt"
+            "Dados/especialidades.txt",
+            "Dados/planos.txt",
+            "Dados/planosEspeciais.txt",
+            "Dados/pacientes.txt",
+            "Dados/pacientesEspeciais.txt",
+            "Dados/medicos.txt",
+            "Dados/consultas.txt",
+            "Dados/internacoes.txt"
         };
     }
 

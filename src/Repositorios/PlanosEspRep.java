@@ -13,7 +13,7 @@ import Entidades.PlanoSaude.PlanoEspecial;
 import Listas.AllLista;
 
 public class PlanosEspRep{
-    private static final String arquivo="src/Dados/planosEspeciais.txt";
+    private static final String arquivo="Dados/planosEspeciais.txt";
 
     public static void salvaPlanosEsp(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){

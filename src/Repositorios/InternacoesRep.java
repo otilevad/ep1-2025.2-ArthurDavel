@@ -11,7 +11,7 @@ import Calendario.*;
 import Listas.AllLista;
 
 public class InternacoesRep{
-    private static final String arquivo="src/Dados/internacoes.txt";
+    private static final String arquivo="Dados/internacoes.txt";
 
     public static void salvaInternacoes(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){

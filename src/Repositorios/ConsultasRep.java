@@ -13,7 +13,7 @@ import Entidades.Medico.Especialidade;
 import Listas.AllLista;
 
 public class ConsultasRep{
-    private static final String arquivo="src/Dados/consultas.txt";
+    private static final String arquivo="Dados/consultas.txt";
 
     public static void salvaConsultas(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){

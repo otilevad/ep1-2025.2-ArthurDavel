@@ -12,7 +12,7 @@ import Entidades.Sala.SalaConsulta;
 import Listas.AllLista;
 
 public class EspecialidadesRep{
-    private static final String arquivo="src/Dados/especialidades.txt";
+    private static final String arquivo="Dados/especialidades.txt";
 
     public static void salvaEspecialidades(AllLista lista) throws IOException{
         try(PrintWriter escritor=new PrintWriter(new FileWriter(arquivo))){
