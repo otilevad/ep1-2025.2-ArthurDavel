@@ -9,7 +9,6 @@ import Entidades.Paciente.Paciente;
 import Entidades.Paciente.PacienteEspecial;
 import Entidades.Sala.SalaInternacao;
 import Listas.AllLista;
-import Listas.InternacoesLista;
 import Menu.Comando;
 import Menu.Menu;
 import Utilitarios.InputCheck;

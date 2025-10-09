@@ -3,7 +3,6 @@ package Listas;
 import java.util.ArrayList;
 
 import Calendario.Calendario;
-import Calendario.Consulta;
 import Calendario.Internacao;
 import Entidades.Sala.SalaInternacao;
 

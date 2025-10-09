@@ -2,7 +2,6 @@ package Listas;
 
 import java.util.ArrayList;
 
-import Entidades.Medico.Especialidade;
 import Entidades.PlanoSaude.*;
 import Exceptions.NumberException;
 
