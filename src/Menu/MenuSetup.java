@@ -82,8 +82,17 @@ public class MenuSetup {
                 sc.nextLine();
                 destino=3;
                 break;
-            case -9:
+            case -9: //Agendar consulta
                 new Consulta().agendar(sc,lista,cal);
+                sc.nextLine();
+                destino=4;
+                break;
+            case -10: //Agendar internação
+                try{
+                    new Internacao().agendar(sc,lista,cal);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
                 sc.nextLine();
                 destino=4;
                 break;

@@ -1,0 +1,8 @@
+Cardiologia;1.07;10;0
+Ortopedia;1.03;10;1
+Pediatria;1.02;10;2
+Neurologia;1.11;10;3
+Otorrinolaringologia;1.09;10;4
+Oftalmologia;1.01;10;5
+Oncologia;1.12;10;6
+Check-up;1.0;10;7

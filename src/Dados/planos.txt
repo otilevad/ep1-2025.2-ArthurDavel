@@ -1,0 +1,5 @@
+Mais Saúde;;0
+Mais ou Menos Saúde;;1
+Tudo Saúde;;2
+Mil Planos;;3
+SauDAVEL;;4

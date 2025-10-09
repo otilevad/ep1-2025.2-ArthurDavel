@@ -342,6 +342,7 @@ public class Consulta {
         ArrayList<Integer> horariosMedico=new ArrayList<Integer>();
         double custo=0d;
         double desconto=0d;
+        double descontoIdoso=0d;
         int duracao=0;
         boolean salaOcupada=false;
         int dataNum=cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear());
@@ -356,6 +357,10 @@ public class Consulta {
             if(!med.getAgnd().getFolga().contains(cal.diaSemanaInt(cal.dataDia(data.getDayOfMonth(),data.getMonthValue(),data.getYear()))) && horariosMedico.contains(horario)){
                 custo=med.getCustoConsulta()*getEspec().getMult();
                 if(getPacIsEsp()){
+                    if(getPacEsp().getIdade()>=60){
+                        descontoIdoso=custo*(0.15d);
+                        custo-=descontoIdoso;
+                    }
                     if(getPacEsp().getIsEspecial()==false){
                         for(Desconto i : getPacEsp().getPlano().getDescontos()){
                             if(i.getEspec()==getEspec()){
@@ -373,6 +378,12 @@ public class Consulta {
                                 break;
                             }
                         }
+                    }
+                }
+                else{
+                    if(getPac().getIdade()>=60){
+                        descontoIdoso=custo*(0.15d);
+                        custo-=descontoIdoso;
                     }
                 }
                 duracao=med.getTempoMedio();
@@ -395,7 +406,7 @@ public class Consulta {
                     }
                 }
                 if(salaNum>0){
-                    opcoes.add(new OpcaoConsulta(opcoes.size()+" » "+med.getNome()+ " - Sala: "+getEspec().getNome()+" n° "+salaNum+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+ (desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo), custo, med, getEspec().salaByNum(salaNum)));
+                    opcoes.add(new OpcaoConsulta(opcoes.size()+" » "+med.getNome()+ " - Sala: "+getEspec().getNome()+" n° "+salaNum+" - Custo: "+med.getCustoConsulta()+" × "+getEspec().getMult()+(descontoIdoso!=0 ? " - "+descontoIdoso : "") +(desconto!=0 ? " - "+desconto : "") +" = R$ "+String.format("%.2f",custo), custo, med, getEspec().salaByNum(salaNum)));
                 }
             }
         }

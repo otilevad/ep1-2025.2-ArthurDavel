@@ -6,6 +6,7 @@ public class AllLista {
     private EspecialidadesLista especialidadesL;
     private PlanosLista planosL;
     private ConsultasLista consultasL;
+    private InternacoesLista internacoesL;
 
     public AllLista(){
         this.pacientesL= new PacientesLista();
@@ -13,14 +14,16 @@ public class AllLista {
         this.especialidadesL= new EspecialidadesLista();
         this.planosL= new PlanosLista();
         this.consultasL= new ConsultasLista();
+        this.internacoesL=new InternacoesLista();
     }
 
-    public AllLista(PacientesLista pacientesL, MedicosLista medicosL, EspecialidadesLista especialidadesL, PlanosLista planosL, ConsultasLista consultasL){
+    public AllLista(PacientesLista pacientesL, MedicosLista medicosL, EspecialidadesLista especialidadesL, PlanosLista planosL, ConsultasLista consultasL,InternacoesLista internacoesS){
         this.pacientesL=pacientesL;
         this.medicosL=medicosL;
         this.especialidadesL=especialidadesL;
         this.planosL=planosL;
         this.consultasL=consultasL;
+        this.internacoesL=internacoesL;
     }
 
     public PacientesLista getPacientesL() {
@@ -61,5 +64,13 @@ public class AllLista {
 
     public void setConsultasL(ConsultasLista consultasL) {
         this.consultasL = consultasL;
+    }
+
+    public InternacoesLista getInternacoesL() {
+        return this.internacoesL;
+    }
+
+    public void setInternacoesL(InternacoesLista internacoesL) {
+        this.internacoesL = internacoesL;
     }
 }

@@ -18,11 +18,11 @@ public class App {
         if(System.getProperty("os.name").toLowerCase().startsWith("windows")){
             iniciaANSI(); 
         }
-        AllLista lista = new AllLista();
+        AllLista lista= new AllLista();
         MiscRep.criaArquivos(MiscRep.setDir());
         MiscRep.carregaArquivos(lista);
-        Scanner sc = new Scanner(System.in, "Cp852").useLocale(Locale.US);
-        Calendario cal = new Calendario();
+        Scanner sc= new Scanner(System.in, "Cp852").useLocale(Locale.US);
+        Calendario cal= new Calendario();
         cal.calendarioSetup();
         Misc.limpaTela();
         ArrayList<Menu> menus=MenuSetup.criaMenus();

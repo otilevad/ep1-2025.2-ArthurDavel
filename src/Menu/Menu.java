@@ -252,7 +252,28 @@ public class Menu {
                             InputCheck.horarioCheck(str);
                             break;
                         case "cpf consulta":
+                        case "cpf internacao":
+                            InputCheck.charLimitCheck(str,11,11);
+                            InputCheck.numberCheck(str);
                             InputCheck.cpfNaoExistsCheck(str,lista);
+                            break;
+                        case "crm internacao":
+                            InputCheck.charLimitCheck(str,8,8);
+                            InputCheck.crmCheck(str);
+                            InputCheck.crmNaoExistsCheck(str,lista);
+                            break;
+                        case "data entrada":
+                        case "data saida":
+                            InputCheck.dataCheck(str);
+                            break;
+                        case "num quarto":
+                            InputCheck.numberCheck(str);
+                            InputCheck.intCheck(str);
+                            num=Integer.parseInt(str);
+                            InputCheck.salasInternacoesCheck(num,lista.getInternacoesL());
+                            break;
+                        case "custo dia":
+                            InputCheck.doubleCheck(str);
                             break;
                     }
                     cmd.setValorInt(num);

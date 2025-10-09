@@ -2,6 +2,7 @@ package Utilitarios;
 
 import Exceptions.*;
 import Listas.AllLista;
+import Listas.InternacoesLista;
 import Utilitarios.Calendario.*;
 
 import java.time.DateTimeException;
@@ -235,6 +236,29 @@ public class InputCheck {
                     throw new CrmExistsException("Já existe um médico com este CRM cadastrado.");
                 }
             }
+        }
+    }
+
+    public static void crmNaoExistsCheck(String str, AllLista lista) throws Exception{
+        boolean existe=false;
+        if(!lista.getMedicosL().getMedicos().isEmpty()){
+            for(Medico i : lista.getMedicosL().getMedicos()){
+                if(str.equals(i.getCrm())){
+                    existe=true;
+                    break;
+                }
+            }
+        }
+        if(existe==false){
+            throw new CrmExistsException("CRM não cadastrado.");
+        }
+    }
+    
+    public static void salasInternacoesCheck(int num, InternacoesLista salas) throws Exception{
+        try{
+            salas.buscaNum(num);
+        } catch(Exception e){
+            throw new NumberException("Esse quarto não existe.");
         }
     }
 
