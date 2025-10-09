@@ -2,8 +2,8 @@ package Entidades.Paciente;
 
 import java.util.ArrayList;
 
+import Calendario.*;
 import Entidades.PlanoSaude.*;
-import Utilitarios.Calendario.*;
 import Menu.Comando;
 
 public class PacienteEspecial extends Paciente{

@@ -1,4 +1,4 @@
-package Utilitarios.Calendario;
+package Calendario;
 
 import Entidades.Paciente.*;
 import Exceptions.*;

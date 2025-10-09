@@ -1,13 +1,15 @@
 package Entidades.Paciente;
 
 import java.util.Scanner;
+
+import Calendario.*;
+
 import java.util.ArrayList;
 
 import Entidades.Pessoa;
 import Entidades.PlanoSaude.*;
 import Listas.*;
 import Menu.*;
-import Utilitarios.Calendario.*;
 
 public class Paciente extends Pessoa{
     private String cpf;

@@ -2,9 +2,9 @@ package Entidades.Medico;
 
 import java.util.ArrayList;
 
+import Calendario.Periodo;
 import Entidades.Sala.*;
 import Listas.*;
-import Utilitarios.Calendario.Periodo;
 
 
 public class Especialidade {

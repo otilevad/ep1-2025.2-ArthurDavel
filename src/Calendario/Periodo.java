@@ -1,4 +1,4 @@
-package Utilitarios.Calendario;
+package Calendario;
 
 public class Periodo {
     private int diaInicio;

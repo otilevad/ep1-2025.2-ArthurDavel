@@ -1,4 +1,4 @@
-package Utilitarios.Calendario;
+package Calendario;
 
 import Entidades.Medico.*;
 import Entidades.Sala.SalaConsulta; 

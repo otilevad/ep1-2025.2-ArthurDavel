@@ -2,9 +2,9 @@ package Listas;
 
 import java.util.ArrayList;
 
+import Calendario.*;
 import Entidades.Paciente.Paciente;
 import Entidades.Paciente.PacienteEspecial;
-import Utilitarios.Calendario.*;
 
 public class ConsultasLista{
     private ArrayList<Consulta> consultas;

@@ -4,10 +4,11 @@ import Entidades.Medico.*;
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
 import Listas.*;
-import Utilitarios.Calendario.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Calendario.*;
 
 public class MenuSetup {
     public static ArrayList<Menu> criaMenus() { 

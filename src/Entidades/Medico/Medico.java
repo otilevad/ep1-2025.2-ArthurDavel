@@ -3,12 +3,12 @@ package Entidades.Medico;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Calendario.*;
 import Entidades.Pessoa;
 import Listas.*;
 import Menu.Comando;
 import Menu.Menu;
 import Utilitarios.Misc;
-import Utilitarios.Calendario.*;
 
 public class Medico extends Pessoa{
     private String crm;

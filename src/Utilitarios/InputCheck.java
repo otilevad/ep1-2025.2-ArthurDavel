@@ -3,7 +3,6 @@ package Utilitarios;
 import Exceptions.*;
 import Listas.AllLista;
 import Listas.InternacoesLista;
-import Utilitarios.Calendario.*;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -11,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Calendario.*;
 import Entidades.Paciente.*;
 import Entidades.PlanoSaude.*;
 import Entidades.Medico.*;

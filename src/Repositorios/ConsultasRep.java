@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import Calendario.Consulta;
+import Calendario.Periodo;
 import Entidades.Medico.Especialidade;
 import Listas.AllLista;
-import Utilitarios.Calendario.Consulta;
-import Utilitarios.Calendario.Periodo;
 
 public class ConsultasRep{
     private static final String arquivo="src/Dados/consultas.txt";

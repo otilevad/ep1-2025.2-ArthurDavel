@@ -2,10 +2,10 @@ package Listas;
 
 import java.util.ArrayList;
 
+import Calendario.Calendario;
+import Calendario.Consulta;
+import Calendario.Internacao;
 import Entidades.Sala.SalaInternacao;
-import Utilitarios.Calendario.Calendario;
-import Utilitarios.Calendario.Consulta;
-import Utilitarios.Calendario.Internacao;
 
 public class InternacoesLista {
     private ArrayList<Internacao> internacoes;

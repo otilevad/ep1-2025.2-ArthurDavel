@@ -2,7 +2,7 @@ package Entidades.Sala;
 
 import java.util.ArrayList;
 
-import Utilitarios.Calendario.Periodo;
+import Calendario.Periodo;
 
 public class SalaInternacao extends Sala{
     public SalaInternacao(){
