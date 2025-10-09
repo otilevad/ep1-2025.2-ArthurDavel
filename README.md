@@ -44,20 +44,20 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Vídeo de Demonstração
 
-- [Inserir o link para o vídeo no YouTube/Drive aqui]
+- [[Vídeo de demonstração](https://drive.google.com/drive/folders/1-3ujj2fbkvIvc5IlQpQneGq2g-dPEG6g?usp=sharing)]
 
 ---
 
 ## Prints da Execução
 
 1. Menu Principal:  
-   ![Print 1](images/sistema1.png)
+   ![Print 1](Images/sistema1.png)
 
 2. Cadastro de Médico:  
-   ![Print 2](images/sistema2.png)
+   ![Print 2](Images/sistema2.png)
 
 3. Relatório de ?:  
-   ![Print 3](images/sistema3.png)
+   ![Print 3](Images/sistema3.png)
 
 ---
 
