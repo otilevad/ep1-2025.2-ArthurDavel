@@ -59,6 +59,7 @@ public class Internacao{
 
     public void setPac(Paciente pac) {
         this.pac = pac;
+        setPacIsEsp(false);
     }
 
     public PacienteEspecial getPacEsp() {
@@ -67,6 +68,7 @@ public class Internacao{
 
     public void setPacEsp(PacienteEspecial pacEsp) {
         this.pacEsp = pacEsp;
+        setPacIsEsp(true);
     }
 
     public boolean getPacIsEsp() {
@@ -160,9 +162,16 @@ public class Internacao{
             setDataEntrada(dataEntradaNum);
             dataSelecionada=InputCheck.dataCheck(Comando.buscaPorDado("data saida",getComandos()).getValorStr());
             int dataSaidaNum=cal.dataDia(dataSelecionada.getDayOfMonth(),dataSelecionada.getMonthValue(),dataSelecionada.getYear());
-            setDataEntrada(dataSaidaNum);
+            setDataSaida(dataSaidaNum);
             setMed(lista.getMedicosL().buscaCrm(Comando.buscaPorDado("crm internacao",getComandos()).getValorStr()));
             SalaInternacao sala=lista.getInternacoesL().buscaNum(Comando.buscaPorDado("num quarto",getComandos()).getValorInt());
+            setSala(sala);
+            for(Internacao i : (getPacIsEsp() ? getPacEsp().getHist().getInternacoes() : getPac().getHist().getInternacoes())){
+                if( (i.getDataEntrada()>=getDataEntrada() && i.getDataSaida()<=getDataSaida()) ||
+                    (i.getDataEntrada()<=getDataEntrada() && i.getDataSaida()>=getDataSaida())){
+                    throw new Exception("Paciente já internado nesta data.");
+                }
+            }
             for(Periodo i : sala.getOcupado()){
                 if( (i.getDiaInicio()<=dataEntradaNum && i.getDiaFim()>=dataSaidaNum) || 
                     (i.getDiaInicio()>=dataEntradaNum && i.getDiaFim()<=dataSaidaNum)){

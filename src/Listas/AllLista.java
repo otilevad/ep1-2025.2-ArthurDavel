@@ -17,7 +17,7 @@ public class AllLista {
         this.internacoesL=new InternacoesLista();
     }
 
-    public AllLista(PacientesLista pacientesL, MedicosLista medicosL, EspecialidadesLista especialidadesL, PlanosLista planosL, ConsultasLista consultasL,InternacoesLista internacoesS){
+    public AllLista(PacientesLista pacientesL, MedicosLista medicosL, EspecialidadesLista especialidadesL, PlanosLista planosL, ConsultasLista consultasL,InternacoesLista internacoesL){
         this.pacientesL=pacientesL;
         this.medicosL=medicosL;
         this.especialidadesL=especialidadesL;

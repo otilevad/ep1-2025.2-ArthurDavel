@@ -25,7 +25,8 @@ public class ConsultasRep{
                                 (cons.getPacIsEsp() ? cons.getPacEsp().getCpf() : cons.getPac().getCpf())+";"+
                                 cons.getEspec().getId()+";"+
                                 cons.getValor()+";"+
-                                cons.getStatus()+"\n");
+                                cons.getStatus()+";"+
+                                cons.getSala().getNum()+"\n");
             }
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -66,6 +67,7 @@ public class ConsultasRep{
         cons.setEspec(Especialidade.buscaValorEspec(Integer.parseInt(consDados[5]),lista));
         cons.setValor(Double.parseDouble(consDados[6]));
         cons.setStatus(consDados[7]);
+        cons.setSala(cons.getEspec().salaByNum(Integer.parseInt(consDados[8])));
         return cons;
     }
 
